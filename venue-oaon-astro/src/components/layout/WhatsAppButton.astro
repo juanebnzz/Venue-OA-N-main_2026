@@ -191,14 +191,17 @@ const WA_NUMBER = "27761823532";
     inset: 0;
     z-index: 400;
     background: rgba(0,0,0,0.45);
-    backdrop-filter: blur(2px);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
   }
+  /* backdrop-filter only while open. A full-viewport blur left on an
+     opacity:0 element still forces a composite on every scroll frame. */
   .wa-backdrop.is-open {
     opacity: 1;
     pointer-events: auto;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
   }
 
   /* ── Modal shell (mobile: bottom-sheet) ── */

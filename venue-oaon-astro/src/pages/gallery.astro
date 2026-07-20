@@ -9,6 +9,11 @@ import Button from '../components/ui/Button.astro';
 const galleryDir = path.resolve('public/images/gallery');
 const filenames = fs.readdirSync(galleryDir)
   .filter(f => f.toLowerCase().endsWith('.jpg') || f.toLowerCase().endsWith('.png'))
+  // Drop duplicate copies like "IMG_5464 (1).jpg" when "IMG_5464.jpg" also exists
+  .filter((f, _i, all) => {
+    const dupe = f.match(/^(.*) \(\d+\)(\.[^.]+)$/);
+    return !dupe || !all.includes(dupe[1] + dupe[2]);
+  })
   .sort();
 
 // 2. Define manual metadata for specific images (the ones we know)
@@ -27,25 +32,55 @@ const manualMetadata: Record<string, any> = {
   'IMG_5182.jpg': { suite:'events', name:'Floral Centrepiece',   type:'Events & Décor',        label:'Floral styling · Detail',       ar:'5/4'  },
 };
 
+// 2b. Read the real pixel dimensions out of each file so the grid reserves the
+// correct space up front (no reflow as lazy images land, no cropping).
+function readSize(file: string): { w: number; h: number } | null {
+  const buf = fs.readFileSync(file);
+  // PNG: dimensions live at a fixed offset in the IHDR chunk
+  if (buf.length > 24 && buf.readUInt32BE(0) === 0x89504e47) {
+    return { w: buf.readUInt32BE(16), h: buf.readUInt32BE(20) };
+  }
+  // JPEG: walk the marker segments until a start-of-frame (SOFn)
+  if (buf.length > 4 && buf.readUInt16BE(0) === 0xffd8) {
+    let off = 2;
+    while (off + 9 < buf.length) {
+      if (buf[off] !== 0xff) { off++; continue; }
+      const marker = buf[off + 1];
+      const len = buf.readUInt16BE(off + 2);
+      // SOF0–SOF15, excluding the non-frame markers DHT/JPG/DAC
+      if (marker >= 0xc0 && marker <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(marker)) {
+        return { h: buf.readUInt16BE(off + 5), w: buf.readUInt16BE(off + 7) };
+      }
+      off += 2 + len;
+    }
+  }
+  return null;
+}
+
 // 3. Construct the final items list
 const items = filenames.map((filename, i) => {
+  const size = readSize(path.join(galleryDir, filename));
+  const base = {
+    idx: i,
+    image: `/images/gallery/${encodeURIComponent(filename)}`,
+    w: size?.w ?? 4,
+    h: size?.h ?? 5,
+  };
   const manual = manualMetadata[filename];
   if (manual) {
-    return { ...manual, idx: i, image: `/images/gallery/${filename}` };
+    return { ...manual, ...base };
   }
   // Default metadata for unknown images
   return {
+    ...base,
     suite: 'events', // Defaulting to events/general
-    idx: i,
     name: 'Venue Detail',
     type: 'Gallery Exploration',
-    image: `/images/gallery/${filename}`,
     label: 'Venue Oaón Gallery Image',
-    ar: i % 2 === 0 ? '4/5' : '1/1' // Varied aspect ratios for masonry feel
   };
 });
 
-const INITIAL_BATCH = 12;
+const INITIAL_BATCH = 24;
 ---
 
 <BaseLayout
@@ -76,7 +111,7 @@ const INITIAL_BATCH = 12;
 
       <!-- Masonry grid -->
       <div class="gallery-grid" id="gallery">
-        {items.map(({ suite, idx, name, type, image, label, ar }, i) => (
+        {items.map(({ suite, idx, name, type, image, label, w, h }, i) => (
           <div
             class="gallery-item reveal"
             data-suite={suite}
@@ -89,9 +124,17 @@ const INITIAL_BATCH = 12;
             <div class="gallery-item-inner">
               <div
                 class="gallery-item-bg"
-                style={`aspect-ratio:${ar};position:relative;background:#f5f4f0;`}
+                style={`aspect-ratio:${w}/${h};position:relative;background:#f5f4f0;`}
               >
-                <img src={image} alt={label} class="gallery-img" loading="lazy" />
+                <img
+                  src={image}
+                  alt={label}
+                  class="gallery-img"
+                  width={w}
+                  height={h}
+                  loading={i < 6 ? "eager" : "lazy"}
+                  decoding="async"
+                />
               </div>
               <div class="gallery-item-overlay">
                 <div class="gallery-item-meta">
@@ -111,7 +154,7 @@ const INITIAL_BATCH = 12;
       <!-- Load More Button -->
       <div class="load-more-container" id="load-more-wrapper">
         <button id="load-more-btn" class="load-more-btn">
-          <span>Load More Images</span>
+          <span id="load-more-label">Load More Images</span>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M10 4V16M10 16L15 11M10 16L5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -273,27 +316,47 @@ const INITIAL_BATCH = 12;
   const emptyState   = document.getElementById('gallery-empty')!;
   const loadMoreBtn  = document.getElementById('load-more-btn')!;
   const loadMoreWrap = document.getElementById('load-more-wrapper')!;
+  const loadMoreLabel = document.getElementById('load-more-label')!;
   
+  const BATCH_SIZE = 24;
   let currentFilter = 'all';
-  let visibleCount = 12;
-  const BATCH_SIZE = 12;
+  let visibleCount = BATCH_SIZE;
+  // Indices of the items currently on screen — the lightbox walks this, so
+  // prev/next stay inside whatever the visitor is actually looking at.
+  let visibleIndices: number[] = [];
+
+  // Scroll reveal. Items start hidden, so they can't intersect until they are
+  // displayed; we (re)observe each one at the moment it becomes visible rather
+  // than force-adding `.in`, which is what killed the animation entirely.
+  const revealObs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        revealObs.unobserve(e.target);
+      });
+    },
+    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+  );
 
   function updateGallery() {
     let matchesFound = 0;
+    let shownInRow = 0;
+    visibleIndices = [];
 
     galleryItems.forEach((item) => {
       const suite = item.dataset.suite;
       const matchesFilter = currentFilter === 'all' || suite === currentFilter;
-      
-      if (matchesFilter) {
-        matchesFound++;
-        if (matchesFound <= visibleCount) {
-          item.style.display = 'block';
-          // Ensure reveal animation triggers
-          setTimeout(() => item.classList.add('in'), 10);
-        } else {
-          item.style.display = 'none';
+
+      if (matchesFilter && matchesFound++ < visibleCount) {
+        item.style.display = 'block';
+        visibleIndices.push(parseInt(item.dataset.index!));
+        if (!item.classList.contains('in')) {
+          // Stagger within a batch so the grid cascades instead of popping.
+          item.style.transitionDelay = `${Math.min(shownInRow, 8) * 0.06}s`;
+          revealObs.observe(item);
         }
+        shownInRow++;
       } else {
         item.style.display = 'none';
       }
@@ -301,6 +364,8 @@ const INITIAL_BATCH = 12;
 
     emptyState.classList.toggle('show', matchesFound === 0);
     loadMoreWrap.style.display = matchesFound > visibleCount ? 'flex' : 'none';
+    loadMoreLabel.textContent =
+      `Load More — ${Math.min(visibleCount, matchesFound)} of ${matchesFound}`;
   }
 
   filterBtns.forEach(btn => {
@@ -347,10 +412,19 @@ const INITIAL_BATCH = 12;
     });
   });
 
+  // Step through the visible set, not the full 100+ item list, so arrows never
+  // jump into images the current filter has hidden.
+  function step(dir: number) {
+    if (!visibleIndices.length) return;
+    const at = visibleIndices.indexOf(currentLbIdx);
+    const next = (at + dir + visibleIndices.length) % visibleIndices.length;
+    openLightbox(visibleIndices[next]);
+  }
+
   document.getElementById('lb-close')!.addEventListener('click', closeLightbox);
   lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
-  document.getElementById('lb-prev')!.addEventListener('click', () => openLightbox((currentLbIdx - 1 + itemsData.length) % itemsData.length));
-  document.getElementById('lb-next')!.addEventListener('click', () => openLightbox((currentLbIdx + 1) % itemsData.length));
+  document.getElementById('lb-prev')!.addEventListener('click', () => step(-1));
+  document.getElementById('lb-next')!.addEventListener('click', () => step(1));
 
   document.addEventListener('keydown', (e: KeyboardEvent) => {
     if (!lb.classList.contains('open')) return;
