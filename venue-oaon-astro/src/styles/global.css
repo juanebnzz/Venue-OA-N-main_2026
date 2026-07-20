@@ -19,12 +19,16 @@ html {
 }
 
 body {
-  overflow-x: clip;
   font-family: Inter, sans-serif;
   color: #1A1A1A;
   background: #FFFFFF;
   -webkit-font-smoothing: antialiased;
+  /* `hidden` makes body its own scroll container, which splits page scrolling
+     between html and body and leaves dead zones under the cursor. `clip` does
+     the same clipping without that side effect; `hidden` stays first as a
+     fallback for Safari <16, where `clip` is unsupported. */
   overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
 }
 
