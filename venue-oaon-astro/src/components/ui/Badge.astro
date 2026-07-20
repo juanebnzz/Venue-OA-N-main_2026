@@ -1,0 +1,21 @@
+---
+interface Props {
+  variant?: 'surface' | 'accent';
+}
+const { variant = 'surface' } = Astro.props;
+const cls = variant === 'accent' ? 'badge badge-accent' : 'badge badge-surface';
+---
+
+<span class={cls}><slot /></span>
+
+<style>
+  .badge {
+    font-size: var(--text-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+  }
+  .badge-surface { background: #F5F2EE; color: #1A1A1A; border: 0.5px solid #E0DDD8; }
+  .badge-accent  { background: #8B6448; color: #FFFFFF; }
+</style>

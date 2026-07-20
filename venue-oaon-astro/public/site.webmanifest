@@ -1,0 +1,21 @@
+{
+  "name": "Venue Oaón",
+  "short_name": "Venue Oaón",
+  "description": "An intimate event space in Montana, Pretoria for gatherings of 20–40 people.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#F5F2EE",
+  "theme_color": "#8B6448",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

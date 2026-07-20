@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import PackagesGrid from '../components/sections/PackagesGrid.astro';
+import Button from '../components/ui/Button.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Venue Oaón Décor Packages",
+  description: "Décor packages for events at Venue Oaón, Montana Pretoria, offered through Oaón Events.",
+  url: "https://venueoaon.co.za/packages",
+  numberOfItems: 4,
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Essential Package",
+      description: "Balloon arch, 10 bamboo chairs, basic florals. Ideal for intimate kitchen teas and simple birthday lunches.",
+      url: "https://venueoaon.co.za/packages",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Signature Package",
+      description: "Custom balloon arch, 20 chairs, styled backdrop, fresh florals, setup and breakdown. For baby showers, kitchen teas and bridal showers.",
+      url: "https://venueoaon.co.za/packages",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "Premier Package",
+      description: "Full design, 30 chairs, balloon installation, themed backdrop, catering coordination. For bridal showers and milestone birthdays.",
+      url: "https://venueoaon.co.za/packages",
+    },
+    {
+      "@type": "ListItem",
+      position: 4,
+      name: "Grand Package",
+      description: "Bespoke design, floral ceiling installation, custom neon, catering and staff, photography, full event management.",
+      url: "https://venueoaon.co.za/packages",
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title="Décor Packages | Venue Oaón Montana Pretoria"
+  description="Choose from Essential to Grand décor packages for your event at Venue Oaón, Montana Pretoria. Baby showers, bridal showers & birthdays. Enquire for pricing."
+  ogImage="/images/hero_bg_1.jpg"
+>
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
+  <PageHero
+    eyebrow="Décor & Packages"
+    title="Décor done<br />for you."
+  />
+
+  <!-- INTRO -->
+  <section class="section">
+    <div class="wrap">
+      <div class="reveal" style="max-width:640px;">
+        <span class="label" style="display:block;margin-bottom:1rem;">In partnership with <a href="https://oaonevents.co.za/" target="_blank" rel="noopener noreferrer" class="partner-inline-link">Oaón Events</a></span>
+        <p class="pkg-intro-title">Every package is offered through our sister company, <a href="https://oaonevents.co.za/" target="_blank" rel="noopener noreferrer" class="partner-inline-link">Oaón Events</a>: a team that has spent a decade turning rooms into moments.</p>
+        <p class="pkg-intro-body">Choose your package, add it to your suite hire, and arrive to a space that's already been made beautiful. All pricing is shared on enquiry: every event is different, and we want to quote you properly.</p>
+      </div>
+
+      <!-- Suite hire strip -->
+      <div class="hire-strip reveal" style="margin-top:clamp(3rem,6vw,5rem);">
+        <div class="hire-inner">
+          <div class="hire-info">
+            <p class="hire-title">Suite hire is separate from décor packages.</p>
+            <p class="hire-sub">Each suite is available to hire independently. Décor packages are add-ons: mix and match what your event needs. Enquire for full pricing on both.</p>
+          </div>
+          <Button href="/contact" variant="outline">Enquire for Pricing</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PackagesGrid />
+
+  <!-- SUITES AT A GLANCE -->
+  <section class="section section--linen">
+    <div class="wrap">
+      <div class="section-header reveal" style="margin-top:0;">
+        <span class="label">The Suites</span>
+        <h2 class="section-title" style="margin-top:1rem;">Pair your package with a suite.</h2>
+      </div>
+      <div class="suite-glance">
+        {[
+          { name:'The Myrrh Suite',   type:'Indoor',           cap:'30–40', desc:'White-washed walls, soft natural light. Perfect for kitchen teas and bridal showers.',              delay:'' },
+          { name:'The Olive Suite',   type:'Indoor / Outdoor', cap:'20–30', desc:'Indoor lounge flowing to outdoor patio. Ideal for baby showers and garden gatherings.',            delay:' d1' },
+          { name:'The Garden Suite',  type:'Outdoor',          cap:'30–40', desc:'Open garden setting with greenery and dappled shade. Beautiful for milestone celebrations.',       delay:' d2' },
+        ].map(({ name, type, cap, desc, delay }) => (
+          <div class={`glance-card reveal${delay}`}>
+            <h3 class="glance-name">{name}</h3>
+            <span class="glance-type">{type}</span>
+            <hr style="border:none;border-top:0.5px solid #E0DDD8;margin:0.25rem 0;" />
+            <p class="glance-cap">{cap} <span class="glance-cap-label">guests</span></p>
+            <p style="font-size:var(--text-sm);color:#8C8578;line-height:1.6;">{desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Add-ons -->
+      <div class="addons reveal">
+        <span class="label" style="display:block;margin-bottom:0.75rem;">Optional Add-ons</span>
+        <h3 class="addons-title">Everything else you might need.</h3>
+        <div class="addons-grid">
+          {[
+            'Neon sign hire','Photo booth setup','Catering coordination',
+            'Photographer referral','Custom cake table styling','Confetti cannon setup',
+            'Welcome arch florals','Personalised signage','Serving staff (per hour)',
+          ].map(item => (
+            <div class="addon-item">
+              <span class="addon-dot"></span>
+              <span class="addon-text">{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="text-align:center;">
+    <div class="wrap reveal">
+      <span class="label" style="display:block;margin-bottom:1rem;">Ready to plan?</span>
+      <h2 class="section-title" style="margin-bottom:1.25rem;">Let's talk about your event.</h2>
+      <p class="section-body" style="max-width:480px;margin:0 auto 2rem;">
+        We'll send you a full pricing guide and talk through what makes sense for your occasion. No pressure, just a conversation.
+      </p>
+      <Button href="/contact" variant="accent">Begin the Inquiry</Button>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .partner-inline-link { color: #8B6448; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(139,100,72,0.4); transition: text-decoration-color 0.2s; }
+  .partner-inline-link:hover { text-decoration-color: #8B6448; }
+  .pkg-intro-title { font-size: clamp(1.25rem,2.5vw,1.75rem); font-family: 'Tenor Sans', serif; font-weight: 400; letter-spacing: 0.02em; line-height: 1.4; color: #1A1A1A; margin-bottom: 1.25rem; }
+  .pkg-intro-body  { font-size: var(--text-body); color: #8C8578; line-height: 1.75; }
+
+  .hire-strip { background: #1A1A1A; padding: 2.5rem var(--g); border-radius: 10px; }
+  .hire-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; }
+  .hire-info  { display: flex; flex-direction: column; gap: 0.5rem; }
+  .hire-title { font-family: 'Tenor Sans', serif; font-size: clamp(1.125rem,2.5vw,1.5rem); font-weight: 400; letter-spacing: 0.02em; line-height: 1.2; color: white; }
+  .hire-sub   { font-size: var(--text-sm); color: #8C8578; line-height: 1.6; max-width: 480px; }
+
+  .suite-glance { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+  @media (min-width: 640px) { .suite-glance { grid-template-columns: repeat(3,1fr); } }
+  .glance-card { background: #FFFFFF; border: 0.5px solid #E0DDD8; border-radius: 8px; padding: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem; }
+  .glance-name { font-family: 'Tenor Sans', serif; font-size: 1.0625rem; letter-spacing: 0.04em; }
+  .glance-type { font-size: var(--text-xs); letter-spacing: 0.14em; text-transform: uppercase; color: #8C8578; }
+  .glance-cap  { font-family: 'Tenor Sans', serif; font-size: 1.375rem; letter-spacing: 0.02em; margin-top: 0.25rem; }
+  .glance-cap-label { font-size: var(--text-xs); letter-spacing: 0.14em; text-transform: uppercase; color: #8C8578; }
+
+  .addons { background: #F5F2EE; border-radius: 10px; padding: clamp(1.5rem, 4vw, 3rem); margin-top: clamp(3rem,6vw,5rem); }
+  .addons-title { font-family: 'Tenor Sans', serif; font-size: 1.25rem; font-weight: 400; letter-spacing: 0.02em; }
+  .addons-grid { display: grid; grid-template-columns: 1fr; gap: 0.5rem; margin-top: 1.5rem; }
+  @media (min-width: 640px) { .addons-grid { grid-template-columns: repeat(2,1fr); } }
+  @media (min-width: 900px) { .addons-grid { grid-template-columns: repeat(3,1fr); } }
+  .addon-item { display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.875rem 0; border-bottom: 0.5px solid #E0DDD8; }
+  .addon-dot  { width: 5px; height: 5px; border-radius: 50%; background: #8B6448; flex-shrink: 0; margin-top: 6px; }
+  .addon-text { font-size: var(--text-sm); color: #8C8578; line-height: 1.5; }
+
+  .section-title { font-family: 'Tenor Sans', serif; font-size: var(--text-h2); font-weight: 400; letter-spacing: 0.02em; line-height: 1.1; color: #1A1A1A; }
+  .section-body  { font-size: var(--text-body); color: #8C8578; line-height: 1.75; }
+</style>

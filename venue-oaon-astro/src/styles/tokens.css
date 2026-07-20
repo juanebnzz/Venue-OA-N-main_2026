@@ -1,0 +1,54 @@
+/* ── VENUE OAÓN : Design tokens ──────────────────────────────────
+   Fluid type and custom spacing that Tailwind can't express natively.
+   Import this in BaseLayout.astro only : all tokens cascade from there.
+   ─────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Fluid type scale (clamp)
+     Body: max 1rem. H1 targets ≥4× body on desktop = ≥4rem minimum.
+     --text-h1 used for PageHero / section headers (≈3× body).
+     Hero.astro uses its own clamp(4rem,9.5vw,8rem) for maximum drama. */
+  --text-h1:   clamp(3rem, 7vw, 6rem);
+  --text-h2:   clamp(2rem, 4vw, 3rem);
+  --text-h3:   clamp(1.25rem, 2.5vw, 1.625rem);
+  --text-body: clamp(0.875rem, 1.4vw, 1rem);
+  --text-sm:   0.8125rem;
+  --text-xs:   0.625rem;
+
+  /* Fluid gutters & max-width */
+  --g:   clamp(1rem, 5vw, 4.5rem);
+  --max: 1240px;
+
+  /* Nav */
+  --nav-h: 100px;
+
+  /* Colour palette */
+  --white:         #FFFFFF;
+  --linen:         #F5F2EE;
+  --stone:         #8C8578;
+  --stone-text:    #6B6560;
+  --charcoal:      #1A1A1A;
+  --charcoal-warm: #1E1714;
+  --accent:        #8B6448;
+  --accent-deep:   #6E4E38;
+  --accent-pale:   #EDE5DC;
+  --accent-muted:  #B89882;
+  --divider:       #E0DDD8;
+
+  /* Intentional easing curves */
+  --ease-out-strong:    cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer:        cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --nav-h: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --nav-h: 68px;
+  }
+}

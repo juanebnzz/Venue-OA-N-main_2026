@@ -1,0 +1,68 @@
+---
+const stats = [
+  { val: '3',     key: 'Suites' },
+  { val: '20–40', key: 'Guests' },
+  { val: '2',     key: 'Time slots' },
+  { val: 'No',    key: 'Corkage fee' },
+];
+---
+
+<div class="stats">
+  <div class="stats-inner wrap">
+    {stats.map(({ val, key }) => (
+      <div class="stat">
+        <span class="stat-val">{val}</span>
+        <span class="stat-key">{key}</span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .stats { background: #1A1A1A; padding: 2rem 0; }
+  .stats-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    justify-content: space-between;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0.75rem 2rem 0.75rem 0;
+    border-right: 0.5px solid rgba(255,255,255,0.1);
+    flex: 1;
+    min-width: 120px;
+  }
+  .stat:first-child { padding-left: 0; }
+  .stat:last-child  { border-right: none; padding-right: 0; }
+
+  @media (max-width: 600px) {
+    .stats-inner { gap: 0; }
+    .stat {
+      min-width: 50%;
+      flex: 0 0 50%;
+      padding: 1rem 1rem 1rem 0;
+      border-right: none;
+      border-bottom: 0.5px solid rgba(255,255,255,0.08);
+    }
+    .stat:nth-child(odd)  { border-right: 0.5px solid rgba(255,255,255,0.08); }
+    .stat:nth-child(n+3)  { border-bottom: none; }
+    .stat:first-child     { padding-left: 0; }
+    .stat:nth-child(even) { padding-left: 1rem; padding-right: 0; }
+  }
+  .stat-val {
+    font-family: 'Tenor Sans', serif;
+    font-size: clamp(1.25rem,3vw,2rem);
+    letter-spacing: 0.02em;
+    color: #FFFFFF;
+    line-height: 1;
+  }
+  .stat-key {
+    font-size: var(--text-xs);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8C8578;
+  }
+</style>

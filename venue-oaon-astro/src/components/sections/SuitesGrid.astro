@@ -1,0 +1,35 @@
+---
+import SuiteCard from '../ui/SuiteCard.astro';
+import suites from '../../content/suites.json';
+---
+
+<section class="section section--linen" id="suites">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <span class="label">The Suites</span>
+      <h2 class="section-title" style="margin-top:1rem;">Three spaces. One venue.</h2>
+    </div>
+    <div class="suites-grid">
+      {suites.map((suite, i) => (
+        <div class={`reveal${i === 1 ? ' d1' : i === 2 ? ' d2' : ''}`}>
+          <SuiteCard {...suite} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .suites-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
+  @media (min-width: 640px)  { .suites-grid { grid-template-columns: repeat(2,1fr); } }
+  @media (min-width: 1024px) { .suites-grid { grid-template-columns: repeat(3,1fr); } }
+
+  .section-title {
+    font-family: 'Tenor Sans', serif;
+    font-size: var(--text-h2);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+    color: #1A1A1A;
+  }
+</style>

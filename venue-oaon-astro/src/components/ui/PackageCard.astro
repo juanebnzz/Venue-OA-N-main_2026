@@ -1,0 +1,106 @@
+---
+interface Props {
+  name: string;
+  featured?: boolean;
+  tagline?: string | null;
+  includes: string[];
+  bestFor: string[];
+  class?: string;
+}
+
+const { name, featured = false, tagline, includes, bestFor, class: extra = '' } = Astro.props;
+const cls = ['pkg', featured ? 'pkg--featured' : '', extra].filter(Boolean).join(' ');
+---
+
+<div class={cls}>
+  {tagline && <span class="pkg-tag">{tagline}</span>}
+  <div>
+    <p class="pkg-name">{name}</p>
+    <p class="pkg-enquire">
+      Enquire for pricing &nbsp;
+      <a href="/packages" class="pkg-enquire-link">Get a quote →</a>
+    </p>
+  </div>
+  <hr class="pkg-divider" />
+  <div>
+    <span class="pkg-section-title">What's included</span>
+    <ul>
+      {includes.map(item => <li>{item}</li>)}
+    </ul>
+  </div>
+  <div>
+    <span class="pkg-section-title">Best for</span>
+    <ul>
+      {bestFor.map(item => <li>{item}</li>)}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .pkg {
+    background: #FFFFFF;
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: background 0.2s;
+  }
+  .pkg:hover { background: #F5F2EE; }
+  .pkg--featured { background: #8B6448; color: white; }
+  .pkg--featured:hover { background: #6E4E38; }
+
+  .pkg-tag {
+    font-size: var(--text-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 2px;
+    align-self: flex-start;
+  }
+  .pkg-name { font-family: 'Tenor Sans', serif; font-size: 1.25rem; letter-spacing: 0.04em; }
+  .pkg--featured .pkg-name { color: white; }
+
+  .pkg-enquire { font-size: var(--text-sm); color: #8C8578; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .pkg--featured .pkg-enquire { color: rgba(255,255,255,0.5); }
+
+  /* Touch target: 44px min height for WCAG 2.5.5 compliance */
+  .pkg-enquire-link {
+    font-size: var(--text-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    color: #8B6448;
+    transition: color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-right: 2px;
+  }
+  .pkg--featured .pkg-enquire-link { color: rgba(255,255,255,0.7); }
+  .pkg-enquire-link:hover { color: #1A1A1A; }
+  .pkg--featured .pkg-enquire-link:hover { color: white; }
+  .pkg-enquire-link:focus-visible { outline: 2px solid #8B6448; outline-offset: 2px; border-radius: 2px; }
+  .pkg--featured .pkg-enquire-link:focus-visible { outline-color: rgba(255,255,255,0.6); }
+
+  .pkg-divider { border: none; border-top: 0.5px solid #E0DDD8; }
+  .pkg--featured .pkg-divider { border-color: rgba(255,255,255,0.15); }
+
+  .pkg-section-title {
+    font-size: var(--text-xs);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8C8578;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .pkg--featured .pkg-section-title { color: rgba(255,255,255,0.4); }
+
+  .pkg ul { list-style: none; display: flex; flex-direction: column; gap: 0.625rem; }
+  .pkg li { font-size: var(--text-sm); color: #8C8578; display: flex; gap: 0.625rem; line-height: 1.5; }
+  .pkg--featured li { color: rgba(255,255,255,0.75); }
+  .pkg li::before { content: '–'; flex-shrink: 0; color: #E0DDD8; }
+  .pkg--featured li::before { color: rgba(255,255,255,0.2); }
+</style>

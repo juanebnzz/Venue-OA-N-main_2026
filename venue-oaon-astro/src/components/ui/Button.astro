@@ -1,0 +1,83 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'accent' | 'outline' | 'ghost' | 'outline-light';
+  type?: 'button' | 'submit';
+  class?: string;
+}
+
+const {
+  href,
+  variant = 'accent',
+  type = 'button',
+  class: extraClass = '',
+} = Astro.props;
+
+const base = 'btn';
+const variants: Record<string, string> = {
+  accent:        'btn-accent',
+  outline:       'btn-outline',
+  ghost:         'btn-ghost',
+  'outline-light': 'btn-outline-light',
+};
+const cls = [base, variants[variant], extraClass].filter(Boolean).join(' ');
+---
+
+{href
+  ? <a href={href} class={cls}><slot /></a>
+  : <button type={type} class={cls}><slot /></button>
+}
+
+<style>
+  .btn {
+    font-family: 'Tenor Sans', serif;
+    font-size: var(--text-xs);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border-radius: 2px;
+    cursor: pointer;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    transition: all 0.22s ease;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-accent { background: #8B6448; color: #FFFFFF; }
+  .btn-accent:hover { background: #1A1A1A; }
+  .btn-accent:focus-visible { outline: 2px solid #8B6448; outline-offset: 3px; }
+
+  .btn-outline { background: transparent; color: #1A1A1A; border: 0.5px solid #1A1A1A; }
+  .btn-outline:hover { background: #1A1A1A; color: #FFFFFF; }
+  .btn-outline:focus-visible { outline: 2px solid #1A1A1A; outline-offset: 3px; }
+
+  .btn-outline-light {
+    background: transparent;
+    color: #FFFFFF;
+    border: 1px solid rgba(255,255,255,0.45);
+  }
+  .btn-outline-light:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.8); }
+  .btn-outline-light:focus-visible { outline: 2px solid rgba(255,255,255,0.65); outline-offset: 3px; }
+
+  /* Ghost used on light backgrounds only.
+     #6B6560 on #FFFFFF = ~4.3:1 contrast (WCAG AA pass).
+     Padding gives a real clickable hit box; the underline signals interactivity. */
+  .btn-ghost {
+    background: transparent;
+    color: #6B6560;
+    font-family: Inter, sans-serif;
+    letter-spacing: 0.12em;
+    padding: 0 16px;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: #C8C4BF;
+    border: none;
+    transition: color 0.2s, text-decoration-color 0.2s;
+  }
+  .btn-ghost:hover { color: #1A1A1A; text-decoration-color: #8C8578; }
+  .btn-ghost:focus-visible { outline: 2px solid #6B6560; outline-offset: 3px; border-radius: 2px; }
+</style>

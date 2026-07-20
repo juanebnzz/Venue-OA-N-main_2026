@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+---
+
+<BaseLayout
+  title="Page Not Found: Venue Oaón"
+  description="The page you're looking for doesn't exist."
+  noindex={true}
+>
+  <section class="not-found">
+    <div class="wrap not-found-inner">
+      <div class="not-found-eyebrow">
+        <span class="eyebrow-line" aria-hidden="true"></span>
+        <span class="label">404</span>
+      </div>
+      <h1 class="not-found-h1">This page took<br />a wrong turn.</h1>
+      <p class="not-found-sub">It may have moved, or perhaps never existed. Either way, let's get you back somewhere useful.</p>
+      <div class="not-found-actions">
+        <Button href="/" variant="accent">Back to Home</Button>
+        <Button href="/contact" variant="outline">Get in Touch</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    min-height: calc(100vh - var(--nav-h));
+    padding-top: var(--nav-h);
+    background: #F5F2EE;
+    display: flex;
+    align-items: center;
+  }
+  .not-found-inner { padding-top: 4rem; padding-bottom: 4rem; }
+  .not-found-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 2rem; }
+  .eyebrow-line { display: block; width: 32px; height: 0.5px; background: #E0DDD8; }
+  .not-found-h1 {
+    font-family: 'Tenor Sans', serif;
+    /* Editorial scale: visible hierarchy over body on all screen sizes */
+    font-size: clamp(2.5rem, 6.5vw, 6rem);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+    color: #1A1A1A;
+    margin-bottom: 1.5rem;
+    max-width: 14ch;
+  }
+  .not-found-sub {
+    font-size: var(--text-body);
+    color: #8C8578;
+    line-height: 1.75;
+    max-width: 400px;
+    margin-bottom: 2.5rem;
+  }
+  .not-found-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+</style>

@@ -1,0 +1,172 @@
+---
+import Nav from "./Nav.astro";
+import Footer from "./Footer.astro";
+import WhatsAppButton from "./WhatsAppButton.astro";
+import CookieNotice from "./CookieNotice.astro";
+import "../../styles/global.css";
+import "../../styles/animations.css";
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  ogImage = "/og-image.jpg",
+  noindex = false,
+} = Astro.props;
+
+const canonicalURL = new URL(
+  Astro.url.pathname,
+  Astro.site ?? "https://venueoaon.co.za",
+);
+---
+
+<!doctype html>
+<html lang="en-ZA">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    {
+      noindex ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
+        <meta
+          name="robots"
+          content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        />
+      )
+    }
+
+    <!-- Identity & authorship -->
+    <meta name="author" content="Venue Oaón" />
+    <meta name="copyright" content="Venue Oaón" />
+
+    <!-- Local SEO: geo signals -->
+    <meta name="geo.region" content="ZA-GP" />
+    <meta
+      name="geo.placename"
+      content="Montana, Pretoria, Gauteng, South Africa"
+    />
+    <meta name="geo.position" content="-25.663333;28.259444" />
+    <meta name="ICBM" content="-25.663333, 28.259444" />
+
+    <!-- PWA / browser chrome -->
+    <meta name="theme-color" content="#8B6448" />
+    <meta name="application-name" content="Venue Oaón" />
+    <meta name="apple-mobile-web-app-title" content="Venue Oaón" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Hreflang: South African English -->
+    <link rel="alternate" hreflang="en-ZA" href={canonicalURL} />
+    <link rel="alternate" hreflang="x-default" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta
+      property="og:image"
+      content={new URL(ogImage, Astro.site ?? "https://venueoaon.co.za")}
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta property="og:locale" content="en_ZA" />
+    <meta property="og:site_name" content="Venue Oaón" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@venueoaon" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta
+      name="twitter:image"
+      content={new URL(ogImage, Astro.site ?? "https://venueoaon.co.za")}
+    />
+    <meta name="twitter:image:alt" content={title} />
+
+    <!-- Fonts: non-blocking load to eliminate render-blocking -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Inter:wght@300;400;500&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Inter:wght@300;400;500&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Inter:wght@300;400;500&display=swap"
+      /></noscript
+    >
+
+    <!-- Slot for per-page head extras (e.g. JSON-LD) -->
+    <slot name="head" />
+  </head>
+
+  <body>
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppButton />
+    <CookieNotice />
+
+    <script>
+      // Nav scroll shadow
+      const nav = document.querySelector(".nav") as HTMLElement | null;
+      if (nav) {
+        window.addEventListener(
+          "scroll",
+          () => {
+            nav.classList.toggle("scrolled", window.scrollY > 10);
+          },
+          { passive: true },
+        );
+      }
+
+      // Scroll reveal via IntersectionObserver
+      const revealObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("in");
+              revealObs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
+      );
+
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => revealObs.observe(el));
+    </script>
+  </body>
+</html>

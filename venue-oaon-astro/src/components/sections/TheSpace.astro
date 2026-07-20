@@ -1,0 +1,83 @@
+---
+import Button from '../ui/Button.astro';
+
+const pillars = [
+  { num: '01', title: 'Self-Catering Freedom',   body: 'Bring your own food and drinks. No corkage fee. Kitchen access on selected packages.' },
+  { num: '02', title: 'Décor Partnership',        body: '<a href="https://oaonevents.co.za/" target="_blank" rel="noopener noreferrer" class="pillar-link">Oaón Events</a> handles full décor : balloon arches, florals, backdrops, and table settings.' },
+  { num: '03', title: 'Secured Parking',          body: 'On-site secured parking for all guests. No street parking stress on the day.' },
+  { num: '04', title: 'Intimate by Design',       body: '20–40 guests is a feature, not a limitation. Spacious enough to breathe, small enough to feel.' },
+];
+---
+
+<section class="section">
+  <div class="wrap">
+    <div class="intro-grid">
+      <div class="reveal">
+        <div class="eyebrow-row">
+          <span class="eyebrow-line" aria-hidden="true"></span>
+          <span class="label">The Space</span>
+        </div>
+        <p class="intro-text">
+          Built for the small and significant. White-washed walls, warm wooden elements, and private
+          garden spaces, made ready for your gathering.
+        </p>
+        <p class="intro-sub">
+          Every detail considered, because when people gather to celebrate someone they love,
+          the space should feel like it was made for them.
+        </p>
+        <Button href="/about" variant="outline" class="mt-8">About the Venue</Button>
+      </div>
+
+      <div class="pillars reveal d2">
+        {pillars.map(({ num, title, body }) => (
+          <div class="pillar">
+            <span class="pillar-num">{num}</span>
+            <div>
+              <span class="pillar-title">{title}</span>
+              <p class="pillar-body" set:html={body} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .intro-grid {
+    display: grid;
+    gap: clamp(3rem,6vw,6rem);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 900px) { .intro-grid { grid-template-columns: 1fr 1fr; align-items: start; } }
+
+  .eyebrow-row { display: flex; align-items: center; gap: 14px; margin-bottom: 1.5rem; }
+  .eyebrow-line { display: block; width: 32px; height: 0.5px; background: #E0DDD8; }
+
+  .intro-text {
+    font-family: 'Tenor Sans', serif;
+    font-size: clamp(1.125rem,2.5vw,1.5rem);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    color: #1A1A1A;
+  }
+  .intro-sub { font-size: var(--text-body); color: #8C8578; line-height: 1.8; margin-top: 1.25rem; }
+
+  .pillars { display: flex; flex-direction: column; }
+  .pillar {
+    padding: 1.25rem 0;
+    border-bottom: 0.5px solid #E0DDD8;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+  .pillar:first-child { border-top: 0.5px solid #E0DDD8; }
+  .pillar-num  { font-size: var(--text-xs); letter-spacing: 0.1em; color: #8C8578; padding-top: 2px; flex-shrink: 0; }
+  .pillar-title { font-family: 'Tenor Sans', serif; font-size: 0.9375rem; letter-spacing: 0.04em; color: #1A1A1A; display: block; margin-bottom: 4px; }
+  .pillar-body  { font-size: var(--text-sm); color: #8C8578; line-height: 1.65; }
+  .pillar-link { color: #8B6448; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(139,100,72,0.4); transition: text-decoration-color 0.2s; }
+  .pillar-link:hover { text-decoration-color: #8B6448; }
+
+  .mt-8 { margin-top: 2rem; }
+</style>

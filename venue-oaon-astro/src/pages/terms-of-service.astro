@@ -1,0 +1,167 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+
+const effectiveDate = '20 April 2026';
+---
+
+<BaseLayout
+  title="Terms of Service: Venue Oaón"
+  description="Terms of Service for Venue Oaón. Understand the conditions governing use of this website and venue hire enquiries."
+  noindex={true}
+>
+  <PageHero
+    eyebrow="Legal"
+    title="Terms of Service"
+    minHeight="30vh"
+  />
+
+  <section class="section">
+    <div class="wrap" style="max-width:760px;">
+
+      <p class="legal-intro">
+        Please read these Terms of Service carefully before using the Venue Oaón website (venueoaon.co.za).
+        By accessing or using this website, you agree to be bound by these terms.
+      </p>
+      <p class="legal-effective">Effective date: {effectiveDate}</p>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>1. Enquiry only: no bookings confirmed online</h2>
+        <p>This website is an <strong>enquiry platform only</strong>. Submitting a form, sending a message, or contacting us via any channel on this website does not constitute a confirmed booking or reservation. No booking is confirmed until you have received a written confirmation from Venue Oaón and the relevant deposit or payment has been received.</p>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>2. Venue hire subject to a separate signed agreement</h2>
+        <p>All venue hire is governed by a separate <strong>Venue Hire Agreement</strong> signed between Venue Oaón and the client. The terms, conditions, cancellation policy, payment schedule, and specific venue rules are set out in that agreement. This website's Terms of Service do not constitute or replace the Venue Hire Agreement.</p>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>3. Décor packages through Oaón Events</h2>
+        <p>All décor packages shown on this website are offered and executed by <strong>Oaón Events</strong>, a separate legal entity and sister company to Venue Oaón. Engaging a décor package involves a separate agreement with Oaón Events. Venue Oaón is not liable for the fulfilment of décor services.</p>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>4. Accuracy of information</h2>
+        <p>We make every effort to ensure the information on this website is accurate and current. However, Venue Oaón makes no warranties, express or implied, about the completeness, accuracy, or reliability of any information on this site. Suite descriptions, capacity numbers, time slots, and package inclusions may change: always confirm current details directly with us before making decisions based on website content.</p>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>5. Pricing</h2>
+        <p>Pricing is not published on this website. All pricing is provided on enquiry and is subject to change without notice. Quotations provided via email or WhatsApp are valid for the period stated in the quote.</p>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>6. Intellectual property</h2>
+        <p>All content on this website, including text, images, design, and brand elements, is the property of Venue Oaón and/or its licensors. You may not reproduce, distribute, or use any content from this website without written permission.</p>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>7. Limitation of liability</h2>
+        <p>To the maximum extent permitted by South African law, Venue Oaón and its owners, employees, and partners shall not be liable for any direct, indirect, incidental, special, or consequential damages arising from:</p>
+        <ul>
+          <li>Your use of or inability to use this website</li>
+          <li>Any reliance placed on information published on this website</li>
+          <li>Any booking that has not been confirmed in writing</li>
+          <li>Acts or omissions of Oaón Events or any third-party supplier</li>
+        </ul>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>8. Third-party links</h2>
+        <p>This website may contain links to external websites. Venue Oaón is not responsible for the content, privacy practices, or terms of those websites. Accessing third-party links is at your own risk.</p>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>9. Governing law</h2>
+        <p>These Terms of Service are governed by and construed in accordance with the laws of <strong>South Africa</strong>. Any disputes arising from your use of this website shall be subject to the exclusive jurisdiction of the South African courts.</p>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>10. Changes to these terms</h2>
+        <p>We reserve the right to update these Terms of Service at any time. The effective date at the top of this page will be updated accordingly. Continued use of this website after any changes constitutes your acceptance of the updated terms.</p>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>11. Contact</h2>
+        <p>For any questions about these terms, please contact us at:</p>
+        <p><strong>Venue Oaón</strong><br />Montana, Pretoria, Gauteng, South Africa<br /><a href="mailto:info@venueoaon.co.za">info@venueoaon.co.za</a></p>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-intro {
+    font-size: var(--text-body);
+    color: #6B6560;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .legal-effective {
+    font-size: var(--text-sm);
+    color: #8C8578;
+    margin-bottom: 2.5rem;
+  }
+  .legal-divider {
+    border: none;
+    border-top: 0.5px solid #E0DDD8;
+    margin: 2.5rem 0;
+  }
+  .legal-section { display: flex; flex-direction: column; gap: 1rem; }
+  .legal-section h2 {
+    font-family: 'Tenor Sans', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    line-height: 1.2;
+    color: #1A1A1A;
+  }
+  .legal-section p {
+    font-size: var(--text-body);
+    color: #6B6560;
+    line-height: 1.8;
+  }
+  .legal-section ul {
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .legal-section li {
+    font-size: var(--text-body);
+    color: #6B6560;
+    line-height: 1.7;
+  }
+  /* #704E38 on white = ~4.6:1 contrast ratio (WCAG AA ✓) */
+  .legal-section a {
+    color: #704E38;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .legal-section a:hover { color: #1A1A1A; }
+  .legal-section a:focus-visible { outline: 2px solid #704E38; outline-offset: 2px; border-radius: 2px; }
+</style>

@@ -1,0 +1,41 @@
+[
+  {
+    "id": "myrrh",
+    "name": "The Myrrh Suite",
+    "type": "Indoor",
+    "capacity": "30–40 guests",
+    "morning": "08:00 – 12:00",
+    "afternoon": "13:00 – 17:00",
+    "evening": "18:00 – 22:00",
+    "sunday": "Sunday closing: 15:00",
+    "desc": "White-washed walls and soft natural light : suited to kitchen teas, bridal showers, and intimate birthday lunches.",
+    "gradientClass": "suite-img--myrrh",
+    "image": "/images/MyrhSuite.jpg"
+  },
+  {
+    "id": "olive",
+    "name": "The Olive Suite",
+    "type": "In / Out",
+    "capacity": "20–30 guests",
+    "morning": "08:00 – 12:00",
+    "afternoon": "13:00 – 17:00",
+    "evening": "18:00 – 22:00",
+    "sunday": "Sunday closing: 15:00",
+    "desc": "A hybrid space flowing from an indoor lounge into an outdoor patio : ideal for baby showers where natural light matters.",
+    "gradientClass": "suite-img--olive",
+    "image": "/images/Oa%C3%B3n%20(98).jpg"
+  },
+  {
+    "id": "garden",
+    "name": "The Garden Suite",
+    "type": "Outdoor",
+    "capacity": "30–40 guests",
+    "morning": "08:00 – 12:00",
+    "afternoon": "13:00 – 17:00",
+    "evening": "18:00 – 22:00",
+    "sunday": "Sunday closing: 15:00",
+    "desc": "An open garden setting dressed with greenery and dappled shade : beautiful for larger groups celebrating in fresh air.",
+    "gradientClass": "suite-img--garden",
+    "image": "/images/GardenSuite.jpg"
+  }
+]

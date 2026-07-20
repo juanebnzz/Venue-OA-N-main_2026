@@ -1,0 +1,125 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+
+      <!-- Brand -->
+      <div>
+        <img
+          src="/images/venue-oaon-logo.png"
+          alt="Venue Oaón Logo"
+          width="120"
+          height="54"
+          loading="lazy"
+          style="height:54px;width:auto;object-fit:contain;margin-bottom:1.5rem;"
+        />
+        <p class="footer-tagline">
+          An intimate event space in Montana, Pretoria for small,
+          considered gatherings of 20–40 people.
+        </p>
+      </div>
+
+      <!-- Navigate -->
+      <div>
+        <span class="footer-col-label">Navigate</span>
+        <ul class="footer-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/packages">Packages</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/terms-of-service">Terms of Service</a></li>
+        </ul>
+      </div>
+
+      <!-- Find Us -->
+      <div>
+        <span class="footer-col-label">Find Us</span>
+        <ul class="footer-links">
+          <li>
+            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer">
+              Montana, Pretoria<br />Gauteng, South Africa
+            </a>
+          </li>
+        </ul>
+        <span class="footer-col-label" style="margin-top:2rem;display:block;">Events Partner</span>
+        <ul class="footer-links">
+          <li><a href="https://oaonevents.co.za/" target="_blank" rel="noopener noreferrer">Oaón Events →</a></li>
+        </ul>
+        <span class="footer-col-label" style="margin-top:2rem;display:block;">Contact</span>
+        <ul class="footer-links">
+          <li><a href="mailto:info@venueoaon.co.za">info@venueoaon.co.za</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">© {year} Venue Oaón. All rights reserved.</p>
+      <p class="footer-partner">
+        Décor &amp; events by <a href="https://oaonevents.co.za/" target="_blank" rel="noopener noreferrer">Oaón Events</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: #1A1A1A;
+    color: #FFFFFF;
+    padding: clamp(4rem,8vw,6rem) 0 2rem;
+  }
+  .footer-grid {
+    display: grid;
+    gap: 2.5rem;
+    grid-template-columns: 1fr;
+    margin-bottom: 3rem;
+  }
+  @media (min-width: 768px) {
+    .footer-grid { grid-template-columns: 2fr 1fr 1fr; gap: 5rem; }
+  }
+  .footer-tagline { font-size: var(--text-sm); color: #8C8578; line-height: 1.7; max-width: 280px; }
+  .footer-col-label {
+    font-size: var(--text-xs);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8C8578;
+    margin-bottom: 1.25rem;
+    display: block;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+  .footer-links a {
+    font-size: var(--text-sm);
+    color: rgba(255,255,255,0.65);
+    transition: color 0.2s;
+    /* WCAG 2.5.5: ≥44px touch target */
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .footer-links a:hover { color: #FFFFFF; }
+  .footer-links a:focus-visible { outline: 2px solid rgba(255,255,255,0.5); outline-offset: 2px; border-radius: 2px; }
+  .footer-bottom {
+    border-top: 0.5px solid rgba(255,255,255,0.08);
+    padding-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-copy    { font-size: var(--text-sm); color: #8C8578; }
+  .footer-partner { font-size: var(--text-sm); color: #8C8578; }
+  .footer-partner a {
+    /* Boosted from 0.45 → 0.75 for ≥4.5:1 contrast on dark background */
+    color: rgba(255,255,255,0.78);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .footer-partner a:hover { color: #FFFFFF; }
+  .footer-partner a:focus-visible { outline: 2px solid rgba(255,255,255,0.5); outline-offset: 2px; border-radius: 2px; }
+</style>

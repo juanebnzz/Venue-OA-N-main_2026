@@ -1,0 +1,63 @@
+[
+  {
+    "id": "essential",
+    "name": "Essential",
+    "featured": false,
+    "tagline": null,
+    "bestFor": ["Intimate kitchen teas", "Simple birthday lunches"],
+    "includes": [
+      "Balloon arch (single colour)",
+      "10 bamboo chairs",
+      "Linen tablecloths",
+      "Basic floral centrepieces",
+      "Setup included"
+    ]
+  },
+  {
+    "id": "signature",
+    "name": "Signature",
+    "featured": true,
+    "tagline": "Most popular",
+    "bestFor": ["Baby showers & kitchen teas", "Bridal showers"],
+    "includes": [
+      "Custom balloon arch",
+      "20 bamboo chairs",
+      "Styled backdrop",
+      "Fresh florals + centrepieces",
+      "Table linen + runners",
+      "Setup & breakdown"
+    ]
+  },
+  {
+    "id": "premier",
+    "name": "Premier",
+    "featured": false,
+    "tagline": null,
+    "bestFor": ["Bridal showers & milestone birthdays"],
+    "includes": [
+      "Full custom décor design",
+      "30 bamboo chairs",
+      "Balloon installation",
+      "Floral arrangements",
+      "Themed backdrop wall",
+      "Catering coordination",
+      "Setup & breakdown"
+    ]
+  },
+  {
+    "id": "grand",
+    "name": "Grand",
+    "featured": false,
+    "tagline": null,
+    "bestFor": ["Signature celebrations", "Full turnkey events"],
+    "includes": [
+      "Bespoke concept design",
+      "Full suite transformation",
+      "Floral ceiling installation",
+      "Custom neon / signage",
+      "Catering + serving staff",
+      "Photography coordination",
+      "Full event management"
+    ]
+  }
+]

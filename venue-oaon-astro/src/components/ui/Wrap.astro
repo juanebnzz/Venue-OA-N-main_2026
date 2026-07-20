@@ -1,0 +1,15 @@
+---
+interface Props {
+  narrow?: boolean;
+  class?: string;
+}
+const { narrow = false, class: extra = '' } = Astro.props;
+---
+
+<div class={`wrap${narrow ? ' wrap--narrow' : ''}${extra ? ' ' + extra : ''}`}>
+  <slot />
+</div>
+
+<style>
+  .wrap--narrow { max-width: 760px; }
+</style>

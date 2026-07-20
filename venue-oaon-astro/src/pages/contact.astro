@@ -1,0 +1,816 @@
+---
+import BaseLayout from "../components/layout/BaseLayout.astro";
+import PageHero from "../components/sections/PageHero.astro";
+
+const WA_NUMBER = "27761823532";
+const WA_MSG = encodeURIComponent("Hi, I'd like to enquire about Venue Oaón");
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    { "@type": "Question", name: "Do you charge corkage?", acceptedAnswer: { "@type": "Answer", text: "Never. Bring your own wine, champagne, spirits, or soft drinks. No corkage fees, no hidden charges." } },
+    { "@type": "Question", name: "Can I bring my own caterer?", acceptedAnswer: { "@type": "Answer", text: "Absolutely. Venue Oaón is fully self-catering. Bring your own food, order from your favourite restaurant, or hire a caterer." } },
+    { "@type": "Question", name: "How do I get pricing for Venue Oaón?", acceptedAnswer: { "@type": "Answer", text: "We don't publish pricing because every event is different: guest count, suite, package, and add-ons all affect the final quote. Fill in the enquiry form and we'll come back to you with a full breakdown." } },
+    { "@type": "Question", name: "Can I book more than one suite?", acceptedAnswer: { "@type": "Answer", text: "Yes: you can book multiple suites for the same time slot if your event needs more space." } },
+    { "@type": "Question", name: "What time slots are available at Venue Oaón?", acceptedAnswer: { "@type": "Answer", text: "We run three time slots per day: morning (08:00–12:00), afternoon (13:00–17:00), and evening (18:00–22:00). On Sundays the venue closes at 15:00." } },
+    { "@type": "Question", name: "Is there parking at Venue Oaón?", acceptedAnswer: { "@type": "Answer", text: "Yes: on-site secured parking for all guests." } },
+    { "@type": "Question", name: "Do I need to use Oaón Events for décor?", acceptedAnswer: { "@type": "Answer", text: "No. You're welcome to bring your own décor team. However, all packages are offered through Oaón Events and we recommend them highly." } },
+  ],
+};
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  name: "Contact Venue Oaón",
+  url: "https://venueoaon.co.za/contact",
+  description: "Enquire about booking Venue Oaón in Montana, Pretoria for baby showers, kitchen teas, bridal showers and birthdays.",
+  mainEntity: {
+    "@type": "LocalBusiness",
+    name: "Venue Oaón",
+    url: "https://venueoaon.co.za",
+    telephone: "+27761823532",
+    email: "info@venueoaon.co.za",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "978 Veda Ave, Montana AH",
+      addressLocality: "Montana",
+      addressRegion: "Pretoria",
+      postalCode: "0186",
+      addressCountry: "ZA",
+    },
+    openingHours: ["Mo-Sa 08:00-12:00", "Mo-Sa 13:00-17:00", "Mo-Sa 18:00-22:00", "Su 08:00-12:00", "Su 13:00-15:00"],
+    hasMap: "https://maps.google.com/?q=978+Veda+Ave,+Montana+AH,+Pretoria,+0186",
+  },
+};
+---
+
+<BaseLayout
+  title="Contact & Enquiries | Venue Oaón Montana Pretoria"
+  description="Book a site visit or enquire about Venue Oaón in Montana, Pretoria. Baby showers, kitchen teas, bridal showers & birthdays. We respond within 24 hours."
+  ogImage="/images/hero_bg_1.jpg"
+>
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+  <PageHero
+    eyebrow="Begin the Inquiry"
+    title="Tell us about<br />your moment."
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="contact-grid">
+        <!-- Aside -->
+        <div class="contact-aside reveal">
+          <div class="aside-block">
+            <span class="aside-block-title">Get in touch</span>
+
+            <div class="contact-detail">
+              <svg
+                class="contact-detail-icon"
+                viewBox="0 0 20 20"
+                fill="none"
+                aria-hidden="true"
+                ><path
+                  d="M10 2C6.686 2 4 4.686 4 8c0 4 6 10 6 10s6-6 6-10c0-3.314-2.686-6-6-6zm0 8a2 2 0 110-4 2 2 0 010 4z"
+                  stroke="currentColor"
+                  stroke-width="0.75"></path></svg
+              >
+              <div class="contact-detail-body">
+                <span class="contact-detail-label">Address</span>
+                <span class="contact-detail-val">
+                  978 Veda Ave, Montana AH<br />
+                  Pretoria, 0186, South Africa
+                </span>
+              </div>
+            </div>
+
+            <div class="contact-detail">
+              <svg
+                class="contact-detail-icon"
+                viewBox="0 0 20 20"
+                fill="none"
+                aria-hidden="true"
+                ><path
+                  d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5z"
+                  stroke="currentColor"
+                  stroke-width="0.75"></path><path
+                  d="M2 5l8 6 8-6"
+                  stroke="currentColor"
+                  stroke-width="0.75"></path></svg
+              >
+              <div class="contact-detail-body">
+                <span class="contact-detail-label">Email</span>
+                <span class="contact-detail-val"
+                  ><a href="mailto:info@venueoaon.co.za"
+                    >info@venueoaon.co.za</a
+                  ></span
+                >
+              </div>
+            </div>
+
+            <div class="contact-detail">
+              <svg
+                class="contact-detail-icon"
+                viewBox="0 0 20 20"
+                fill="none"
+                aria-hidden="true"
+                ><circle
+                  cx="10"
+                  cy="10"
+                  r="8"
+                  stroke="currentColor"
+                  stroke-width="0.75"></circle><path
+                  d="M10 6v4l2.5 2.5"
+                  stroke="currentColor"
+                  stroke-width="0.75"
+                  stroke-linecap="round"></path></svg
+              >
+              <div class="contact-detail-body">
+                <span class="contact-detail-label">Response time</span>
+                <span class="contact-detail-val">Within 24 hours</span>
+              </div>
+            </div>
+
+            <div class="contact-detail">
+              <svg
+                class="contact-detail-icon"
+                viewBox="0 0 20 20"
+                fill="none"
+                aria-hidden="true"
+                ><rect
+                  x="2"
+                  y="4"
+                  width="16"
+                  height="13"
+                  rx="1.5"
+                  stroke="currentColor"
+                  stroke-width="0.75"></rect><path
+                  d="M2 8h16"
+                  stroke="currentColor"
+                  stroke-width="0.75"></path><path
+                  d="M6 2v3M14 2v3"
+                  stroke="currentColor"
+                  stroke-width="0.75"
+                  stroke-linecap="round"></path></svg
+              >
+              <div class="contact-detail-body">
+                <span class="contact-detail-label">Time slots</span>
+                <span class="contact-detail-val">08:00–12:00 · 13:00–17:00 · 18:00–22:00 · Sun closes 15:00</span
+                >
+              </div>
+            </div>
+
+            <div style="margin-top:1rem;">
+              <a
+                href={`https://wa.me/${WA_NUMBER}?text=${WA_MSG}`}
+                class="wa-option"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div class="wa-option-icon">
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="white"
+                    aria-hidden="true"
+                    ><path
+                      d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"
+                    ></path></svg
+                  >
+                </div>
+                <div class="wa-option-text">
+                  <span class="wa-option-title">Chat on WhatsApp</span>
+                  <span class="wa-option-sub"
+                    >Often the quickest way to reach us</span
+                  >
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Suites -->
+          <div class="aside-block">
+            <span class="aside-block-title">Available Suites</span>
+            <div class="suite-cards">
+              {
+                [
+                  { name: "Myrrh Suite", meta: "Indoor · 30–40" },
+                  { name: "Olive Suite", meta: "In/Out · 20–30" },
+                  { name: "Garden Suite", meta: "Outdoor · 30–40" },
+                ].map(({ name, meta }) => (
+                  <div class="suite-card-sm">
+                    <span class="suite-card-sm-name">{name}</span>
+                    <span class="suite-card-sm-meta">{meta}</span>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+
+          <!-- Map placeholder -->
+          <div class="aside-block reveal d1">
+            <span class="aside-block-title">Location</span>
+            <div class="map-container">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3596.241328905295!2d28.25712167623545!3d-25.66333333333333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e95640000000001%3A0x0!2zOTc4IFZlZGEgQXZlLCBNb250YW5hIEFILCBQcmV0b3JpYSwgMDE4Ng!5e0!3m2!1sen!2sza!4v1713693000000!5m2!1sen!2sza" 
+                width="100%" 
+                height="260" 
+                style="border:0; border-radius: 8px;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Google Maps location of Venue Oaón"
+              ></iframe>
+              <a 
+                href="https://maps.google.com/?q=978+Veda+Ave,+Montana+AH,+Pretoria,+0186" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="map-link"
+              >
+                <span>Open in Google Maps</span>
+                <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M15.8333 15.8333H4.16667V4.16667H10V2.5H4.16667C3.24167 2.5 2.5 3.25 2.5 4.16667V15.8333C2.5 16.75 3.24167 17.5 4.16667 17.5H15.8333C16.75 17.5 17.5 16.75 17.5 15.8333V10H15.8333V15.8333ZM11.6667 2.5V4.16667H14.6583L6.46667 12.3583L7.64167 13.5333L15.8333 5.34167V8.33333H17.5V2.5H11.6667Z" fill="currentColor"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="form-card reveal d2">
+          <h2 class="form-card-title">Begin the Inquiry</h2>
+          <p class="form-card-sub">
+            Fill in what you know: we'll follow up within 24 hours to talk
+            through the rest. No commitment, just a conversation.
+          </p>
+          <form id="contact-form" method="POST" novalidate>
+            <!-- TODO: Replace YOUR_WEB3FORMS_KEY with key from web3forms.com -->
+            <input
+              type="hidden"
+              name="access_key"
+              value="a99d482b-7729-4551-8bb6-08de2e564d4a"
+            />
+            <input
+              type="hidden"
+              name="subject"
+              value="New Enquiry: Venue Oaón"
+            />
+            <input type="checkbox" name="botcheck" style="display:none" />
+
+            <div class="form-grid">
+              <div class="fg">
+                <label for="c-name">Your Name</label><input
+                  type="text"
+                  id="c-name"
+                  name="name"
+                  placeholder="Jane Doe"
+                  autocomplete="name"
+                  required
+                />
+              </div>
+              <div class="fg">
+                <label for="c-email">Email Address</label><input
+                  type="email"
+                  id="c-email"
+                  name="email"
+                  placeholder="info@venueoaon.co.za"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+              <div class="fg">
+                <label for="c-phone">Contact Number</label><input
+                  type="tel"
+                  id="c-phone"
+                  name="phone"
+                  placeholder="+27 82 000 0000"
+                  autocomplete="tel"
+                />
+              </div>
+              <div class="fg">
+                <label for="c-etype">Type of Event</label>
+                <select id="c-etype" name="etype" required>
+                  <option value="" disabled selected>Select event type</option>
+                  <option>Baby Shower</option><option>Kitchen Tea</option>
+                  <option>Bridal Shower</option><option>Birthday</option><option
+                    >Other</option
+                  >
+                </select>
+              </div>
+              <div class="fg">
+                <label for="c-suite">Suite Preference</label>
+                <select id="c-suite" name="suite">
+                  <option value="" disabled selected>Which suite?</option>
+                  <option>Myrrh Suite (Indoor, 30–40 pax)</option>
+                  <option>Olive Suite (In/Out, 20–30 pax)</option>
+                  <option>Garden Suite (Outdoor, 30–40 pax)</option>
+                  <option>Not sure yet</option>
+                </select>
+              </div>
+              <div class="fg">
+                <label for="c-date">Preferred Date</label><input
+                  type="date"
+                  id="c-date"
+                  name="date"
+                />
+              </div>
+              <div class="fg">
+                <label for="c-guests">Estimated Guest Count</label><input
+                  type="number"
+                  id="c-guests"
+                  name="guests"
+                  placeholder="e.g. 25"
+                  min="1"
+                  max="40"
+                />
+              </div>
+              <div class="fg">
+                <label for="c-pkg">Package Interest</label>
+                <select id="c-pkg" name="pkg">
+                  <option value="" disabled selected>Which package?</option>
+                  <option>Essential</option><option>Signature</option>
+                  <option>Premier</option><option>Grand</option>
+                  <option>Suite hire only</option><option>Not sure yet</option>
+                </select>
+              </div>
+              <div class="fg fg--full">
+                <label for="c-msg">Tell us about your event</label>
+                <textarea
+                  id="c-msg"
+                  name="msg"
+                  placeholder="What are you celebrating? Any décor ideas, special requests, or things we should know?"
+                ></textarea>
+              </div>
+              <div class="form-submit">
+                <button type="submit" class="btn-submit">Send My Inquiry</button
+                >
+              </div>
+            </div>
+            <p class="form-note">
+              We aim to respond within 24 hours. Or <a
+                href={`https://wa.me/${WA_NUMBER}`}
+                target="_blank"
+                rel="noopener noreferrer">message us on WhatsApp</a
+              > for a faster response.
+            </p>
+          </form>
+          <div
+            id="contact-success"
+            class="form-feedback form-feedback--success"
+            style="display:none;"
+          >
+            <p class="form-feedback-title">Thank you: we'll be in touch.</p>
+            <p class="form-feedback-body">
+              We aim to respond within 24 hours. We'll follow up with full
+              details for your event.
+            </p>
+          </div>
+          <div
+            id="contact-error"
+            class="form-feedback form-feedback--error"
+            style="display:none;"
+          >
+            <p class="form-feedback-body">
+              Something went wrong. Please try again or <a
+                href={`https://wa.me/${WA_NUMBER}`}
+                target="_blank"
+                rel="noopener noreferrer">message us on WhatsApp</a
+              >.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section--linen">
+    <div class="wrap">
+      <div class="section-header reveal" style="max-width:680px;">
+        <span class="label">FAQ</span>
+        <h2 class="section-title" style="margin-top:1rem;">
+          Questions we hear often.
+        </h2>
+      </div>
+      <div class="faq" style="max-width:680px;" role="list">
+        {
+          [
+            {
+              q: "Do you charge corkage?",
+              a: "Never. Bring your own wine, champagne, spirits, or soft drinks. No corkage fees, no hidden charges. Stock up and celebrate exactly as you'd like.",
+            },
+            {
+              q: "Can I bring my own caterer?",
+              a: "Absolutely. Venue Oaón is fully self-catering. Bring your own food, order from your favourite restaurant, or hire a caterer. Kitchen access is available on selected packages.",
+            },
+            {
+              q: "How do I get pricing?",
+              a: "We don't publish pricing because every event is different: guest count, suite, package, and add-ons all affect the final quote. Fill in the form above and we'll come back to you with a full breakdown.",
+            },
+            {
+              q: "Can I book more than one suite?",
+              a: "Yes: you can book multiple suites for the same time slot if your event needs more space. We'll discuss what makes sense when you enquire.",
+            },
+            {
+              q: "What time slots are available?",
+              a: "We run three time slots per day: morning (08:00–12:00), afternoon (13:00–17:00), and evening (18:00–22:00). On Sundays the venue closes at 15:00. Each slot gives you a freshly prepared space. We don't run back-to-back events in the same suite.",
+            },
+            {
+              q: "Is there parking?",
+              a: "Yes: on-site secured parking for all guests. No street parking stress on the day of your event.",
+            },
+            {
+              q: "Do I need to use Oaón Events for décor?",
+              a: "No. You're welcome to bring your own décor team. However, all our packages are offered through Oaón Events and we recommend them highly : they know the space well and the coordination is seamless.",
+            },
+          ].map(({ q, a }) => (
+            <details class="faq-item reveal">
+              <summary class="faq-q">
+                {q}
+                <span class="faq-icon" aria-hidden="true">
+                  +
+                </span>
+              </summary>
+              <p class="faq-a">{a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    gap: clamp(2.5rem, 8vw, 7rem);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1fr 1.5fr;
+      align-items: start;
+    }
+  }
+
+  .contact-aside {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+  .aside-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .aside-block-title {
+    font-size: var(--text-xs);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8c8578;
+    display: block;
+    margin-bottom: 1.25rem;
+  }
+
+  .contact-detail {
+    padding: 1.125rem 0;
+    border-bottom: 0.5px solid #e0ddd8;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+  .contact-detail:first-of-type {
+    border-top: 0.5px solid #e0ddd8;
+  }
+  .contact-detail-icon {
+    color: #8b6448;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .contact-detail-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .contact-detail-label {
+    font-size: var(--text-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #8c8578;
+  }
+  .contact-detail-val {
+    font-size: var(--text-sm);
+    color: #1a1a1a;
+    line-height: 1.5;
+  }
+  .contact-detail-val a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .contact-detail-val a:hover { color: #8b6448; }
+  .contact-detail-val a:focus-visible { outline: 2px solid #8b6448; outline-offset: 2px; border-radius: 2px; }
+
+  .wa-option {
+    background: #f0fbf4;
+    border: 0.5px solid #c3eacc;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    text-decoration: none;
+    transition: background 0.2s;
+    /* Acts as a CTA card : ensure keyboard visibility */
+  }
+  .wa-option:hover { background: #e5f7eb; }
+  .wa-option:focus-visible { outline: 2px solid #25d366; outline-offset: 2px; border-radius: 8px; }
+  .wa-option-icon {
+    background: #25d366;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .wa-option-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .wa-option-title {
+    font-family: "Tenor Sans", serif;
+    font-size: 0.9375rem;
+    letter-spacing: 0.03em;
+    color: #1a1a1a;
+  }
+  .wa-option-sub {
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8c8578;
+  }
+
+  .suite-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+  .suite-card-sm {
+    border: 0.5px solid #e0ddd8;
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    transition:
+      border-color 0.2s,
+      background 0.2s;
+  }
+  .suite-card-sm:hover {
+    border-color: #8c8578;
+    background: #f5f2ee;
+  }
+  .suite-card-sm-name {
+    font-family: "Tenor Sans", serif;
+    font-size: 0.9375rem;
+    letter-spacing: 0.04em;
+  }
+  .suite-card-sm-meta {
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8c8578;
+    text-align: right;
+  }
+
+  .map-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .map-container iframe {
+    height: clamp(180px, 35vw, 260px);
+    width: 100%;
+  }
+  .map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8b6448;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .map-link:hover { color: #1a1a1a; }
+
+  .form-card {
+    background: #f5f2ee;
+    border-radius: 12px;
+    padding: clamp(2rem, 5vw, 3.5rem);
+  }
+  /* Fields default to #F5F2EE — same as this card, making them invisible.
+     Give them a white fill and a readable border so they look fillable. */
+  .form-card input,
+  .form-card select,
+  .form-card textarea {
+    background: #ffffff;
+    border-color: #d5d0c9;
+  }
+  .form-card label {
+    color: #6b6560;
+  }
+  .form-card-title {
+    font-family: "Tenor Sans", serif;
+    font-size: clamp(1.375rem, 3vw, 2rem);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+  }
+  .form-card-sub {
+    font-size: var(--text-sm);
+    color: #8c8578;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  /* WCAG 2.5.5 compliant submit button */
+  .btn-submit {
+    font-family: "Tenor Sans", serif;
+    font-size: var(--text-xs);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0 32px;
+    border-radius: 2px;
+    border: none;
+    background: #8b6448;
+    color: #ffffff;
+    min-height: 48px;
+    cursor: pointer;
+    transition: background 0.22s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-submit:hover { background: #6e4e38; }
+  .btn-submit:focus-visible { outline: 2px solid #8b6448; outline-offset: 3px; }
+
+  .faq {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .faq-item {
+    border-bottom: 0.5px solid #e0ddd8;
+  }
+  .faq-item:first-child {
+    border-top: 0.5px solid #e0ddd8;
+  }
+  /* FAQ summary is interactive : needs keyboard target and focus indicator */
+  .faq-q {
+    padding: 1.25rem 0;
+    font-family: "Tenor Sans", serif;
+    font-size: 1rem;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    list-style: none;
+    user-select: none;
+    min-height: 44px;
+  }
+  .faq-item:focus-within .faq-q { color: #8b6448; }
+  .faq-q::-webkit-details-marker {
+    display: none;
+  }
+  .faq-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8c8578;
+    transition: transform 0.3s;
+  }
+  details[open] .faq-icon {
+    transform: rotate(45deg);
+  }
+  .faq-a {
+    padding: 0 0 1.25rem;
+    font-size: var(--text-sm);
+    color: #8c8578;
+    line-height: 1.7;
+  }
+
+  .section-title {
+    font-family: "Tenor Sans", serif;
+    font-size: var(--text-h2);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+    color: #1a1a1a;
+  }
+
+  .form-feedback {
+    padding: 1.5rem 2rem;
+    border-radius: 6px;
+    margin-top: 1.5rem;
+  }
+  .form-feedback--success {
+    background: #ede5dc;
+  }
+  .form-feedback--error {
+    background: #fff8f5;
+    border: 0.5px solid #e0ddd8;
+  }
+  .form-feedback-title {
+    font-family: "Tenor Sans", serif;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    color: #1a1a1a;
+    margin-bottom: 0.375rem;
+  }
+  .form-feedback-body {
+    font-size: var(--text-sm);
+    color: #6b6560;
+    line-height: 1.6;
+  }
+  .form-feedback-body a {
+    color: #8b6448;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>
+
+<script>
+  const form = document.getElementById("contact-form");
+  const success = document.getElementById("contact-success");
+  const error = document.getElementById("contact-error");
+
+  if (form instanceof HTMLFormElement) {
+    const btn = form.querySelector(".btn-submit") as HTMLButtonElement | null;
+    let sending = false;
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (sending) return;
+
+      // Form carries novalidate; run constraint checks manually
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      sending = true;
+
+      if (error) error.style.display = "none";
+      const label = btn?.textContent;
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "Sending…";
+      }
+
+      const data = new FormData(form);
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 15000);
+
+      try {
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: data,
+          signal: ctrl.signal,
+        });
+        const json = await res.json();
+        if (json.success) {
+          form.style.display = "none";
+          if (success) success.style.display = "block";
+        } else {
+          if (error) error.style.display = "block";
+        }
+      } catch {
+        if (error) error.style.display = "block";
+      } finally {
+        clearTimeout(timer);
+        sending = false;
+        if (btn) {
+          btn.disabled = false;
+          if (label) btn.textContent = label;
+        }
+      }
+    });
+  }
+</script>

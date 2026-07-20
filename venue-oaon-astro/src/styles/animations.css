@@ -1,0 +1,22 @@
+/* ── Hero entrance animations ──────────────────────────────────── */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-eyebrow { animation: rise 0.7s ease 0.1s both; }
+.hero-h1      { animation: rise 0.7s ease 0.25s both; }
+.hero-bottom  { animation: rise 0.7s ease 0.4s both; }
+
+/* ── WhatsApp pulse ─────────────────────────────────────────────── */
+@keyframes wa-pulse {
+  0%   { transform: scale(1);    opacity: 0.8; }
+  70%  { transform: scale(1.35); opacity: 0; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
+/* ── Lightbox entrance ─────────────────────────────────────────── */
+@keyframes lb-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}

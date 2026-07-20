@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../components/layout/BaseLayout.astro";
+import Hero from "../components/sections/Hero.astro";
+import StatsStrip from "../components/sections/StatsStrip.astro";
+import TheSpace from "../components/sections/TheSpace.astro";
+import SuitesGrid from "../components/sections/SuitesGrid.astro";
+import PackagesGrid from "../components/sections/PackagesGrid.astro";
+import PracticalDetails from "../components/sections/PracticalDetails.astro";
+import InquiryStrip from "../components/sections/InquiryStrip.astro";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "EventVenue"],
+  name: "Venue Oaón",
+  description:
+    "An intimate event space in Montana, Pretoria. Three suites for baby showers, kitchen teas, bridal showers and birthdays — for gatherings of 20 to 40 people.",
+  url: "https://venueoaon.co.za",
+  email: "info@venueoaon.co.za",
+  telephone: "+27761823532",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "978 Veda Ave, Montana AH",
+    addressLocality: "Montana",
+    addressRegion: "Pretoria",
+    postalCode: "0186",
+    addressCountry: "ZA",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: -25.663333,
+    longitude: 28.259444,
+  },
+  hasMap: "https://maps.google.com/?q=978+Veda+Ave,+Montana+AH,+Pretoria,+0186",
+  openingHours: ["Mo-Sa 08:00-12:00", "Mo-Sa 13:00-17:00", "Mo-Sa 18:00-22:00", "Su 08:00-12:00", "Su 13:00-15:00"],
+  priceRange: "$$",
+  currenciesAccepted: "ZAR",
+  paymentAccepted: "EFT, Cash",
+  areaServed: [
+    { "@type": "City", name: "Pretoria" },
+    { "@type": "City", name: "Centurion" },
+    { "@type": "AdministrativeArea", name: "Gauteng" },
+  ],
+  image: [
+    "https://venueoaon.co.za/images/hero_bg_1.jpg",
+    "https://venueoaon.co.za/images/GardenSuite.jpg",
+    "https://venueoaon.co.za/images/MyrhSuite.jpg",
+  ],
+  sameAs: [
+    "https://maps.google.com/?q=978+Veda+Ave,+Montana+AH,+Pretoria,+0186",
+  ],
+  amenityFeature: [
+    { "@type": "LocationFeatureSpecification", name: "On-site parking", value: true },
+    { "@type": "LocationFeatureSpecification", name: "Self-catering", value: true },
+    { "@type": "LocationFeatureSpecification", name: "No corkage fee", value: true },
+    { "@type": "LocationFeatureSpecification", name: "Indoor venue", value: true },
+    { "@type": "LocationFeatureSpecification", name: "Outdoor venue", value: true },
+    { "@type": "LocationFeatureSpecification", name: "Air conditioning", value: true },
+  ],
+  makesOffer: [
+    {
+      "@type": "Offer",
+      name: "Myrrh Suite",
+      description: "Indoor suite with white-washed walls and soft natural light. Capacity 30–40 guests. Ideal for kitchen teas and bridal showers.",
+    },
+    {
+      "@type": "Offer",
+      name: "Olive Suite",
+      description: "Indoor/outdoor hybrid suite. Capacity 20–30 guests. Ideal for baby showers.",
+    },
+    {
+      "@type": "Offer",
+      name: "Garden Suite",
+      description: "Open outdoor garden setting. Capacity 30–40 guests. Beautiful for milestone celebrations.",
+    },
+  ],
+  keywords: "event venue Pretoria, intimate event space Montana, baby shower venue Pretoria, kitchen tea venue Pretoria, bridal shower venue Pretoria, birthday venue Pretoria, venue hire Montana, small event venue Gauteng",
+};
+---
+
+<BaseLayout
+  title="Venue Oaón | Intimate Event Space in Montana, Pretoria"
+  description="Book an intimate event space in Montana, Pretoria for 20–40 guests. Baby showers, kitchen teas, bridal showers & birthdays. Three unique suites. Enquire today."
+  ogImage="/images/hero_bg_1.jpg"
+>
+  <script
+    type="application/ld+json"
+    slot="head"
+    set:html={JSON.stringify(schema)}
+  />
+
+  <Hero />
+  <StatsStrip />
+  <TheSpace />
+  <SuitesGrid />
+  <PackagesGrid preview={true} />
+  <PracticalDetails />
+  <InquiryStrip />
+</BaseLayout>

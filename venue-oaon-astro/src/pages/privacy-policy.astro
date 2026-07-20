@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+
+const effectiveDate = '20 April 2026';
+---
+
+<BaseLayout
+  title="Privacy Policy: Venue Oaón"
+  description="Privacy Policy for Venue Oaón. Learn how we collect, use, and protect your personal information."
+  noindex={true}
+>
+  <PageHero
+    eyebrow="Legal"
+    title="Privacy Policy"
+    minHeight="30vh"
+  />
+
+  <section class="section">
+    <div class="wrap" style="max-width:760px;">
+
+      <p class="legal-intro">
+        This Privacy Policy explains how Venue Oaón ("we", "us", "our") collects, uses, and protects
+        your personal information in compliance with the <strong>Protection of Personal Information Act, 2013 (POPIA)</strong> of South Africa.
+        By using this website or submitting an enquiry, you agree to this policy.
+      </p>
+      <p class="legal-effective">Effective date: {effectiveDate}</p>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>1. Who we are</h2>
+        <p>Venue Oaón is an intimate event space located in Montana, Pretoria, Gauteng, South Africa. We can be reached at <a href="mailto:info@venueoaon.co.za">info@venueoaon.co.za</a>.</p>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>2. What data we collect</h2>
+        <p>We collect the following personal information when you submit an enquiry via our website:</p>
+        <ul>
+          <li><strong>Name</strong>: to address you personally</li>
+          <li><strong>Email address</strong>: to respond to your enquiry</li>
+          <li><strong>Phone number</strong>: if provided, to contact you</li>
+          <li><strong>Event details</strong>: type of event, preferred date, guest count, and package interest</li>
+        </ul>
+        <p>We do not collect payment information, government ID numbers, or any sensitive personal information.</p>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>3. How we use your data</h2>
+        <p>We use the information you provide exclusively to:</p>
+        <ul>
+          <li>Respond to your venue enquiry</li>
+          <li>Send you a pricing guide or quote relevant to your event</li>
+          <li>Follow up regarding your booking or event planning</li>
+        </ul>
+        <p>We will not use your contact details for unsolicited marketing without your explicit consent.</p>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>4. Google Analytics</h2>
+        <p>This website uses <strong>Google Analytics</strong> to understand how visitors engage with our content. Google Analytics collects anonymised usage data including page views, session duration, and general location (city/country level). We do not collect personally identifiable information through analytics.</p>
+        <p>Google Analytics uses cookies. You may opt out of analytics tracking by installing the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics Opt-out Browser Add-on</a>.</p>
+        <!-- TODO: Replace GA_MEASUREMENT_ID with your actual Google Analytics ID before go-live -->
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>5. Data sharing</h2>
+        <p>We do not sell, rent, or share your personal information with third parties, except:</p>
+        <ul>
+          <li><strong>Oaón Events</strong>: our sister company and décor partner, only where relevant to your event enquiry, and only with your knowledge</li>
+          <li><strong>Netlify</strong>: our website host, which processes form submissions on our behalf under their own privacy policy</li>
+        </ul>
+        <p>No data is sold to advertisers, data brokers, or any commercial third parties.</p>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>6. Data retention</h2>
+        <p>Enquiry form submissions are retained for <strong>12 months</strong> from the date of submission. After this period, your data is deleted from our records unless an active booking or ongoing correspondence requires us to retain it longer.</p>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>7. Your rights under POPIA</h2>
+        <p>You have the right to:</p>
+        <ul>
+          <li>Know whether we hold personal information about you</li>
+          <li>Request access to your personal information</li>
+          <li>Request correction of inaccurate information</li>
+          <li>Request deletion of your personal information</li>
+          <li>Object to the processing of your personal information</li>
+        </ul>
+        <p>To exercise any of these rights, email us at <a href="mailto:info@venueoaon.co.za">info@venueoaon.co.za</a>. We will respond within 30 days.</p>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>8. Cookies</h2>
+        <p>This website uses cookies only for Google Analytics (see section 4). We do not use advertising cookies, tracking pixels, or session-based login cookies. You may disable cookies in your browser settings at any time.</p>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>9. Security</h2>
+        <p>We take reasonable technical and organisational measures to protect your personal information against unauthorised access, loss, or misuse. Our website is served over HTTPS. Form submissions are handled by Netlify, which encrypts data in transit.</p>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>10. Changes to this policy</h2>
+        <p>We may update this Privacy Policy from time to time. When we do, the effective date above will be updated. Continued use of this website after changes constitutes acceptance of the updated policy.</p>
+      </div>
+
+      <hr class="legal-divider" />
+
+      <div class="legal-section">
+        <h2>11. Contact us</h2>
+        <p>For any privacy-related queries, requests, or complaints, please contact us at:</p>
+        <p><strong>Venue Oaón</strong><br />Montana, Pretoria, Gauteng, South Africa<br /><a href="mailto:info@venueoaon.co.za">info@venueoaon.co.za</a></p>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-intro {
+    font-size: var(--text-body);
+    color: #6B6560;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .legal-effective {
+    font-size: var(--text-sm);
+    color: #8C8578;
+    margin-bottom: 2.5rem;
+  }
+  .legal-divider {
+    border: none;
+    border-top: 0.5px solid #E0DDD8;
+    margin: 2.5rem 0;
+  }
+  .legal-section { display: flex; flex-direction: column; gap: 1rem; }
+  .legal-section h2 {
+    font-family: 'Tenor Sans', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    line-height: 1.2;
+    color: #1A1A1A;
+  }
+  .legal-section p {
+    font-size: var(--text-body);
+    color: #6B6560;
+    line-height: 1.8;
+  }
+  .legal-section ul {
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .legal-section li {
+    font-size: var(--text-body);
+    color: #6B6560;
+    line-height: 1.7;
+  }
+  /* #704E38 on white = ~4.6:1 contrast ratio (WCAG AA ✓) */
+  .legal-section a {
+    color: #704E38;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .legal-section a:hover { color: #1A1A1A; }
+  .legal-section a:focus-visible { outline: 2px solid #704E38; outline-offset: 2px; border-radius: 2px; }
+</style>

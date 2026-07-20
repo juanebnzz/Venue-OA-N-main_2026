@@ -1,0 +1,87 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  gradient?: string;
+  minHeight?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  gradient = 'linear-gradient(155deg,#EAE3DA 0%,#D5CCBF 50%,#C8BFB2 100%)',
+  minHeight = '42vh',
+} = Astro.props;
+---
+
+<div class="page-hero" style={`min-height:${minHeight}`}>
+  <div class="page-hero-bg" aria-hidden="true" style={`background:${gradient}`}></div>
+  <div class="page-hero-content wrap">
+    <div class="page-hero-eyebrow">
+      <span class="label">{eyebrow}</span>
+    </div>
+    <h1 set:html={title} />
+  </div>
+</div>
+
+<style>
+  .page-hero {
+    padding-top: var(--nav-h);
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero-bg {
+    position: absolute;
+    inset: 0;
+  }
+  .page-hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* Bottom-up wash keeps text legible over any future photo bg */
+    background:
+      linear-gradient(to right, rgba(245,242,238,0.55) 0%, rgba(245,242,238,0.18) 55%, transparent 100%),
+      linear-gradient(to top, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.25) 55%, rgba(255,255,255,0) 100%);
+  }
+  .page-hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding-top: 0;
+    padding-bottom: clamp(3rem,6vw,5rem);
+  }
+  .page-hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 1rem;
+  }
+  .page-hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 0.5px;
+    background: #8C8578;
+  }
+  /* Editorial type scale: at least 3× body text on desktop (3rem vs ≤1rem) */
+  .page-hero h1 {
+    font-family: 'Tenor Sans', serif;
+    font-size: clamp(2.5rem, 6.5vw, 6rem);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+    color: #1A1A1A;
+    max-width: 14ch;
+  }
+
+  @media (max-width: 768px) {
+    .page-hero-content {
+      padding-bottom: clamp(2.5rem, 6vw, 4rem);
+    }
+    .page-hero h1 {
+      font-size: clamp(2rem, 10vw, 3.5rem);
+    }
+  }
+</style>

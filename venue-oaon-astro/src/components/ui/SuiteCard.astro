@@ -1,0 +1,105 @@
+---
+import Badge from './Badge.astro';
+
+interface Props {
+  name: string;
+  type: string;
+  capacity: string;
+  morning: string;
+  afternoon: string;
+  evening: string;
+  sunday: string;
+  desc: string;
+  gradientClass: string;
+  image?: string;
+}
+
+const { name, type, capacity, morning, afternoon, evening, sunday, desc, gradientClass, image } = Astro.props;
+---
+
+<article class="suite-card">
+  <div class={`suite-img ${gradientClass}`}>
+    {image
+      ? <img src={image} alt={name} class="suite-img-photo" />
+      : <span class="suite-img-label" aria-hidden="true">Add photo</span>
+    }
+  </div>
+  <div class="suite-body">
+    <div class="suite-header">
+      <h3 class="suite-name">{name}</h3>
+      <Badge>{type}</Badge>
+    </div>
+    <p class="suite-desc">{desc}</p>
+    <div class="suite-meta">
+      <div class="suite-row">
+        <span class="suite-row-label">Capacity</span>
+        <span class="suite-row-val">{capacity}</span>
+      </div>
+      <div class="suite-row">
+        <span class="suite-row-label">Morning</span>
+        <span class="suite-row-val">{morning}</span>
+      </div>
+      <div class="suite-row">
+        <span class="suite-row-label">Afternoon</span>
+        <span class="suite-row-val">{afternoon}</span>
+      </div>
+      <div class="suite-row">
+        <span class="suite-row-label">Evening</span>
+        <span class="suite-row-val">{evening}</span>
+      </div>
+      <div class="suite-row">
+        <span class="suite-row-val suite-row-val--note">{sunday}</span>
+      </div>
+    </div>
+  </div>
+</article>
+
+<style>
+  .suite-card {
+    background: #FFFFFF;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 0.5px solid #E0DDD8;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .suite-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.08); }
+
+  .suite-img {
+    height: 230px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .suite-img--myrrh  { background: linear-gradient(135deg,#EBE4DC,#D8D0C4); }
+  .suite-img--olive  { background: linear-gradient(135deg,#E5EBE0,#D0D8C6); }
+  .suite-img--garden { background: linear-gradient(135deg,#E0EBE6,#C8D8CF); }
+
+  .suite-img-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .suite-img-label {
+    font-size: var(--text-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #8C8578;
+    opacity: 0.4;
+  }
+
+  .suite-body { padding: 1.75rem; flex: 1; display: flex; flex-direction: column; gap: 1rem; }
+  .suite-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+  .suite-name { font-family: 'Tenor Sans', serif; font-size: var(--text-h3); font-weight: 400; letter-spacing: 0.02em; }
+  .suite-desc { font-size: var(--text-sm); color: #8C8578; line-height: 1.65; flex: 1; }
+  .suite-meta { border-top: 0.5px solid #E0DDD8; padding-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .suite-row  { display: flex; justify-content: space-between; align-items: center; }
+  .suite-row-label { font-size: var(--text-xs); letter-spacing: 0.14em; text-transform: uppercase; color: #8C8578; }
+  .suite-row-val   { font-family: 'Tenor Sans', serif; font-size: 0.875rem; letter-spacing: 0.04em; }
+  .suite-row-val--note { font-family: inherit; font-size: var(--text-xs); color: #8C8578; letter-spacing: 0.06em; }
+</style>

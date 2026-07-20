@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /privacy-policy
+Disallow: /terms-of-service
+
+Sitemap: https://venueoaon.co.za/sitemap-index.xml

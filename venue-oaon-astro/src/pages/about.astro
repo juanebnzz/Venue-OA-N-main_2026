@@ -1,0 +1,541 @@
+---
+import BaseLayout from "../components/layout/BaseLayout.astro";
+import PageHero from "../components/sections/PageHero.astro";
+import Button from "../components/ui/Button.astro";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Venue Oaón",
+  url: "https://venueoaon.co.za",
+  email: "info@venueoaon.co.za",
+  telephone: "+27761823532",
+  foundingDate: "2024",
+  description: "An intimate event venue in Montana, Pretoria, born from over a decade of professional events experience.",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "978 Veda Ave, Montana AH",
+    addressLocality: "Montana",
+    addressRegion: "Pretoria",
+    postalCode: "0186",
+    addressCountry: "ZA",
+  },
+  logo: "https://venueoaon.co.za/images/venue-oaon-logo.png",
+  image: "https://venueoaon.co.za/images/hero_bg_1.jpg",
+  sameAs: [
+    "https://maps.google.com/?q=978+Veda+Ave,+Montana+AH,+Pretoria,+0186",
+  ],
+};
+---
+
+<BaseLayout
+  title="About Venue Oaón | Montana, Pretoria Event Space"
+  description="The story behind Venue Oaón — an intimate event space in Montana, Pretoria built from over a decade of professional events experience. Meet the people behind the venue."
+  ogImage="/images/hero_bg_1.jpg"
+>
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
+  <PageHero eyebrow="Our Story" title="Born from a<br />love of hosting." />
+
+  <!-- STORY -->
+  <section class="section">
+    <div class="wrap">
+      <div class="story-grid">
+        <div class="story-image reveal" aria-label="Founder of Venue Oaón">
+          <img src="/images/founder.jpg" alt="Founder of Venue Oaón" />
+          <div class="story-image-caption">Est. 2026 · Montana, Pretoria</div>
+        </div>
+        <div class="story-text reveal d2">
+          <span class="label">The beginning</span>
+          <blockquote class="story-quote">
+            "I didn't build Venue Oaón to be impressive. I built it to be right,
+            for the moments that matter most."
+          </blockquote>
+          <p class="story-body">
+            Venue Oaón grew from more than a decade of hands-on events work.
+            After years of coordinating celebrations in spaces that didn't quite
+            feel personal enough, the idea was simple: create somewhere that
+            did.
+          </p>
+          <p class="story-body">
+            A space with white-washed walls and warm wooden elements. A garden
+            that feels like a backyard, not a conference centre. Somewhere that
+            30 women can gather for a kitchen tea and feel like the space was
+            made for exactly that.
+          </p>
+          <p class="story-body">
+            Montana, Pretoria: our home, was the right fit. Close enough to the
+            city, quiet enough to feel away from it.
+          </p>
+          <Button href="/contact" variant="outline">Come visit the space</Button
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="section section--linen">
+    <div class="wrap">
+      <div class="section-header reveal">
+        <span class="label">What we believe</span>
+        <h2 class="section-title" style="margin-top:1rem;">
+          The principles behind the space.
+        </h2>
+      </div>
+      <div class="values-grid">
+        {
+          [
+            {
+              n: "01",
+              t: "Small is intentional",
+              b: "We capped our capacity at 40 people deliberately. A gathering of 30 women celebrating a new baby should feel like a gathering, not an event.",
+            },
+            {
+              n: "02",
+              t: "No corkage, ever",
+              b: "You bring your own. We've never charged corkage and we never will. Celebrations shouldn't come with hidden costs.",
+            },
+            {
+              n: "03",
+              t: "Real events experience",
+              b: "The person behind this space has spent over a decade in professional events. That knowledge shows up in everything, from how the suites are laid out to how we handle your inquiry.",
+            },
+            {
+              n: "04",
+              t: "Décor is a partnership",
+              b: "We work alongside Oaón Events so you can have one conversation that covers venue and décor. Fewer suppliers, less stress.",
+            },
+            {
+              n: "05",
+              t: "Every event is different",
+              b: "We don't publish pricing because every event is different. We'd rather talk through what you need and quote you properly.",
+            },
+            {
+              n: "06",
+              t: "The space should feel yours",
+              b: "You're not booking a generic venue. You're taking over a space that's been prepared specifically for you: for that day, for your people.",
+            },
+          ].map(({ n, t, b }, i) => (
+            <div
+              class={`value-card reveal${i % 3 === 1 ? " d1" : i % 3 === 2 ? " d2" : ""}`}
+            >
+              <span class="value-num">{n}</span>
+              <h3 class="value-title">{t}</h3>
+              <p class="value-body">{b}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNER STRIP -->
+  <section class="section">
+    <div class="wrap">
+      <div class="partner-strip reveal">
+        <div class="partner-inner">
+          <div>
+            <span class="partner-label">Our sister company</span>
+            <h2 class="partner-heading">
+              <a href="https://oaonevents.co.za/" target="_blank" rel="noopener noreferrer" class="partner-heading-link">Oaón Events</a>: where the décor happens.
+            </h2>
+            <p class="partner-body">
+              Every décor package at Venue Oaón is offered through <a href="https://oaonevents.co.za/" target="_blank" rel="noopener noreferrer" class="partner-body-link">Oaón Events</a>.
+              The same team, the same eye for detail: just focused entirely on
+              making your space beautiful.
+            </p>
+            <a href="/packages" class="btn-white" style="margin-top:2rem;"
+              >View Packages</a
+            >
+          </div>
+          <div class="partner-features">
+            {
+              [
+                "Balloon arches and installations",
+                "Fresh florals and centrepieces",
+                "Styled backdrops and neon signage",
+                "Table linen and bamboo chairs",
+                "Full event management on Grand package",
+                "Custom add-ons always available",
+              ].map((text) => (
+                <div class="partner-feature">
+                  <span class="partner-feature-dot" />
+                  <span class="partner-feature-text">{text}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="section section--linen">
+    <div class="wrap" style="max-width:760px;">
+      <div class="section-header reveal">
+        <span class="label">A decade of occasions</span>
+        <h2 class="section-title" style="margin-top:1rem;">
+          The journey here.
+        </h2>
+      </div>
+      <div class="timeline">
+        {
+          [
+            {
+              yr: "2012",
+              t: "First professional event",
+              b: "Started coordinating events professionally: weddings, corporate functions, and private celebrations across Gauteng.",
+            },
+            {
+              yr: "2016",
+              t: "Oaón Events launched",
+              b: "Founded Oaón Events to focus on décor and intimate gatherings. Began building a reputation for considered, personal styling.",
+            },
+            {
+              yr: "2022",
+              t: "The idea for a venue",
+              b: "After years of working in spaces that weren't quite right, began planning a dedicated venue: one that felt genuinely personal.",
+            },
+            {
+              yr: "2024",
+              t: "Venue Oaón opens",
+              b: "Three suites in Montana, Pretoria: the Myrrh, Olive, and Garden. Built for gatherings of 20–40 people and nothing larger.",
+            },
+          ].map(({ yr, t, b }) => (
+            <div class="timeline-item reveal">
+              <span class="timeline-year">{yr}</span>
+              <div class="timeline-content">
+                <h3 class="timeline-title">{t}</h3>
+                <p class="timeline-body">{b}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="text-align:center;">
+    <div class="wrap reveal">
+      <span class="label" style="display:block;margin-bottom:1rem;"
+        >Come see the space</span
+      >
+      <h2 class="section-title" style="margin-bottom:1.25rem;">
+        We'd love to show you around.
+      </h2>
+      <p class="section-body" style="max-width:460px;margin:0 auto 2rem;">
+        The best way to know if it's right for your event is to visit. Book a
+        site visit and we'll walk you through all three suites.
+      </p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <Button href="/contact" variant="accent">Book a Site Visit</Button>
+        <Button href="/gallery" variant="outline">View the Gallery</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .story-grid {
+    display: grid;
+    gap: clamp(3rem, 6vw, 6rem);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 900px) {
+    .story-grid {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+  }
+
+  .story-image {
+    border-radius: 10px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ebe4dc, #d8d0c4);
+    aspect-ratio: 4/5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .story-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .story-image:hover img {
+    transform: scale(1.04);
+  }
+
+  .story-image-label {
+    font-size: var(--text-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #8c8578;
+    opacity: 0.4;
+  }
+  .story-image-caption {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    padding: 10px 16px;
+    border-radius: 2px;
+    font-size: var(--text-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+  }
+
+  .story-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+  .story-quote {
+    font-family: "Tenor Sans", serif;
+    font-size: clamp(1.125rem, 2.5vw, 1.625rem);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    color: #1a1a1a;
+    border-left: 1.5px solid #8b6448;
+    padding-left: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .story-body {
+    font-size: var(--text-body);
+    color: #8c8578;
+    line-height: 1.8;
+  }
+
+  .values-grid {
+    display: grid;
+    gap: 1px;
+    background: #e0ddd8;
+    border: 0.5px solid #e0ddd8;
+    border-radius: 10px;
+    overflow: hidden;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .values-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .values-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .value-card {
+    background: #ffffff;
+    padding: clamp(1.5rem, 4vw, 2.25rem) clamp(1.25rem, 3.5vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: background 0.2s;
+  }
+  .value-card:hover {
+    background: #f5f2ee;
+  }
+  .value-num {
+    font-size: var(--text-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #8c8578;
+  }
+  .value-title {
+    font-family: "Tenor Sans", serif;
+    font-size: 1.125rem;
+    letter-spacing: 0.04em;
+  }
+  .value-body {
+    font-size: var(--text-sm);
+    color: #8c8578;
+    line-height: 1.65;
+  }
+
+  .partner-strip {
+    background: #8b6448;
+    border-radius: 10px;
+    padding: clamp(2.5rem, 5vw, 4rem);
+    overflow: hidden;
+    position: relative;
+  }
+  .partner-strip::before {
+    content: "Oaón";
+    position: absolute;
+    right: -1rem;
+    bottom: -1rem;
+    font-family: "Tenor Sans", serif;
+    font-size: clamp(6rem, 15vw, 12rem);
+    letter-spacing: -0.02em;
+    color: transparent;
+    -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.08);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+  .partner-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 2.5rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 900px) {
+    .partner-inner {
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+  }
+
+  .partner-label {
+    font-size: var(--text-xs);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .partner-heading {
+    font-family: "Tenor Sans", serif;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1.15;
+    color: white;
+    margin-bottom: 1.25rem;
+  }
+  .partner-body {
+    font-size: var(--text-body);
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.75;
+  }
+  .partner-heading-link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: rgba(255, 255, 255, 0.35);
+    transition: text-decoration-color 0.2s;
+  }
+  .partner-heading-link:hover { text-decoration-color: rgba(255, 255, 255, 0.85); }
+  .partner-body-link {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(255, 255, 255, 0.3);
+    transition: color 0.2s, text-decoration-color 0.2s;
+  }
+  .partner-body-link:hover { color: #fff; text-decoration-color: rgba(255, 255, 255, 0.7); }
+
+  .btn-white {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    font-family: "Tenor Sans", serif;
+    font-size: var(--text-xs);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0 32px;
+    border-radius: 2px;
+    background: white;
+    color: #1a1a1a;
+    transition: background 0.2s;
+  }
+  .btn-white:hover {
+    background: #f5f2ee;
+  }
+  .btn-white:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.7);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .partner-features {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .partner-feature {
+    padding: 1.125rem 0;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .partner-feature:first-child {
+    border-top: 0.5px solid rgba(255, 255, 255, 0.1);
+  }
+  .partner-feature-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+  .partner-feature-text {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.5;
+  }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .timeline-item {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 0.5px solid #e0ddd8;
+  }
+  .timeline-item:first-child {
+    border-top: 0.5px solid #e0ddd8;
+  }
+  .timeline-year {
+    font-family: "Tenor Sans", serif;
+    font-size: 1.125rem;
+    letter-spacing: 0.04em;
+    color: #8c8578;
+    flex-shrink: 0;
+    min-width: 60px;
+    padding-top: 2px;
+  }
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+  .timeline-title {
+    font-family: "Tenor Sans", serif;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+  }
+  .timeline-body {
+    font-size: var(--text-sm);
+    color: #8c8578;
+    line-height: 1.6;
+  }
+
+  .section-title {
+    font-family: "Tenor Sans", serif;
+    font-size: var(--text-h2);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+    color: #1a1a1a;
+  }
+  .section-body {
+    font-size: var(--text-body);
+    color: #8c8578;
+    line-height: 1.75;
+  }
+</style>

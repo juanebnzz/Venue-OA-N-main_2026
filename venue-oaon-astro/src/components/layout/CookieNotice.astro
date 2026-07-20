@@ -1,0 +1,98 @@
+---
+---
+
+<div id="cookie-notice" class="cookie-notice" role="region" aria-label="Cookie notice">
+  <p class="cookie-text">
+    This site uses Google Fonts, which may load resources from Google's servers.
+    See our <a href="/privacy-policy">Privacy Policy</a> for details.
+  </p>
+  <button id="cookie-dismiss" class="cookie-btn" aria-label="Dismiss cookie notice">
+    Got it
+  </button>
+</div>
+
+<script>
+  const notice = document.getElementById('cookie-notice');
+  const btn = document.getElementById('cookie-dismiss');
+
+  if (localStorage.getItem('cookie-notice-dismissed') === 'true') {
+    notice?.remove();
+  } else {
+    // Reserve space so the fixed notice never covers form fields / buttons
+    document.body.classList.add('has-cookie-notice');
+  }
+
+  btn?.addEventListener('click', () => {
+    localStorage.setItem('cookie-notice-dismissed', 'true');
+    document.body.classList.remove('has-cookie-notice');
+    notice?.classList.add('hiding');
+    setTimeout(() => notice?.remove(), 300);
+  });
+</script>
+
+<style>
+  .cookie-notice {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    background: #1A1A1A;
+    border: 0.5px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+    padding: 0.875rem 1.25rem;
+    width: calc(100% - 2rem);
+    max-width: 640px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  /* Notice is position:fixed, so pad the page to match its footprint */
+  :global(body.has-cookie-notice) {
+    padding-bottom: 7rem;
+  }
+  @media (min-width: 680px) {
+    :global(body.has-cookie-notice) {
+      padding-bottom: 5.5rem;
+    }
+  }
+  .cookie-notice.hiding {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0.5rem);
+  }
+  .cookie-text {
+    font-size: 0.8125rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.5;
+    flex: 1;
+    margin: 0;
+  }
+  .cookie-text a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .cookie-text a:hover { color: #fff; }
+  .cookie-btn {
+    flex-shrink: 0;
+    background: transparent;
+    border: 0.5px solid rgba(255,255,255,0.3);
+    border-radius: 4px;
+    color: rgba(255,255,255,0.85);
+    font-size: 0.8125rem;
+    padding: 0.375rem 0.875rem;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+  .cookie-btn:hover {
+    border-color: rgba(255,255,255,0.65);
+    color: #fff;
+  }
+  .cookie-btn:focus-visible {
+    outline: 2px solid rgba(255,255,255,0.5);
+    outline-offset: 2px;
+  }
+</style>

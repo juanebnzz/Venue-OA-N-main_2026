@@ -1,0 +1,364 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import Button from '../components/ui/Button.astro';
+
+// 1. Get all images from the gallery directory
+const galleryDir = path.resolve('public/images/gallery');
+const filenames = fs.readdirSync(galleryDir)
+  .filter(f => f.toLowerCase().endsWith('.jpg') || f.toLowerCase().endsWith('.png'))
+  .sort();
+
+// 2. Define manual metadata for specific images (the ones we know)
+const manualMetadata: Record<string, any> = {
+  'IMG_5139.jpg': { suite:'myrrh',  name:'Myrrh Suite',         type:'Indoor · 30–40 pax',    label:'Myrrh Suite · Detail',           ar:'4/5'  },
+  'IMG_5142.jpg': { suite:'olive',  name:'Olive Suite',          type:'In/Out · 20–30 pax',    label:'Olive Suite · Patio',           ar:'3/4'  },
+  'IMG_5146.jpg': { suite:'garden', name:'Garden Suite',         type:'Outdoor · 30–40 pax',   label:'Garden Suite · Exterior',        ar:'1/1'  },
+  'IMG_5147.jpg': { suite:'events', name:'Signature Package',    type:'Events & Décor',        label:'Event setup · Signature',       ar:'4/3'  },
+  'IMG_5149.jpg': { suite:'myrrh',  name:'Myrrh Suite',          type:'Indoor · Detail',       label:'Myrrh Suite · Decor',           ar:'3/4'  },
+  'IMG_5151.jpg': { suite:'events', name:'Balloon Installation', type:'Events & Décor',        label:'Balloon arch · Decor',          ar:'5/4'  },
+  'IMG_5154.jpg': { suite:'garden', name:'Garden Suite',         type:'Outdoor · Detail',      label:'Garden Suite · Details',         ar:'4/5'  },
+  'IMG_5157.jpg': { suite:'olive',  name:'Olive Suite: Patio',   type:'In/Out · Detail',       label:'Olive Suite · Patio View',      ar:'3/2'  },
+  'IMG_5168.jpg': { suite:'events', name:'Table Styling',        type:'Events & Décor',        label:'Table styling · Detail',        ar:'1/1'  },
+  'IMG_5174.jpg': { suite:'myrrh',  name:'Myrrh Suite',          type:'Indoor · Wide angle',   label:'Myrrh Suite · Interior',        ar:'4/5'  },
+  'IMG_5181.jpg': { suite:'garden', name:'Garden Suite',         type:'Outdoor · Wide angle',  label:'Garden Suite · Wide Shot',      ar:'3/4'  },
+  'IMG_5182.jpg': { suite:'events', name:'Floral Centrepiece',   type:'Events & Décor',        label:'Floral styling · Detail',       ar:'5/4'  },
+};
+
+// 3. Construct the final items list
+const items = filenames.map((filename, i) => {
+  const manual = manualMetadata[filename];
+  if (manual) {
+    return { ...manual, idx: i, image: `/images/gallery/${filename}` };
+  }
+  // Default metadata for unknown images
+  return {
+    suite: 'events', // Defaulting to events/general
+    idx: i,
+    name: 'Venue Detail',
+    type: 'Gallery Exploration',
+    image: `/images/gallery/${filename}`,
+    label: 'Venue Oaón Gallery Image',
+    ar: i % 2 === 0 ? '4/5' : '1/1' // Varied aspect ratios for masonry feel
+  };
+});
+
+const INITIAL_BATCH = 12;
+---
+
+<BaseLayout
+  title="Gallery | Venue Oaón Suites — Montana, Pretoria"
+  description="Browse photos of Venue Oaón's three suites in Montana, Pretoria — The Myrrh, Olive and Garden Suite. See the space before you book a site visit."
+  ogImage="/images/hero_bg_1.jpg"
+>
+  <PageHero
+    eyebrow="The Venue"
+    title="See the space<br />come to life."
+    minHeight="36vh"
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="reveal" style="margin-bottom:2rem;max-width:560px;">
+        <p class="section-body">Photos will be updated as the venue grows. Book a site visit to experience the suites in person: nothing replaces standing in the space.</p>
+      </div>
+
+      <!-- Filter tabs -->
+      <div class="filter-bar reveal" role="group" aria-label="Filter gallery by suite">
+        <button class="filter-btn active" data-filter="all">All Spaces</button>
+        <button class="filter-btn" data-filter="myrrh">Myrrh Suite</button>
+        <button class="filter-btn" data-filter="olive">Olive Suite</button>
+        <button class="filter-btn" data-filter="garden">Garden Suite</button>
+        <button class="filter-btn" data-filter="events">Events & Décor</button>
+      </div>
+
+      <!-- Masonry grid -->
+      <div class="gallery-grid" id="gallery">
+        {items.map(({ suite, idx, name, type, image, label, ar }, i) => (
+          <div
+            class="gallery-item reveal"
+            data-suite={suite}
+            data-index={idx}
+            role="button"
+            tabindex="0"
+            aria-label={`${name}: click to enlarge`}
+            style={i >= INITIAL_BATCH ? "display: none;" : ""}
+          >
+            <div class="gallery-item-inner">
+              <div
+                class="gallery-item-bg"
+                style={`aspect-ratio:${ar};position:relative;background:#f5f4f0;`}
+              >
+                <img src={image} alt={label} class="gallery-img" loading="lazy" />
+              </div>
+              <div class="gallery-item-overlay">
+                <div class="gallery-item-meta">
+                  <span class="gallery-item-name">{name}</span>
+                  <span class="gallery-item-type">{type}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="gallery-empty" id="gallery-empty">
+        <p>Photos for this suite are coming soon.</p>
+      </div>
+
+      <!-- Load More Button -->
+      <div class="load-more-container" id="load-more-wrapper">
+        <button id="load-more-btn" class="load-more-btn">
+          <span>Load More Images</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 4V16M10 16L15 11M10 16L5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-label="Photo lightbox" aria-modal="true">
+    <button class="lightbox-close" id="lb-close" aria-label="Close lightbox">✕</button>
+    <div class="lightbox-inner">
+      <div id="lb-ph" style="width:100%;border-radius:6px;min-height:60vh;display:flex;align-items:center;justify-content:center;"></div>
+      <div class="lightbox-caption">
+        <div>
+          <span class="lightbox-name" id="lb-name"></span>
+          <span class="lightbox-type" id="lb-type"></span>
+        </div>
+        <div class="lightbox-nav">
+          <button id="lb-prev" aria-label="Previous photo">←</button>
+          <button id="lb-next" aria-label="Next photo">→</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="section section--linen" style="text-align:center;">
+    <div class="wrap reveal">
+      <span class="label" style="display:block;margin-bottom:1rem;">Like what you see?</span>
+      <h2 class="section-title" style="margin-bottom:1.25rem;">Come experience it in person.</h2>
+      <p class="section-body" style="max-width:460px;margin:0 auto 2rem;">Photos only tell part of the story. Book a site visit and we'll walk you through every suite.</p>
+      <Button href="/contact" variant="accent">Book a Site Visit</Button>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .filter-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: clamp(2.5rem,5vw,4rem); }
+  .filter-btn {
+    font-family: Inter, sans-serif; font-size: var(--text-xs); letter-spacing: 0.16em;
+    text-transform: uppercase; padding: 0 16px; border-radius: 2px;
+    border: 0.5px solid #E0DDD8; background: transparent; color: #8C8578;
+    cursor: pointer; transition: all 0.2s;
+    min-height: 44px;
+    display: inline-flex; align-items: center;
+  }
+  @media (max-width: 480px) {
+    .filter-btn { padding: 0 12px; letter-spacing: 0.1em; }
+  }
+  .filter-btn:hover { border-color: #8C8578; color: #1A1A1A; }
+  .filter-btn.active { background: #1A1A1A; color: #FFFFFF; border-color: #1A1A1A; }
+  .filter-btn:focus-visible { outline: 2px solid #8B6448; outline-offset: 2px; }
+
+  .gallery-grid { columns: 1; column-gap: 1rem; }
+  @media (min-width: 640px)  { .gallery-grid { columns: 2; } }
+  @media (min-width: 1024px) { .gallery-grid { columns: 3; } }
+
+  .gallery-item {
+    break-inside: avoid; margin-bottom: 1rem;
+    position: relative; border-radius: 8px; overflow: hidden;
+    cursor: pointer; transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  /* Optimization: only items with .in or children of reveal get shown if we want fade in */
+  .gallery-item-inner  { position: relative; overflow: hidden; }
+  .gallery-item-bg     { width: 100%; display: block; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+
+  .gallery-img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+
+  .gallery-item-overlay {
+    position: absolute; inset: 0; background: rgba(26,26,26,0);
+    display: flex; align-items: flex-end; padding: 1.5rem; transition: background 0.3s ease;
+  }
+  .gallery-item-meta   { opacity: 0; transform: translateY(12px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+
+  @media (hover: hover) {
+    .gallery-item:hover .gallery-item-bg { transform: scale(1.05); }
+    .gallery-item:hover .gallery-item-overlay { background: rgba(26,26,26,0.4); }
+    .gallery-item:hover .gallery-item-meta { opacity: 1; transform: translateY(0); }
+  }
+  @media (hover: none) {
+    .gallery-item-overlay { background: linear-gradient(to top, rgba(26,26,26,0.45) 0%, transparent 60%); }
+    .gallery-item-meta { opacity: 1; transform: translateY(0); }
+  }
+  .gallery-item-name   { font-family: 'Tenor Sans', serif; font-size: 0.9375rem; letter-spacing: 0.04em; color: white; display: block; }
+  .gallery-item-type   { font-size: var(--text-xs); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.8); }
+
+  .gallery-empty { display: none; text-align: center; padding: 5rem 0; width: 100%; grid-column: 1 / -1; }
+  .gallery-empty.show { display: block; }
+  .gallery-empty p { font-size: var(--text-body); color: #8C8578; }
+
+  .load-more-container {
+    display: flex; justify-content: center; margin-top: 4rem; margin-bottom: 2rem; width: 100%;
+  }
+  .load-more-btn {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    font-family: Inter, sans-serif; font-size: var(--text-xs); letter-spacing: 0.2em;
+    text-transform: uppercase; padding: 1rem 2.5rem; border: 1px solid #1A1A1A;
+    background: transparent; color: #1A1A1A; cursor: pointer; border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  .load-more-btn:hover { background: #1A1A1A; color: white; }
+  .load-more-btn svg { transition: transform 0.3s ease; }
+  .load-more-btn:hover svg { transform: translateY(2px); }
+
+  .lightbox {
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(20,20,18,0.98); backdrop-filter: blur(12px);
+    display: none; align-items: center; justify-content: center;
+    padding: calc(1.5rem + env(safe-area-inset-top, 0px)) 1.5rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
+  }
+  .lightbox.open { display: flex; }
+  .lightbox-inner { max-width: 1100px; width: 100%; position: relative; animation: lb-in 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+  @keyframes lb-in {
+    from { opacity: 0; transform: scale(0.98) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .lightbox-close {
+    position: fixed;
+    top: calc(1.5rem + env(safe-area-inset-top, 0px));
+    right: calc(1.5rem + env(safe-area-inset-right, 0px));
+    background: rgba(255,255,255,0.05); border: none; cursor: pointer;
+    width: 48px; height: 48px; border-radius: 50%; display: flex;
+    align-items: center; justify-content: center; color: white;
+    transition: background 0.2s; font-size: 1.25rem; z-index: 10;
+  }
+  .lightbox-close:hover { background: rgba(255,255,255,0.15); }
+  .lightbox-caption { margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+  .lightbox-name { font-family: 'Tenor Sans', serif; font-size: 1.125rem; letter-spacing: 0.04em; color: white; }
+  .lightbox-type { font-size: var(--text-xs); letter-spacing: 0.14em; text-transform: uppercase; color: #8C8578; margin-left: 1rem; }
+  .lightbox-nav  { display: flex; gap: 1rem; flex-shrink: 0; }
+  .lightbox-nav button {
+    background: rgba(255,255,255,0.05); border: none; cursor: pointer;
+    width: 48px; height: 48px; border-radius: 50%; display: flex;
+    align-items: center; justify-content: center; color: white; transition: all 0.2s;
+  }
+  .lightbox-nav button:hover { background: rgba(255,255,255,0.15); }
+  @media (max-width: 640px) {
+    .lightbox-caption { flex-direction: column; align-items: flex-start; gap: 1rem; margin-top: 1rem; }
+    .lightbox-type { margin-left: 0; }
+    .lightbox-nav { align-self: flex-end; }
+  }
+
+  .section-title { font-family: 'Tenor Sans', serif; font-size: var(--text-h2); font-weight: 400; letter-spacing: 0.02em; line-height: 1.1; color: #1A1A1A; }
+  .section-body  { font-size: var(--text-body); color: #8C8578; line-height: 1.75; }
+</style>
+
+<script>
+  const galleryItems = document.querySelectorAll('.gallery-item') as NodeListOf<HTMLElement>;
+  const itemsData = Array.from(galleryItems).map(item => ({
+    name: item.querySelector('.gallery-item-name')?.textContent || '',
+    type: item.querySelector('.gallery-item-type')?.textContent || '',
+    image: item.querySelector('img')?.src || ''
+  }));
+
+  const filterBtns   = document.querySelectorAll('.filter-btn');
+  const emptyState   = document.getElementById('gallery-empty')!;
+  const loadMoreBtn  = document.getElementById('load-more-btn')!;
+  const loadMoreWrap = document.getElementById('load-more-wrapper')!;
+  
+  let currentFilter = 'all';
+  let visibleCount = 12;
+  const BATCH_SIZE = 12;
+
+  function updateGallery() {
+    let matchesFound = 0;
+
+    galleryItems.forEach((item) => {
+      const suite = item.dataset.suite;
+      const matchesFilter = currentFilter === 'all' || suite === currentFilter;
+      
+      if (matchesFilter) {
+        matchesFound++;
+        if (matchesFound <= visibleCount) {
+          item.style.display = 'block';
+          // Ensure reveal animation triggers
+          setTimeout(() => item.classList.add('in'), 10);
+        } else {
+          item.style.display = 'none';
+        }
+      } else {
+        item.style.display = 'none';
+      }
+    });
+
+    emptyState.classList.toggle('show', matchesFound === 0);
+    loadMoreWrap.style.display = matchesFound > visibleCount ? 'flex' : 'none';
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = (btn as HTMLElement).dataset.filter!;
+      visibleCount = BATCH_SIZE;
+      updateGallery();
+    });
+  });
+
+  loadMoreBtn.addEventListener('click', () => {
+    visibleCount += BATCH_SIZE;
+    updateGallery();
+  });
+
+  // Lightbox
+  let currentLbIdx = 0;
+  const lb     = document.getElementById('lightbox')!;
+  const lbPh   = document.getElementById('lb-ph')!;
+  const lbName = document.getElementById('lb-name')!;
+  const lbType = document.getElementById('lb-type')!;
+
+  function openLightbox(idx: number) {
+    currentLbIdx = idx;
+    const d = itemsData[idx];
+    lbPh.innerHTML = `<img src="${d.image}" alt="${d.name}" style="max-width:100%;max-height:80vh;object-fit:contain;border-radius:4px;box-shadow: 0 20px 40px rgba(0,0,0,0.3);">`;
+    lbName.textContent = d.name;
+    lbType.textContent = d.type;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  galleryItems.forEach(item => {
+    item.addEventListener('click', () => openLightbox(parseInt(item.dataset.index!)));
+    item.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') openLightbox(parseInt(item.dataset.index!));
+    });
+  });
+
+  document.getElementById('lb-close')!.addEventListener('click', closeLightbox);
+  lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+  document.getElementById('lb-prev')!.addEventListener('click', () => openLightbox((currentLbIdx - 1 + itemsData.length) % itemsData.length));
+  document.getElementById('lb-next')!.addEventListener('click', () => openLightbox((currentLbIdx + 1) % itemsData.length));
+
+  document.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowLeft')  document.getElementById('lb-prev')?.click();
+    if (e.key === 'ArrowRight') document.getElementById('lb-next')?.click();
+  });
+
+  updateGallery();
+</script>
+
