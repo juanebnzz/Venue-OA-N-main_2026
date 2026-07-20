@@ -252,7 +252,7 @@ const schema = {
 
   .story-image {
     border-radius: 10px;
-    overflow: hidden;
+    overflow: hidden; overflow: clip;
     background: linear-gradient(135deg, #ebe4dc, #d8d0c4);
     aspect-ratio: 4/5;
     display: flex;
@@ -318,7 +318,7 @@ const schema = {
     background: #e0ddd8;
     border: 0.5px solid #e0ddd8;
     border-radius: 10px;
-    overflow: hidden;
+    overflow: hidden; overflow: clip;
     grid-template-columns: 1fr;
   }
   @media (min-width: 640px) {
@@ -363,7 +363,7 @@ const schema = {
     background: #8b6448;
     border-radius: 10px;
     padding: clamp(2.5rem, 5vw, 4rem);
-    overflow: hidden;
+    overflow: hidden; overflow: clip;
     position: relative;
   }
   .partner-strip::before {

@@ -44,7 +44,7 @@ import Button from "../ui/Button.astro";
   .hero {
     position: relative;
     min-height: 100vh;
-    overflow: hidden;
+    overflow: hidden; overflow: clip;
     padding-top: var(--nav-h);
     display: flex;
     align-items: flex-end;
@@ -56,7 +56,7 @@ import Button from "../ui/Button.astro";
     inset: 0;
     z-index: 0;
     transform: scale(1.03);
-    overflow: hidden;
+    overflow: hidden; overflow: clip;
   }
 
   /* Dual-axis overlay: left-column gradient for text legibility (WCAG 4.5:1)
