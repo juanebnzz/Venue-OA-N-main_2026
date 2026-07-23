@@ -217,11 +217,23 @@ const WA_NUMBER = "27761823532";
     overflow-y: auto;
     overscroll-behavior: contain;
     transform: translateY(100%);
-    transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+    /* A closed modal must not be a hit-target. On desktop it is only
+       `opacity: 0` over the centre of the viewport, so without this it
+       swallows every click and hover in the middle of every page.
+       `visibility` is delayed by the transition duration so the close
+       animation still plays out before the modal is removed from hit-testing. */
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      transform 0.35s cubic-bezier(0.32, 0.72, 0, 1),
+      visibility 0s linear 0.35s;
     -webkit-overflow-scrolling: touch;
   }
   .wa-modal.is-open {
     transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
   }
   /* Desktop: centered card */
   @media (min-width: 600px) {
@@ -234,12 +246,16 @@ const WA_NUMBER = "27761823532";
       max-height: min(90dvh, 780px);
       border-radius: 16px;
       transform: translate(-50%, -40%) scale(0.97);
-      transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.3s ease;
+      transition:
+        transform 0.3s cubic-bezier(0.32, 0.72, 0, 1),
+        opacity 0.3s ease,
+        visibility 0s linear 0.3s;
       opacity: 0;
     }
     .wa-modal.is-open {
       transform: translate(-50%, -50%) scale(1);
       opacity: 1;
+      transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.3s ease;
     }
   }
 
