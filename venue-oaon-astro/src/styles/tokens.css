@@ -35,6 +35,14 @@
   --accent-muted:  #B89882;
   --divider:       #E0DDD8;
 
+  /* Dark surfaces — elevation ladder.
+     The CTA band sits "above" the footer: warmer + lighter = active surface.
+     The footer is the deepest, coolest surface: it recedes and terminates the page. */
+  --surface-cta:    #33281F;  /* warm espresso, hue-matched to --accent */
+  --surface-footer: #121212;  /* neutral near-black */
+  --seam:           rgba(184, 152, 130, 0.18); /* warm hairline at the surface change */
+  --stone-light:    #C9C1B5;  /* muted text that still clears 4.5:1 on --surface-cta */
+
   /* Intentional easing curves */
   --ease-out-strong:    cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);

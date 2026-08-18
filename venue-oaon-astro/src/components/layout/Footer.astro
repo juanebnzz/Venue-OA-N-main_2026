@@ -9,12 +9,12 @@ const year = new Date().getFullYear();
       <!-- Brand -->
       <div>
         <img
+          class="footer-logo"
           src="/images/venue-oaon-logo.png"
           alt="Venue Oaón Logo"
-          width="120"
-          height="54"
+          width="1285"
+          height="791"
           loading="lazy"
-          style="height:54px;width:auto;object-fit:contain;margin-bottom:1.5rem;"
         />
         <p class="footer-tagline">
           An intimate event space in Montana, Pretoria for small,
@@ -68,9 +68,23 @@ const year = new Date().getFullYear();
 
 <style>
   .footer {
-    background: #1A1A1A;
+    /* Deepest surface in the dark ladder: recedes beneath the CTA band above it. */
+    background: var(--surface-footer);
     color: #FFFFFF;
+    /* Explicit seam so the surface change reads as an edge, not a gradient. */
+    border-top: 1px solid var(--seam);
     padding: clamp(4rem,8vw,6rem) 0 2rem;
+  }
+  /* The mark is drawn in near-black ink, so it vanishes on a dark surface.
+     Flatten it to pure white and hold it just under 100% so it sits at the
+     same visual weight as the type around it rather than shouting. */
+  .footer-logo {
+    height: 64px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 1.5rem;
+    filter: brightness(0) invert(1);
+    opacity: 0.92;
   }
   .footer-grid {
     display: grid;

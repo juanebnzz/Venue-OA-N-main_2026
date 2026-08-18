@@ -96,7 +96,9 @@ const WA_NUMBER = "27761823532";
 
 <style>
   .inquiry-strip {
-    background: #1a1a1a;
+    /* Elevated surface: warmer and lighter than the footer beneath it, so the
+       page reads as "act here" → "page ends here" instead of one dark slab. */
+    background: var(--surface-cta);
     padding: clamp(4rem, 8vw, 7rem) 0;
   }
   .inquiry-strip-inner {
@@ -116,7 +118,7 @@ const WA_NUMBER = "27761823532";
     font-size: var(--text-xs);
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: #8c8578;
+    color: var(--stone-light);
     display: block;
     margin-bottom: 1rem;
   }
@@ -133,7 +135,7 @@ const WA_NUMBER = "27761823532";
   }
   .inquiry-strip-sub {
     font-size: var(--text-body);
-    color: #8c8578;
+    color: var(--stone-light);
     line-height: 1.75;
   }
 
@@ -172,12 +174,12 @@ const WA_NUMBER = "27761823532";
   .inquiry-strip select,
   .inquiry-strip textarea {
     background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.28);
+    border-color: rgba(255, 255, 255, 0.38);
     color: #ffffff;
   }
   .inquiry-strip input::placeholder,
   .inquiry-strip textarea::placeholder {
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.42);
   }
   .inquiry-strip input:focus,
   .inquiry-strip select:focus,
@@ -192,7 +194,7 @@ const WA_NUMBER = "27761823532";
     color: rgba(255, 255, 255, 0.85);
   }
   .inquiry-strip select option {
-    background: #1a1a1a;
+    background: var(--surface-cta);
   }
 
   .btn-submit {
@@ -202,7 +204,7 @@ const WA_NUMBER = "27761823532";
     text-transform: uppercase;
     padding: 0 32px;
     border-radius: 2px;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.14);
     background: #8b6448;
     color: #ffffff;
     min-height: 48px;
@@ -217,10 +219,10 @@ const WA_NUMBER = "27761823532";
 
   .inquiry-note {
     font-size: var(--text-sm);
-    color: #8c8578;
+    color: var(--stone-light);
     margin-top: 1.25rem;
   }
-  /* Boosted from 0.45 → 0.82 for ≥4.5:1 contrast ratio on #1a1a1a bg */
+  /* 0.82 white keeps this link ≥4.5:1 on --surface-cta */
   .inquiry-note a {
     color: rgba(255, 255, 255, 0.82);
     text-decoration: underline;
