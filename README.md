@@ -89,11 +89,11 @@ Dropping new photos into `public/images/gallery/` and rebuilding is enough to pu
 
 Both the homepage `InquiryStrip` and the full form on `/contact` submit via `fetch` to [Web3Forms](https://web3forms.com) (`https://api.web3forms.com/submit`). Each form carries:
 
-- a hidden `access_key` identifying the Web3Forms inbox,
+- a hidden `access_key` identifying the Web3Forms inbox, sourced from `WEB3FORMS_ACCESS_KEY` in `src/config.ts`,
 - a hidden `subject` line,
 - a hidden `botcheck` honeypot field.
 
-Submission is intercepted client-side: constraint validation runs manually (the forms use `novalidate`), the request is aborted after a 15-second timeout, and success/error panels are toggled in place. Because the key is embedded in the markup, rotating it means editing both `src/components/sections/InquiryStrip.astro` and `src/pages/contact.astro`.
+Submission is intercepted client-side: constraint validation runs manually (the forms use `novalidate`), the request is aborted after a 15-second timeout, and success/error panels are toggled in place. The access key is public by design (it is rendered into the page HTML), so it lives in `src/config.ts` rather than a secret store; abuse protection comes from the domain allowlist on the Web3Forms dashboard plus the honeypot. Rotating it means editing that one constant, or setting `PUBLIC_WEB3FORMS_KEY` in the environment to override it (see `.env.example`).
 
 A floating WhatsApp button (`WhatsAppButton.astro`) opens a modal that deep-links to `wa.me` with a prefilled message.
 
@@ -111,6 +111,17 @@ Fonts are loaded non-blocking from Google Fonts via a `media="print"` / `onload`
 `BaseLayout.astro` centralises the head: canonical URLs, Open Graph and Twitter cards, `en-ZA` hreflang, geo meta tags for local search, PWA manifest and favicons. Pages pass structured data through the `head` slot as JSON-LD — `LocalBusiness`/`EventVenue` on the home page, `ContactPage` plus a full `FAQPage` on contact.
 
 `@astrojs/sitemap` generates `sitemap-index.xml` with per-page priorities and change frequencies set in `astro.config.mjs`; legal pages and `404` are filtered out there and disallowed in `robots.txt`.
+
+### Analytics
+
+**The site runs no analytics.** There is no Google Analytics, no tag manager and no tracking pixel in the codebase, and the Privacy Policy no longer describes any. The `CookieNotice` banner covers Google Fonts only.
+
+If the client asks for analytics later, whoever takes over the site must do both halves of the job:
+
+1. **Install the provider** — add the tag/script (e.g. via `BaseLayout.astro`, which owns the `<head>`), and confirm it fires in production.
+2. **Restore the matching policy language** in `src/pages/privacy-policy.astro` — a section describing the provider, what it collects and how to opt out, plus a corresponding update to the **Cookies** section, which currently states that the site sets no analytics cookies. Sections are numbered sequentially, so inserting one means renumbering those below it. Bump `effectiveDate` at the top of the file, and revisit the `CookieNotice` wording if the provider sets cookies.
+
+Shipping analytics without the policy update would leave the published policy inaccurate under POPIA.
 
 ---
 

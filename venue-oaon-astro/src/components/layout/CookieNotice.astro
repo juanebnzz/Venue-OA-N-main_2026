@@ -1,9 +1,16 @@
 ---
+// Kept in step with what the site actually loads: Google Fonts always, plus
+// Google Analytics only when PUBLIC_GA_MEASUREMENT_ID is set (see BaseLayout).
+const analyticsEnabled = Boolean(import.meta.env.PUBLIC_GA_MEASUREMENT_ID);
 ---
 
 <div id="cookie-notice" class="cookie-notice" role="region" aria-label="Cookie notice">
   <p class="cookie-text">
-    This site uses Google Fonts, which may load resources from Google's servers.
+    {
+      analyticsEnabled
+        ? "This site uses Google Fonts and Google Analytics, which may load resources from Google's servers and set analytics cookies."
+        : "This site uses Google Fonts, which may load resources from Google's servers."
+    }
     See our <a href="/privacy-policy">Privacy Policy</a> for details.
   </p>
   <button id="cookie-dismiss" class="cookie-btn" aria-label="Dismiss cookie notice">

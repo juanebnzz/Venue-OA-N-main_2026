@@ -1,0 +1,19 @@
+Copyright © 2026 Venue Oaón. All rights reserved.
+
+This repository contains the source code, design and photography for the Venue
+Oaón website (https://venueoaon.co.za). It is proprietary and is published for
+the purposes of development, deployment and handover only.
+
+No permission is granted to copy, modify, distribute, republish, or create
+derivative works from any part of this repository, in whole or in part, without
+the prior written consent of Venue Oaón.
+
+The photography in `venue-oaon-astro/public/images/` — including all images
+under `gallery/` — is commissioned work depicting the venue and the events held
+there. It is expressly excluded from any reuse, and may not be reproduced or
+redistributed in any medium.
+
+Third-party dependencies retain their own licences. Astro, Tailwind CSS and the
+packages listed in `venue-oaon-astro/package.json` are used under the terms
+published by their respective authors; nothing in this notice affects those
+rights.

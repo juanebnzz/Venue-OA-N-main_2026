@@ -1,4 +1,6 @@
 ---
+import { WEB3FORMS_ACCESS_KEY } from "../../config";
+
 const WA_NUMBER = "27761823532";
 ---
 
@@ -15,11 +17,7 @@ const WA_NUMBER = "27761823532";
     </div>
 
     <form id="inquiry-form" method="POST" class="reveal d2">
-      <input
-        type="hidden"
-        name="access_key"
-        value="a99d482b-7729-4551-8bb6-08de2e564d4a"
-      />
+      <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
       <input type="hidden" name="subject" value="New Enquiry: Venue Oaón" />
       <input type="checkbox" name="botcheck" style="display:none" />
 

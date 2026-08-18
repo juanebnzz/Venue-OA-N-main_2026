@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../components/layout/BaseLayout.astro";
 import PageHero from "../components/sections/PageHero.astro";
+import { WEB3FORMS_ACCESS_KEY } from "../config";
 
 const WA_NUMBER = "27761823532";
 const WA_MSG = encodeURIComponent("Hi, I'd like to enquire about Venue Oaón");
@@ -54,7 +55,6 @@ const schema = {
 <BaseLayout
   title="Contact & Enquiries | Venue Oaón Montana Pretoria"
   description="Book a site visit or enquire about Venue Oaón in Montana, Pretoria. Baby showers, kitchen teas, bridal showers & birthdays. We respond within 24 hours."
-  ogImage="/images/hero_bg_1.jpg"
 >
   <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
   <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
@@ -259,7 +259,7 @@ const schema = {
             <input
               type="hidden"
               name="access_key"
-              value="a99d482b-7729-4551-8bb6-08de2e564d4a"
+              value={WEB3FORMS_ACCESS_KEY}
             />
             <input
               type="hidden"

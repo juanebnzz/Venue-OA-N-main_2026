@@ -57,12 +57,32 @@ function readSize(file: string): { w: number; h: number } | null {
   return null;
 }
 
+// 2c. Collect the WebP derivatives `npm run optimize:images` wrote next to each
+// original. Anything narrower than a given width has no variant at that width
+// (we never upscale), so the srcset is built from whatever actually exists.
+const DERIVATIVE_WIDTHS = [640, 1280];
+
+function webpSources(filename: string) {
+  const stem = filename.replace(/\.[^.]+$/, '');
+  return DERIVATIVE_WIDTHS
+    .map((width) => ({ width, file: `${stem}-${width}.webp` }))
+    .filter(({ file }) => fs.existsSync(path.join(galleryDir, file)))
+    .map(({ width, file }) => ({
+      width,
+      src: `/images/gallery/${encodeURIComponent(file)}`,
+    }));
+}
+
 // 3. Construct the final items list
 const items = filenames.map((filename, i) => {
   const size = readSize(path.join(galleryDir, filename));
+  const sources = webpSources(filename);
   const base = {
     idx: i,
     image: `/images/gallery/${encodeURIComponent(filename)}`,
+    // Largest available WebP, used by the lightbox; falls back to the original.
+    full: sources.at(-1)?.src ?? `/images/gallery/${encodeURIComponent(filename)}`,
+    srcset: sources.map(({ src, width }) => `${src} ${width}w`).join(', '),
     w: size?.w ?? 4,
     h: size?.h ?? 5,
   };
@@ -86,7 +106,6 @@ const INITIAL_BATCH = 24;
 <BaseLayout
   title="Gallery | Venue Oaón Suites — Montana, Pretoria"
   description="Browse photos of Venue Oaón's three suites in Montana, Pretoria — The Myrrh, Olive and Garden Suite. See the space before you book a site visit."
-  ogImage="/images/hero_bg_1.jpg"
 >
   <PageHero
     eyebrow="The Venue"
@@ -111,11 +130,12 @@ const INITIAL_BATCH = 24;
 
       <!-- Masonry grid -->
       <div class="gallery-grid" id="gallery">
-        {items.map(({ suite, idx, name, type, image, label, w, h }, i) => (
+        {items.map(({ suite, idx, name, type, image, full, srcset, label, w, h }, i) => (
           <div
             class="gallery-item reveal"
             data-suite={suite}
             data-index={idx}
+            data-full={full}
             role="button"
             tabindex="0"
             aria-label={`${name}: click to enlarge`}
@@ -126,15 +146,24 @@ const INITIAL_BATCH = 24;
                 class="gallery-item-bg"
                 style={`aspect-ratio:${w}/${h};position:relative;background:#f5f4f0;`}
               >
-                <img
-                  src={image}
-                  alt={label}
-                  class="gallery-img"
-                  width={w}
-                  height={h}
-                  loading={i < 6 ? "eager" : "lazy"}
-                  decoding="async"
-                />
+                <picture>
+                  {srcset && (
+                    <source
+                      type="image/webp"
+                      srcset={srcset}
+                      sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
+                    />
+                  )}
+                  <img
+                    src={image}
+                    alt={label}
+                    class="gallery-img"
+                    width={w}
+                    height={h}
+                    loading={i < 6 ? "eager" : "lazy"}
+                    decoding="async"
+                  />
+                </picture>
               </div>
               <div class="gallery-item-overlay">
                 <div class="gallery-item-meta">
@@ -309,7 +338,9 @@ const INITIAL_BATCH = 24;
   const itemsData = Array.from(galleryItems).map(item => ({
     name: item.querySelector('.gallery-item-name')?.textContent || '',
     type: item.querySelector('.gallery-item-type')?.textContent || '',
-    image: item.querySelector('img')?.src || ''
+    // Prefer the widest WebP derivative; the original is the fallback for any
+    // photo that has no variants yet.
+    image: item.dataset.full || item.querySelector('img')?.src || ''
   }));
 
   const filterBtns   = document.querySelectorAll('.filter-btn');

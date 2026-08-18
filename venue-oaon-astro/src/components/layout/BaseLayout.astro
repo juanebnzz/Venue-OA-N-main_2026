@@ -24,6 +24,13 @@ const canonicalURL = new URL(
   Astro.url.pathname,
   Astro.site ?? "https://venueoaon.co.za",
 );
+
+// Analytics and search-console verification are opt-in via environment
+// variables. With neither set the site ships no tracking at all and sets no
+// cookies — which is what the privacy policy then describes (it reads the same
+// GA flag). See DEPLOYMENT.md for where to set these.
+const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION;
 ---
 
 <!doctype html>
@@ -44,6 +51,12 @@ const canonicalURL = new URL(
           name="robots"
           content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
         />
+      )
+    }
+
+    {
+      gscVerification && (
+        <meta name="google-site-verification" content={gscVerification} />
       )
     }
 
@@ -127,6 +140,27 @@ const canonicalURL = new URL(
 
     <!-- Slot for per-page head extras (e.g. JSON-LD) -->
     <slot name="head" />
+
+    <!-- Google Analytics 4 — only emitted when PUBLIC_GA_MEASUREMENT_ID is set -->
+    {
+      gaMeasurementId && (
+        <Fragment>
+          <script
+            is:inline
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
+          />
+          <script is:inline define:vars={{ gaMeasurementId }}>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+              dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", gaMeasurementId, { anonymize_ip: true });
+          </script>
+        </Fragment>
+      )
+    }
   </head>
 
   <body>
