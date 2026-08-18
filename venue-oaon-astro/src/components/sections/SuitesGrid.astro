@@ -16,6 +16,10 @@ import suites from '../../content/suites.json';
         </div>
       ))}
     </div>
+    <p class="suites-note reveal">
+      Need more room? The Myrrh and Garden suites can be booked together as a combined
+      indoor and outdoor space for up to 50 guests.
+    </p>
   </div>
 </section>
 
@@ -23,6 +27,14 @@ import suites from '../../content/suites.json';
   .suites-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
   @media (min-width: 640px)  { .suites-grid { grid-template-columns: repeat(2,1fr); } }
   @media (min-width: 1024px) { .suites-grid { grid-template-columns: repeat(3,1fr); } }
+
+  .suites-note {
+    font-size: var(--text-sm);
+    color: #8C8578;
+    line-height: 1.7;
+    margin-top: 1.75rem;
+    max-width: 560px;
+  }
 
   .section-title {
     font-family: 'Tenor Sans', serif;

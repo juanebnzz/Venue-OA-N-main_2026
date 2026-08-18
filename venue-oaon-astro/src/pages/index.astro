@@ -13,7 +13,7 @@ const schema = {
   "@type": ["LocalBusiness", "EventVenue"],
   name: "Venue Oaón",
   description:
-    "An intimate event space in Montana, Pretoria. Three suites for baby showers, kitchen teas, bridal showers and birthdays — for gatherings of 20 to 40 people.",
+    "An intimate event space in Montana, Pretoria. Three suites for baby showers, kitchen teas, bridal showers and birthdays — for gatherings of 20 to 50 people.",
   url: "https://venueoaon.co.za",
   email: "info@venueoaon.co.za",
   telephone: "+27761823532",
@@ -72,6 +72,11 @@ const schema = {
       name: "Garden Suite",
       description: "Open outdoor garden setting. Capacity 30–40 guests. Beautiful for milestone celebrations.",
     },
+    {
+      "@type": "Offer",
+      name: "Myrrh & Garden Suite",
+      description: "The Myrrh and Garden suites combined for indoor and outdoor use. Capacity up to 50 guests.",
+    },
   ],
   keywords: "event venue Pretoria, intimate event space Montana, baby shower venue Pretoria, kitchen tea venue Pretoria, bridal shower venue Pretoria, birthday venue Pretoria, venue hire Montana, small event venue Gauteng",
 };
@@ -79,10 +84,11 @@ const schema = {
 
 <BaseLayout
   title="Venue Oaón | Intimate Event Space in Montana, Pretoria"
-  description="Book an intimate event space in Montana, Pretoria for 20–40 guests. Baby showers, kitchen teas, bridal showers & birthdays. Three unique suites. Enquire today."
+  description="Book an intimate event space in Montana, Pretoria for 20–50 guests. Baby showers, kitchen teas, bridal showers & birthdays. Three unique suites. Enquire today."
   ogImage="/images/hero_bg_1.jpg"
 >
   <script
+    is:inline
     type="application/ld+json"
     slot="head"
     set:html={JSON.stringify(schema)}

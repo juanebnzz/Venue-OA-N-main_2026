@@ -1,63 +1,105 @@
 [
   {
-    "id": "essential",
-    "name": "Essential",
+    "id": "package-1",
+    "name": "Package 1",
     "featured": false,
     "tagline": null,
-    "bestFor": ["Intimate kitchen teas", "Simple birthday lunches"],
+    "bestFor": [],
     "includes": [
-      "Balloon arch (single colour)",
-      "10 bamboo chairs",
-      "Linen tablecloths",
-      "Basic floral centrepieces",
-      "Setup included"
+      "Choose a venue",
+      "Half balloon arch",
+      "Bamboo chairs",
+      "Tables & chairs",
+      "Cutlery, crockery & standard glassware",
+      "2 x Backdrops or shaped arches",
+      "Carpet",
+      "5 x Carafes with water",
+      "Water dispenser (8L)",
+      "Setup & clean up",
+      "Self-catering : food"
     ]
   },
   {
-    "id": "signature",
-    "name": "Signature",
+    "id": "package-2",
+    "name": "Package 2",
+    "featured": false,
+    "tagline": null,
+    "bestFor": [],
+    "includes": [
+      "Choose a venue",
+      "Half balloon arch",
+      "Bamboo chairs",
+      "Tables & chairs",
+      "Cutlery, crockery & standard glassware",
+      "Backdrops or shaped arches",
+      "Carpet",
+      "5 x Carafes with water",
+      "Water dispenser (8L)",
+      "Setup & clean up",
+      "Self-catering : food",
+      "5 x Table runners (STA)",
+      "Basic greenery",
+      "Woven placemats",
+      "Standard napkins"
+    ]
+  },
+  {
+    "id": "package-3",
+    "name": "Package 3",
+    "featured": false,
+    "tagline": null,
+    "bestFor": [],
+    "includes": [
+      "Choose a venue",
+      "Half balloon arch",
+      "Bamboo chairs",
+      "Tables & chairs",
+      "Cutlery & crockery",
+      "2 x Backdrops or shaped arches",
+      "Bamboo carpet",
+      "5 x Carafes with water",
+      "Water dispenser (8L)",
+      "Setup & clean up",
+      "Self-catering",
+      "Table runners (STA)",
+      "Basic greenery",
+      "Underplates (STA) / woven placemats",
+      "Coffee & tea station",
+      "Themed glasses",
+      "Standard napkins"
+    ]
+  },
+  {
+    "id": "package-4",
+    "name": "Package 4",
     "featured": true,
-    "tagline": "Most popular",
-    "bestFor": ["Baby showers & kitchen teas", "Bridal showers"],
-    "includes": [
-      "Custom balloon arch",
-      "20 bamboo chairs",
-      "Styled backdrop",
-      "Fresh florals + centrepieces",
-      "Table linen + runners",
-      "Setup & breakdown"
-    ]
-  },
-  {
-    "id": "premier",
-    "name": "Premier",
-    "featured": false,
     "tagline": null,
-    "bestFor": ["Bridal showers & milestone birthdays"],
+    "bestFor": [
+      "Bridal showers",
+      "Baby showers",
+      "Kitchen teas",
+      "Birthdays",
+      "High teas"
+    ],
     "includes": [
-      "Full custom décor design",
-      "30 bamboo chairs",
-      "Balloon installation",
-      "Floral arrangements",
-      "Themed backdrop wall",
-      "Catering coordination",
-      "Setup & breakdown"
-    ]
-  },
-  {
-    "id": "grand",
-    "name": "Grand",
-    "featured": false,
-    "tagline": null,
-    "bestFor": ["Signature celebrations", "Full turnkey events"],
-    "includes": [
-      "Bespoke concept design",
-      "Full suite transformation",
-      "Floral ceiling installation",
-      "Custom neon / signage",
-      "Catering + serving staff",
-      "Photography coordination",
-      "Full event management"
+      "Choose a venue",
+      "Full balloon arch",
+      "Bamboo chairs",
+      "Tables & chairs",
+      "Cutlery & crockery",
+      "Backdrops or shaped arches",
+      "Carpet",
+      "5 x Carafes with water",
+      "Water dispenser (8L)",
+      "Setup & clean up",
+      "Self-catering : food option",
+      "Table runners (STA)",
+      "Basic greenery & single stemmed florals",
+      "Standard vases",
+      "Underplates (STA) / woven placemats",
+      "Coffee & tea station",
+      "Themed glassware (STA)",
+      "Standard themed napkins"
     ]
   }
 ]

@@ -9,12 +9,18 @@ const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   mainEntity: [
-    { "@type": "Question", name: "Do you charge corkage?", acceptedAnswer: { "@type": "Answer", text: "Never. Bring your own wine, champagne, spirits, or soft drinks. No corkage fees, no hidden charges." } },
-    { "@type": "Question", name: "Can I bring my own caterer?", acceptedAnswer: { "@type": "Answer", text: "Absolutely. Venue Oaón is fully self-catering. Bring your own food, order from your favourite restaurant, or hire a caterer." } },
-    { "@type": "Question", name: "How do I get pricing for Venue Oaón?", acceptedAnswer: { "@type": "Answer", text: "We don't publish pricing because every event is different: guest count, suite, package, and add-ons all affect the final quote. Fill in the enquiry form and we'll come back to you with a full breakdown." } },
-    { "@type": "Question", name: "Can I book more than one suite?", acceptedAnswer: { "@type": "Answer", text: "Yes: you can book multiple suites for the same time slot if your event needs more space." } },
+    { "@type": "Question", name: "How do I get pricing for Venue Oaón?", acceptedAnswer: { "@type": "Answer", text: "We don't publish pricing because every event is different: guest count, suite, package, add-ons and the hours you need all affect the final quote. Fill in the enquiry form and we'll come back to you with a full breakdown." } },
+    { "@type": "Question", name: "What is the booking process and deposit at Venue Oaón?", acceptedAnswer: { "@type": "Answer", text: "Request a quotation and we'll send you a short questionnaire. Once we've prepared and sent your quote, a 50% deposit secures your date and your slot." } },
+    { "@type": "Question", name: "How long is the venue hire at Venue Oaón?", acceptedAnswer: { "@type": "Answer", text: "Standard venue hire is four hours. Additional hours can be arranged on request, subject to availability." } },
+    { "@type": "Question", name: "What is included in the venue hire?", acceptedAnswer: { "@type": "Answer", text: "Tables, chairs and standard cutlery and crockery are included in the venue hire. Linen is included in selected higher-tier packages. Every décor package also includes your choice of suite." } },
+    { "@type": "Question", name: "Are there different package tiers?", acceptedAnswer: { "@type": "Answer", text: "Yes. Packages 1 through 4 are set out in full on the packages page, and custom scopes are available on request." } },
+    { "@type": "Question", name: "Can I bring my own caterer?", acceptedAnswer: { "@type": "Answer", text: "Yes. You're welcome to self-cater at no additional fee, order from the on-site restaurant with its curated menu and waiter service, or choose a harvest table or snack platter directly from us. Catered events must be confirmed and fully paid at least two weeks before the date." } },
+    { "@type": "Question", name: "Do you charge corkage?", acceptedAnswer: { "@type": "Answer", text: "No corkage, ever. Alcohol is limited at the venue. Non-alcoholic beverages are stocked on site and we can source specific items on request." } },
+    { "@type": "Question", name: "Can I book more than one suite?", acceptedAnswer: { "@type": "Answer", text: "Yes: you can book multiple suites for the same time slot if your event needs more space. The Myrrh and Garden suites are also available together as a combined indoor and outdoor option for up to 50 guests." } },
     { "@type": "Question", name: "What time slots are available at Venue Oaón?", acceptedAnswer: { "@type": "Answer", text: "We run three time slots per day: morning (08:00–12:00), afternoon (13:00–17:00), and evening (18:00–22:00). On Sundays the venue closes at 15:00." } },
-    { "@type": "Question", name: "Is there parking at Venue Oaón?", acceptedAnswer: { "@type": "Answer", text: "Yes: on-site secured parking for all guests." } },
+    { "@type": "Question", name: "Can I bring a jumping castle or popcorn machine to Venue Oaón?", acceptedAnswer: { "@type": "Answer", text: "Yes, but any electrically operated equipment or additional activity falls outside standard event costing and is charged additionally. This includes jumping castles, water slides, bubble houses, cotton candy machines and popcorn machines." } },
+    { "@type": "Question", name: "Is smoking permitted at Venue Oaón?", acceptedAnswer: { "@type": "Answer", text: "Venue Oaón is a non-smoking venue. Smoking, including cigarettes and vapes, is permitted strictly in the designated area next to the braai. A penalty fee applies for non-compliance." } },
+    { "@type": "Question", name: "Is there parking at Venue Oaón?", acceptedAnswer: { "@type": "Answer", text: "Yes: secured on-site parking for all guests, with a car guard on duty." } },
     { "@type": "Question", name: "Do I need to use Oaón Events for décor?", acceptedAnswer: { "@type": "Answer", text: "No. You're welcome to bring your own décor team. However, all packages are offered through Oaón Events and we recommend them highly." } },
   ],
 };
@@ -199,6 +205,7 @@ const schema = {
                   { name: "Myrrh Suite", meta: "Indoor · 30–40" },
                   { name: "Olive Suite", meta: "In/Out · 20–30" },
                   { name: "Garden Suite", meta: "Outdoor · 30–40" },
+                  { name: "Myrrh & Garden", meta: "In/Out · up to 50" },
                 ].map(({ name, meta }) => (
                   <div class="suite-card-sm">
                     <span class="suite-card-sm-name">{name}</span>
@@ -249,7 +256,6 @@ const schema = {
             through the rest. No commitment, just a conversation.
           </p>
           <form id="contact-form" method="POST" novalidate>
-            <!-- TODO: Replace YOUR_WEB3FORMS_KEY with key from web3forms.com -->
             <input
               type="hidden"
               name="access_key"
@@ -309,6 +315,7 @@ const schema = {
                   <option>Myrrh Suite (Indoor, 30–40 pax)</option>
                   <option>Olive Suite (In/Out, 20–30 pax)</option>
                   <option>Garden Suite (Outdoor, 30–40 pax)</option>
+                  <option>Myrrh &amp; Garden (In/Out, up to 50 pax)</option>
                   <option>Not sure yet</option>
                 </select>
               </div>
@@ -326,16 +333,17 @@ const schema = {
                   name="guests"
                   placeholder="e.g. 25"
                   min="1"
-                  max="40"
+                  max="50"
                 />
               </div>
               <div class="fg">
                 <label for="c-pkg">Package Interest</label>
                 <select id="c-pkg" name="pkg">
                   <option value="" disabled selected>Which package?</option>
-                  <option>Essential</option><option>Signature</option>
-                  <option>Premier</option><option>Grand</option>
-                  <option>Suite hire only</option><option>Not sure yet</option>
+                  <option>Package 1</option><option>Package 2</option>
+                  <option>Package 3</option><option>Package 4</option>
+                  <option>Suite hire only</option>
+                  <option>Something custom</option><option>Not sure yet</option>
                 </select>
               </div>
               <div class="fg fg--full">
@@ -401,28 +409,52 @@ const schema = {
         {
           [
             {
-              q: "Do you charge corkage?",
-              a: "Never. Bring your own wine, champagne, spirits, or soft drinks. No corkage fees, no hidden charges. Stock up and celebrate exactly as you'd like.",
+              q: "How do I get pricing?",
+              a: "We don't publish pricing because every event is different: guest count, suite, package, add-ons and the hours you need all affect the final quote. Fill in the form above and we'll come back to you with a full breakdown.",
+            },
+            {
+              q: "What is the booking process and deposit?",
+              a: "Request a quotation and we'll send you a short questionnaire so we understand what you're planning. Once we've prepared and sent your quote, a 50% deposit secures your date and your slot.",
+            },
+            {
+              q: "How long is the venue hire?",
+              a: "Standard venue hire is four hours. Additional hours can be arranged on request, subject to availability.",
+            },
+            {
+              q: "What is included in the venue hire?",
+              a: "Tables, chairs and standard cutlery and crockery are included in the venue hire. Linen is included in selected higher-tier packages. Every décor package also includes your choice of suite, so the venue hire is built in rather than charged on top.",
+            },
+            {
+              q: "Are there different package tiers?",
+              a: "Yes. We offer a selection of thoughtfully designed packages, and Packages 1 through 4 are set out in full on our packages page. If none of them fit, we build custom scopes on request.",
             },
             {
               q: "Can I bring my own caterer?",
-              a: "Absolutely. Venue Oaón is fully self-catering. Bring your own food, order from your favourite restaurant, or hire a caterer. Kitchen access is available on selected packages.",
+              a: "Yes. You're welcome to self-cater at no additional fee. You can also order from the on-site restaurant, which offers a curated menu and professional waiter service, or choose a harvest table or snack platter directly from us. Catered events must be confirmed and fully paid at least two weeks before the date, and we ask that you tell us about any dietary requirements or allergies when you book.",
             },
             {
-              q: "How do I get pricing?",
-              a: "We don't publish pricing because every event is different: guest count, suite, package, and add-ons all affect the final quote. Fill in the form above and we'll come back to you with a full breakdown.",
+              q: "Do you charge corkage?",
+              a: "No corkage, ever. Please note that alcohol is limited at the venue. Non-alcoholic beverages are stocked on site, and if we don't have something you'd like, we'll gladly source it on request.",
             },
             {
               q: "Can I book more than one suite?",
-              a: "Yes: you can book multiple suites for the same time slot if your event needs more space. We'll discuss what makes sense when you enquire.",
+              a: "Yes: you can book multiple suites for the same time slot if your event needs more space. The Myrrh and Garden suites are also available together as a combined indoor and outdoor option for up to 50 guests. We'll discuss what makes sense when you enquire.",
             },
             {
               q: "What time slots are available?",
               a: "We run three time slots per day: morning (08:00–12:00), afternoon (13:00–17:00), and evening (18:00–22:00). On Sundays the venue closes at 15:00. Each slot gives you a freshly prepared space. We don't run back-to-back events in the same suite.",
             },
             {
+              q: "Can I bring a jumping castle, popcorn machine or similar?",
+              a: "You can, but any electrically operated equipment or additional activity falls outside standard event costing and is charged additionally. This includes jumping castles, water slides, bubble houses, cotton candy machines and popcorn machines. Let us know at enquiry stage so we can quote it properly.",
+            },
+            {
+              q: "Is smoking permitted at the venue?",
+              a: "Venue Oaón is a non-smoking venue. Smoking, including cigarettes and vapes, is permitted strictly in the designated area next to the braai and nowhere else on the premises. A penalty fee applies for non-compliance.",
+            },
+            {
               q: "Is there parking?",
-              a: "Yes: on-site secured parking for all guests. No street parking stress on the day of your event.",
+              a: "Yes: secured on-site parking for all guests. No street parking stress on the day of your event. There's a car guard on duty : please bless him on your way out.",
             },
             {
               q: "Do I need to use Oaón Events for décor?",

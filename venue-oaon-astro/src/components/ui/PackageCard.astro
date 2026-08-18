@@ -4,11 +4,11 @@ interface Props {
   featured?: boolean;
   tagline?: string | null;
   includes: string[];
-  bestFor: string[];
+  bestFor?: string[];
   class?: string;
 }
 
-const { name, featured = false, tagline, includes, bestFor, class: extra = '' } = Astro.props;
+const { name, featured = false, tagline, includes, bestFor = [], class: extra = '' } = Astro.props;
 const cls = ['pkg', featured ? 'pkg--featured' : '', extra].filter(Boolean).join(' ');
 ---
 
@@ -18,7 +18,7 @@ const cls = ['pkg', featured ? 'pkg--featured' : '', extra].filter(Boolean).join
     <p class="pkg-name">{name}</p>
     <p class="pkg-enquire">
       Enquire for pricing &nbsp;
-      <a href="/packages" class="pkg-enquire-link">Get a quote →</a>
+      <a href="/contact" class="pkg-enquire-link">Get a quote →</a>
     </p>
   </div>
   <hr class="pkg-divider" />
@@ -28,12 +28,14 @@ const cls = ['pkg', featured ? 'pkg--featured' : '', extra].filter(Boolean).join
       {includes.map(item => <li>{item}</li>)}
     </ul>
   </div>
-  <div>
-    <span class="pkg-section-title">Best for</span>
-    <ul>
-      {bestFor.map(item => <li>{item}</li>)}
-    </ul>
-  </div>
+  {bestFor.length > 0 && (
+    <div>
+      <span class="pkg-section-title">Best for</span>
+      <ul>
+        {bestFor.map(item => <li>{item}</li>)}
+      </ul>
+    </div>
+  )}
 </div>
 
 <style>
