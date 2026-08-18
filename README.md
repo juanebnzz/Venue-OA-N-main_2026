@@ -114,14 +114,20 @@ Fonts are loaded non-blocking from Google Fonts via a `media="print"` / `onload`
 
 ### Analytics
 
-**The site runs no analytics.** There is no Google Analytics, no tag manager and no tracking pixel in the codebase, and the Privacy Policy no longer describes any. The `CookieNotice` banner covers Google Fonts only.
+**The site ships no analytics by default** — no Google Analytics, no tag manager, no tracking pixel, and no cookies beyond what Google Fonts requires.
 
-If the client asks for analytics later, whoever takes over the site must do both halves of the job:
+Analytics is opt-in through a single environment variable, `PUBLIC_GA_MEASUREMENT_ID`. Because enabling tracking for South African visitors makes the policy wording a POPIA obligation rather than a nicety, the legal copy is wired to the same flag so the two can never drift apart:
 
-1. **Install the provider** — add the tag/script (e.g. via `BaseLayout.astro`, which owns the `<head>`), and confirm it fires in production.
-2. **Restore the matching policy language** in `src/pages/privacy-policy.astro` — a section describing the provider, what it collects and how to opt out, plus a corresponding update to the **Cookies** section, which currently states that the site sets no analytics cookies. Sections are numbered sequentially, so inserting one means renumbering those below it. Bump `effectiveDate` at the top of the file, and revisit the `CookieNotice` wording if the provider sets cookies.
+| `PUBLIC_GA_MEASUREMENT_ID` | What ships |
+| --- | --- |
+| unset | No gtag script. Privacy Policy omits the Google Analytics section and states that no analytics cookies are set. Cookie banner mentions Google Fonts only. |
+| `G-XXXXXXXXXX` | GA4 loads from `BaseLayout.astro` with `anonymize_ip`. Privacy Policy gains the Google Analytics section, the sections below it renumber themselves, and the Cookies wording switches. Cookie banner mentions analytics. |
 
-Shipping analytics without the policy update would leave the published policy inaccurate under POPIA.
+So enabling analytics is one variable plus a redeploy — there is no manual policy edit to forget. Bump `effectiveDate` in `src/pages/privacy-policy.astro` when you do, since the published terms will have changed.
+
+**Google Search Console** verification works the same way: set `PUBLIC_GSC_VERIFICATION` to the token from Google's "HTML tag" method and `BaseLayout.astro` emits the meta tag site-wide. If the domain was verified by DNS TXT record instead, leave it unset — that method needs nothing in this repo.
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for the full setup steps.
 
 ---
 
