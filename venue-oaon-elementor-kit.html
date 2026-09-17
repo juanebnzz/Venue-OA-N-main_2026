@@ -1,0 +1,816 @@
+<title>Venue Oaón Elementor Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Inter:wght@300;400;500&display=swap">
+<style>
+  /* Single-theme on purpose: this page IS the light-only brand spec, so the
+     colours must never be re-mapped by the viewer's theme. */
+  :root {
+    --white: #FFFFFF; --linen: #F5F2EE; --stone: #8C8578; --stone-text: #6B6560;
+    --charcoal: #1A1A1A; --accent: #8B6448; --accent-deep: #6E4E38; --accent-pale: #EDE5DC;
+    --accent-muted: #B89882; --divider: #E0DDD8; --surface-cta: #33281F; --surface-footer: #121212;
+    --stone-light: #C9C1B5; --wa: #25D366;
+    --heading: "Tenor Sans", Georgia, "Times New Roman", serif;
+    --body: Inter, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --g: clamp(1rem, 5vw, 4.5rem);
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--body); color: var(--charcoal); background: var(--white); -webkit-font-smoothing: antialiased; line-height: 1.6; font-size: 0.9375rem; }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+  h1, h2, h3, h4 { font-family: var(--heading); font-weight: 400; line-height: 1.1; letter-spacing: 0.02em; text-wrap: balance; }
+  code, kbd { font-family: var(--mono); font-size: 0.8em; background: var(--linen); border: 1px solid var(--divider); border-radius: 2px; padding: 1px 6px; }
+  pre { font-family: var(--mono); font-size: 0.78rem; line-height: 1.6; background: var(--charcoal); color: #E8E2DA; padding: 1.25rem 1.5rem; border-radius: 6px; overflow-x: auto; }
+  pre code { background: none; border: 0; padding: 0; color: inherit; font-size: inherit; }
+  .label { font-family: var(--body); font-size: 0.625rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); }
+  .eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 1rem; }
+  .eyebrow::before { content: ""; width: 32px; height: 1px; background: var(--stone); }
+  .muted { color: var(--stone); }
+
+  /* Page shell */
+  .cover { background: var(--linen); border-bottom: 1px solid var(--divider); padding: clamp(3rem, 7vw, 6rem) var(--g) clamp(2.5rem, 5vw, 4rem); }
+  .cover-inner { max-width: 1240px; margin: 0 auto; display: grid; gap: 2rem; grid-template-columns: 1fr; }
+  @media (min-width: 900px) { .cover-inner { grid-template-columns: 1.4fr 1fr; align-items: end; } }
+  .cover h1 { font-size: clamp(2.5rem, 6vw, 4.75rem); max-width: 12ch; margin-bottom: 1.25rem; }
+  .cover p { max-width: 52ch; color: var(--stone-text); }
+  .cover-meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem 2rem; border-top: 1px solid var(--divider); padding-top: 1.25rem; }
+  .cover-meta dt { font-size: 0.625rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); margin-bottom: 0.25rem; }
+  .cover-meta dd { font-family: var(--heading); font-size: 0.95rem; }
+
+  .layout { max-width: 1240px; margin: 0 auto; padding: 0 var(--g); display: grid; grid-template-columns: 1fr; gap: 3rem; }
+  @media (min-width: 1024px) { .layout { grid-template-columns: 200px 1fr; gap: 4rem; } }
+  .toc { display: none; }
+  @media (min-width: 1024px) {
+    .toc { display: block; position: sticky; top: 1.5rem; align-self: start; padding-top: 4rem; }
+    .toc ol { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .toc a { text-decoration: none; font-size: 0.75rem; letter-spacing: 0.08em; color: var(--stone); display: flex; gap: 0.75rem; padding: 0.2rem 0; }
+    .toc a:hover { color: var(--charcoal); }
+    .toc a span:first-child { font-family: var(--heading); color: var(--accent-muted); min-width: 1.5rem; }
+  }
+  main { min-width: 0; }
+  section.part { padding: clamp(3rem, 6vw, 5rem) 0; border-bottom: 1px solid var(--divider); }
+  section.part:last-child { border-bottom: 0; }
+  .part-head { margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .part-head h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); margin-bottom: 0.75rem; }
+  .part-head p { color: var(--stone-text); max-width: 62ch; }
+  h3.sub { font-size: 1.125rem; margin: 2.5rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid var(--divider); }
+  h3.sub:first-of-type { border-top: 0; padding-top: 0; margin-top: 0; }
+  p + p { margin-top: 0.75rem; }
+  .prose { max-width: 66ch; color: var(--stone-text); }
+  .prose strong { color: var(--charcoal); font-weight: 500; }
+  ul.plain { list-style: none; display: flex; flex-direction: column; gap: 0.625rem; }
+  ul.plain li { display: flex; gap: 0.75rem; color: var(--stone-text); line-height: 1.55; }
+  ul.plain li::before { content: "–"; color: var(--accent-muted); flex-shrink: 0; }
+  ul.plain li strong { color: var(--charcoal); font-weight: 500; }
+
+  /* Approach steps (a real sequence: build order) */
+  .steps { counter-reset: step; display: grid; grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--divider); }
+  .step { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; padding: 1.25rem 0; border-bottom: 1px solid var(--divider); }
+  .step::before { counter-increment: step; content: "0" counter(step); font-family: var(--heading); color: var(--stone); font-size: 0.85rem; padding-top: 3px; }
+  .step h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+  .step p { color: var(--stone-text); font-size: 0.875rem; max-width: 66ch; }
+
+  /* Tables */
+  .tbl-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; }
+  th { text-align: left; font-weight: 500; font-size: 0.625rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); padding: 0.75rem 0.75rem 0.75rem 0; border-bottom: 1px solid var(--charcoal); white-space: nowrap; }
+  td { padding: 0.75rem 0.75rem 0.75rem 0; border-bottom: 1px solid var(--divider); vertical-align: top; color: var(--stone-text); }
+  td:first-child { color: var(--charcoal); }
+  td code { white-space: nowrap; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* Colour swatches */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+  .sw { border: 1px solid var(--divider); border-radius: 6px; overflow: hidden; background: var(--white); }
+  .sw-chip { height: 84px; }
+  .sw-body { padding: 0.75rem 0.875rem; }
+  .sw-name { font-family: var(--heading); font-size: 0.9rem; }
+  .sw-hex { font-family: var(--mono); font-size: 0.75rem; color: var(--stone-text); }
+  .sw-role { font-size: 0.7rem; color: var(--stone); margin-top: 0.25rem; line-height: 1.4; }
+  .sw-global { display: inline-block; margin-top: 0.4rem; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+
+  /* Type specimens */
+  .spec { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+  .spec-row { display: grid; grid-template-columns: 1fr; gap: 0.5rem 2rem; padding: 1.25rem 0; border-bottom: 1px solid var(--divider); }
+  @media (min-width: 720px) { .spec-row { grid-template-columns: 220px 1fr; align-items: baseline; } }
+  .spec-meta { font-size: 0.72rem; color: var(--stone); line-height: 1.6; }
+  .spec-meta b { display: block; font-weight: 500; color: var(--charcoal); font-size: 0.8rem; }
+  .t-hero { font-family: var(--heading); font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; }
+  .t-h1 { font-family: var(--heading); font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.1; }
+  .t-h2 { font-family: var(--heading); font-size: clamp(1.75rem, 3vw, 2.5rem); line-height: 1.1; }
+  .t-h3 { font-family: var(--heading); font-size: 1.375rem; }
+  .t-intro { font-family: var(--heading); font-size: 1.375rem; line-height: 1.5; }
+  .t-body { font-size: 1rem; line-height: 1.75; color: var(--stone); max-width: 52ch; }
+  .t-sm { font-size: 0.8125rem; line-height: 1.65; color: var(--stone); max-width: 52ch; }
+  .t-label { font-size: 0.625rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); }
+
+  /* Component demos */
+  .demo { border: 1px solid var(--divider); border-radius: 8px; padding: 1.75rem; margin-bottom: 1rem; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; background: var(--white); }
+  .demo--linen { background: var(--linen); }
+  .demo--dark { background: var(--surface-cta); border-color: transparent; }
+  .demo--charcoal { background: var(--charcoal); border-color: transparent; }
+  .demo-note { width: 100%; font-size: 0.75rem; color: var(--stone); line-height: 1.55; }
+  .demo--dark .demo-note { color: var(--stone-light); }
+  .spec-list { font-size: 0.78rem; color: var(--stone-text); line-height: 1.7; margin-bottom: 1.5rem; }
+  .spec-list b { color: var(--charcoal); font-weight: 500; }
+
+  .btn { font-family: var(--heading); font-size: 0.625rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 0 32px; min-height: 48px; border-radius: 2px; display: inline-flex; align-items: center; text-decoration: none; border: 0; cursor: pointer; transition: all .22s ease; }
+  .btn-accent { background: var(--accent); color: #fff; } .btn-accent:hover { background: var(--charcoal); }
+  .btn-outline { background: transparent; color: var(--charcoal); border: 1px solid var(--charcoal); } .btn-outline:hover { background: var(--charcoal); color: #fff; }
+  .btn-ghost { font-family: var(--body); color: var(--stone-text); letter-spacing: .12em; padding: 0 16px; text-decoration: underline; text-underline-offset: 5px; text-decoration-color: #C8C4BF; } .btn-ghost:hover { color: var(--charcoal); }
+  .btn-ol-light { background: rgba(255,255,255,.06); color: #fff; border: 1px solid rgba(255,255,255,.55); } .btn-ol-light:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.85); }
+  .btn-white { background: #fff; color: var(--charcoal); } .btn-white:hover { background: var(--linen); }
+  .nav-cta { font-family: var(--heading); font-size: 0.625rem; letter-spacing: .16em; text-transform: uppercase; padding: 0 22px; min-height: 44px; border-radius: 2px; background: var(--accent); color: #fff; display: inline-flex; align-items: center; text-decoration: none; }
+
+  .badge { font-size: .625rem; letter-spacing: .14em; text-transform: uppercase; padding: 4px 12px; border-radius: 2px; }
+  .badge-surface { background: var(--linen); color: var(--charcoal); border: 1px solid var(--divider); }
+  .badge-accent { background: var(--accent); color: #fff; }
+  .chip { font-size: .625rem; letter-spacing: .12em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; background: var(--linen); border: 1px solid var(--divider); color: var(--charcoal); }
+  .filter-btn { font-family: var(--body); font-size: .625rem; letter-spacing: .16em; text-transform: uppercase; padding: 0 16px; min-height: 44px; border-radius: 2px; border: 1px solid var(--divider); background: transparent; color: var(--stone); display: inline-flex; align-items: center; cursor: pointer; }
+  .filter-btn.active { background: var(--charcoal); color: #fff; border-color: var(--charcoal); }
+
+  .field { display: flex; flex-direction: column; gap: .5rem; flex: 1 1 220px; }
+  .field label { font-size: .625rem; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); }
+  .field input, .field select, .field textarea { background: var(--linen); border: 1px solid var(--divider); border-radius: 6px; padding: 14px 16px; font-family: var(--body); font-size: .9375rem; color: var(--charcoal); width: 100%; min-height: 48px; outline: 0; }
+  .field input:focus { border-color: var(--charcoal); background: #fff; }
+  .demo--linen .field input, .demo--linen .field select { background: #fff; }
+  .demo--dark .field label { color: rgba(255,255,255,.62); }
+  .demo--dark .field input, .demo--dark .field select { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.38); color: #fff; }
+  .demo--dark .field input::placeholder { color: rgba(255,255,255,.42); }
+
+  /* Stats strip */
+  .stats { background: var(--charcoal); padding: 2rem 1.5rem; display: flex; flex-wrap: wrap; width: 100%; border-radius: 6px; }
+  .stat { flex: 1; min-width: 120px; padding: .75rem 2.25rem; border-right: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 4px; }
+  .stat:first-child { padding-left: 0; } .stat:last-child { border-right: 0; }
+  .stat-val { font-family: var(--heading); font-size: clamp(1.25rem, 3vw, 2rem); color: #fff; line-height: 1; }
+  .stat-key { font-size: .625rem; letter-spacing: .18em; text-transform: uppercase; color: var(--stone); }
+  @media (max-width: 600px) { .stat { flex: 0 0 50%; border-right: 0; padding: 1rem 0; } }
+
+  /* Cards */
+  .cards-3 { display: grid; gap: 1.5rem; grid-template-columns: 1fr; width: 100%; }
+  @media (min-width: 720px) { .cards-3 { grid-template-columns: repeat(3, 1fr); } }
+  .suite-card { background: #fff; border: 1px solid var(--divider); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; transition: transform .3s, box-shadow .3s; }
+  .suite-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,.08); }
+  .suite-img { height: 150px; display: flex; align-items: center; justify-content: center; }
+  .suite-img--myrrh { background: linear-gradient(135deg,#EBE4DC,#D8D0C4); }
+  .suite-img--olive { background: linear-gradient(135deg,#E5EBE0,#D0D8C6); }
+  .suite-img--garden { background: linear-gradient(135deg,#E0EBE6,#C8D8CF); }
+  .suite-img span { font-size: .625rem; letter-spacing: .14em; text-transform: uppercase; color: var(--stone); opacity: .6; }
+  .suite-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; flex: 1; }
+  .suite-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+  .suite-name { font-family: var(--heading); font-size: 1.25rem; }
+  .suite-desc { font-size: .8125rem; color: var(--stone); line-height: 1.65; flex: 1; }
+  .suite-meta { border-top: 1px solid var(--divider); padding-top: 1rem; display: flex; flex-direction: column; gap: .5rem; }
+  .suite-row { display: flex; justify-content: space-between; }
+  .suite-row-label { font-size: .625rem; letter-spacing: .14em; text-transform: uppercase; color: var(--stone); }
+  .suite-row-val { font-family: var(--heading); font-size: .875rem; letter-spacing: .04em; }
+
+  .pkg-grid { display: grid; gap: 1px; background: var(--divider); border: 1px solid var(--divider); border-radius: 10px; overflow: hidden; grid-template-columns: 1fr; width: 100%; }
+  @media (min-width: 720px) { .pkg-grid { grid-template-columns: repeat(2, 1fr); } }
+  .pkg { background: #fff; padding: 2rem 1.75rem; display: flex; flex-direction: column; gap: 1.25rem; }
+  .pkg:hover { background: var(--linen); }
+  .pkg--featured { background: var(--accent); color: #fff; } .pkg--featured:hover { background: var(--accent-deep); }
+  .pkg-name { font-family: var(--heading); font-size: 1.25rem; letter-spacing: .04em; }
+  .pkg-enquire { font-size: .8125rem; color: var(--stone); } .pkg--featured .pkg-enquire { color: rgba(255,255,255,.5); }
+  .pkg-enquire a { font-size: .625rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-left: .5rem; } .pkg--featured .pkg-enquire a { color: rgba(255,255,255,.7); }
+  .pkg hr { border: 0; border-top: 1px solid var(--divider); } .pkg--featured hr { border-color: rgba(255,255,255,.15); }
+  .pkg-sec { font-size: .625rem; letter-spacing: .18em; text-transform: uppercase; color: var(--stone); display: block; margin-bottom: .6rem; } .pkg--featured .pkg-sec { color: rgba(255,255,255,.4); }
+  .pkg ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+  .pkg li { font-size: .8125rem; color: var(--stone); display: flex; gap: .6rem; } .pkg--featured li { color: rgba(255,255,255,.75); }
+  .pkg li::before { content: "–"; color: var(--divider); } .pkg--featured li::before { color: rgba(255,255,255,.2); }
+
+  .detail-card { background: #fff; border-radius: 8px; padding: 1.75rem 1.5rem; display: flex; flex-direction: column; gap: 1rem; flex: 1 1 200px; }
+  .detail-card svg { width: 28px; height: 28px; color: var(--accent); }
+  .detail-title { font-family: var(--heading); font-size: 1rem; letter-spacing: .04em; }
+  .detail-desc { font-size: .8125rem; color: var(--stone); line-height: 1.65; }
+
+  .pillar { padding: 1.25rem 0; border-bottom: 1px solid var(--divider); display: flex; gap: 1.25rem; width: 100%; }
+  .pillar:first-of-type { border-top: 1px solid var(--divider); }
+  .pillar-num { font-size: .625rem; letter-spacing: .1em; color: var(--stone); padding-top: 2px; }
+  .pillar-title { font-family: var(--heading); font-size: .9375rem; letter-spacing: .04em; display: block; margin-bottom: 4px; }
+  .pillar-body { font-size: .8125rem; color: var(--stone); line-height: 1.65; }
+
+  .quote { font-family: var(--heading); font-size: 1.375rem; line-height: 1.5; border-left: 1.5px solid var(--accent); padding-left: 1.75rem; max-width: 40ch; }
+
+  /* Header + footer mock */
+  .nav-mock { width: 100%; border: 1px solid var(--divider); border-radius: 6px; overflow: hidden; }
+  .nav-bar { height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; background: rgba(255,255,255,.98); border-bottom: 1px solid var(--divider); gap: 1rem; }
+  .nav-logo { font-family: var(--heading); font-size: 1.1rem; letter-spacing: .1em; }
+  .nav-links { display: none; gap: 2.5rem; list-style: none; }
+  @media (min-width: 720px) { .nav-links { display: flex; } }
+  .nav-links a { font-size: .625rem; letter-spacing: .15em; text-transform: uppercase; color: var(--stone); text-decoration: none; position: relative; padding-bottom: 2px; }
+  .nav-links a.active, .nav-links a:hover { color: var(--charcoal); }
+  .nav-links a.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px; background: var(--charcoal); }
+  .footer-mock { background: var(--surface-footer); color: #fff; padding: 3rem 2rem 1.5rem; border-top: 1px solid rgba(184,152,130,.18); width: 100%; border-radius: 6px; }
+  .footer-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-bottom: 2rem; }
+  @media (min-width: 720px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr; gap: 3rem; } }
+  .footer-mock .fl { font-size: .625rem; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); display: block; margin-bottom: 1rem; }
+  .footer-mock ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+  .footer-mock li { font-size: .8125rem; color: rgba(255,255,255,.65); }
+  .footer-mock .tag { font-size: .8125rem; color: var(--stone); max-width: 280px; line-height: 1.7; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding-top: 1.25rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; font-size: .8125rem; color: var(--stone); }
+  .footer-bottom a { color: rgba(255,255,255,.78); }
+  .wa-float { width: 56px; height: 56px; border-radius: 50%; background: var(--wa); display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,.35); }
+
+  /* Page blueprints */
+  .page { margin-bottom: 3rem; }
+  .page-title { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: .5rem; }
+  .page-title h3 { font-size: 1.5rem; }
+  .page-title code { font-size: .75rem; }
+  .page-meta { font-size: .8125rem; color: var(--stone-text); margin-bottom: 1.25rem; max-width: 70ch; }
+  .bp { border: 1px solid var(--divider); border-radius: 8px; overflow: hidden; }
+  .bp-row { display: grid; grid-template-columns: 1fr; border-bottom: 1px solid var(--divider); }
+  .bp-row:last-child { border-bottom: 0; }
+  @media (min-width: 720px) { .bp-row { grid-template-columns: 180px 1fr; } }
+  .bp-strip { padding: 1rem 1.25rem; display: flex; flex-direction: column; justify-content: center; gap: .3rem; border-right: 1px solid var(--divider); }
+  .bp-strip .n { font-family: var(--heading); font-size: 1.1rem; }
+  .bp-strip .bg { font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; opacity: .8; }
+  .bg-white { background: #fff; color: var(--charcoal); }
+  .bg-linen { background: var(--linen); color: var(--charcoal); }
+  .bg-charcoal { background: var(--charcoal); color: #fff; }
+  .bg-cta { background: var(--surface-cta); color: #fff; }
+  .bg-accent { background: var(--accent); color: #fff; }
+  .bg-hero { background: linear-gradient(to right, #2b2420, #6b5b4f); color: #fff; }
+  .bg-pale { background: linear-gradient(155deg,#EAE3DA 0%,#D5CCBF 50%,#C8BFB2 100%); color: var(--charcoal); }
+  .bp-body { padding: 1rem 1.25rem; display: grid; gap: .75rem 2rem; grid-template-columns: 1fr; }
+  @media (min-width: 1100px) { .bp-body { grid-template-columns: 1.1fr 1fr; } }
+  .bp-body h4 { font-family: var(--body); font-weight: 500; font-size: .875rem; margin-bottom: .25rem; }
+  .bp-body p, .bp-body li { font-size: .8rem; color: var(--stone-text); line-height: 1.6; }
+  .bp-body .k { font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; color: var(--stone); display: block; margin-bottom: .25rem; }
+  .bp-body ul { list-style: none; display: flex; flex-direction: column; gap: .3rem; }
+  .bp-body li::before { content: "– "; color: var(--accent-muted); }
+  .copy { font-family: var(--heading); color: var(--charcoal); font-size: .95rem; }
+
+  .callout { background: var(--accent-pale); border-radius: 6px; padding: 1.25rem 1.5rem; font-size: .875rem; color: var(--stone-text); max-width: 72ch; }
+  .callout b { color: var(--charcoal); font-weight: 500; }
+  .two { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+  @media (min-width: 900px) { .two { grid-template-columns: 1fr 1fr; } }
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+  .checklist li { display: flex; gap: .75rem; align-items: flex-start; font-size: .875rem; color: var(--stone-text); }
+  .checklist li::before { content: ""; width: 14px; height: 14px; border: 1px solid var(--stone); border-radius: 2px; flex-shrink: 0; margin-top: 4px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+</style>
+
+<header class="cover">
+  <div class="cover-inner">
+    <div>
+      <div class="eyebrow"><span class="label">Rebuild kit · WordPress + Elementor</span></div>
+      <h1>Venue Oaón, rebuilt in Elementor.</h1>
+      <p>Everything the Astro site does, translated into Elementor's own vocabulary: global colours and fonts to paste into Site Settings, every component with its exact spec, and a section-by-section blueprint for all five pages. Build in the order in Part 01 and the result will match the live site at <a href="https://venueoaon.co.za">venueoaon.co.za</a>.</p>
+    </div>
+    <dl class="cover-meta">
+      <div><dt>Source</dt><dd>venue-oaon-astro (Astro + Tailwind)</dd></div>
+      <div><dt>Target</dt><dd>Elementor Pro, Flexbox containers</dd></div>
+      <div><dt>Pages</dt><dd>Home · About · Packages · Gallery · Contact</dd></div>
+      <div><dt>Fonts</dt><dd>Tenor Sans · Inter</dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc" aria-label="Contents">
+    <ol>
+      <li><a href="#approach"><span>01</span><span>Approach & build order</span></a></li>
+      <li><a href="#colors"><span>02</span><span>Global colours</span></a></li>
+      <li><a href="#type"><span>03</span><span>Global fonts & type scale</span></a></li>
+      <li><a href="#layout"><span>04</span><span>Layout & spacing</span></a></li>
+      <li><a href="#components"><span>05</span><span>Components</span></a></li>
+      <li><a href="#chrome"><span>06</span><span>Header & footer</span></a></li>
+      <li><a href="#pages"><span>07</span><span>Page blueprints</span></a></li>
+      <li><a href="#css"><span>08</span><span>Custom CSS</span></a></li>
+      <li><a href="#plugins"><span>09</span><span>Plugins, forms & SEO</span></a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <!-- ══════════════ 01 APPROACH ══════════════ -->
+    <section class="part" id="approach">
+      <div class="part-head">
+        <div class="eyebrow"><span class="label">Part 01</span></div>
+        <h2>Approach: set the system once, then assemble.</h2>
+        <p>The site's whole look comes from a small set of rules applied with discipline: two typefaces, a warm neutral palette with one brown accent, 2px corners on anything clickable, hairline dividers, and generous vertical rhythm. If those rules live in Elementor's Site Settings before a single page is built, every widget inherits them and the pages come together fast.</p>
+      </div>
+
+      <div class="callout" style="margin-bottom:2.5rem;">
+        <b>The vibe in one sentence:</b> quiet, editorial, warm. Small uppercase labels with wide tracking, big unhurried Tenor Sans headlines, stone-grey body copy, and lots of air. Nothing bounces, glows, or uses a drop shadow bigger than a whisper. When in doubt, remove something.
+      </div>
+
+      <div class="steps">
+        <div class="step"><div><h4>Install the stack</h4><p>WordPress + Elementor Pro (needed for Theme Builder header/footer, the Form widget, the Gallery widget with filters, and Popups). Use a blank theme (Hello Elementor). Turn on <em>Flexbox Container</em> and <em>Nested Elements</em> in Elementor → Settings → Features.</p></div></div>
+        <div class="step"><div><h4>Site Settings → Global Colors & Fonts</h4><p>Enter the palette from Part 02 and the four font roles from Part 03. Disable Elementor's default colours and typography (Settings → General) so nothing inherits the theme's blue.</p></div></div>
+        <div class="step"><div><h4>Site Settings → Layout, Buttons, Form Fields</h4><p>Content width 1240, section padding, button and field defaults from Parts 04–05. Paste the Custom CSS from Part 08 into Site Settings → Custom CSS.</p></div></div>
+        <div class="step"><div><h4>Theme Builder → Header and Footer</h4><p>Build once from Part 06, set display conditions to Entire Site.</p></div></div>
+        <div class="step"><div><h4>Build the reusable sections as Saved Templates</h4><p>Stats strip, Suite card, Package grid, Detail card, Enquiry band, "Come see the space" CTA. Save each as a template so Home, Packages and Contact reuse the same object.</p></div></div>
+        <div class="step"><div><h4>Assemble the five pages</h4><p>Follow the blueprints in Part 07 top to bottom. Every section is a container with the padding from Part 04; alternate white and linen backgrounds exactly as listed.</p></div></div>
+        <div class="step"><div><h4>Forms, WhatsApp, SEO, launch</h4><p>Part 09: wire the enquiry forms to email, add the WhatsApp launcher, set redirects for the old URLs, upload OG image and favicons, install an SEO plugin and add the LocalBusiness schema.</p></div></div>
+      </div>
+    </section>
+
+    <!-- ══════════════ 02 COLOURS ══════════════ -->
+    <section class="part" id="colors">
+      <div class="part-head">
+        <div class="eyebrow"><span class="label">Part 02</span></div>
+        <h2>Global colours</h2>
+        <p>Elementor gives you four system slots (Primary, Secondary, Text, Accent) plus unlimited custom colours. Map them as tagged below so widgets pick the right default. Never type hex codes into individual widgets: always pick from Globals so a change propagates.</p>
+      </div>
+      <div class="swatches">
+        <div class="sw"><div class="sw-chip" style="background:#8B6448"></div><div class="sw-body"><div class="sw-name">Accent</div><div class="sw-hex">#8B6448</div><div class="sw-role">Primary buttons, links, icons, featured package, "Enquire" CTA</div><span class="sw-global">System: Primary</span></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#1A1A1A"></div><div class="sw-body"><div class="sw-name">Charcoal</div><div class="sw-hex">#1A1A1A</div><div class="sw-role">Headings, body on light, stats strip bg, button hover state</div><span class="sw-global">System: Secondary</span></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#8C8578"></div><div class="sw-body"><div class="sw-name">Stone</div><div class="sw-hex">#8C8578</div><div class="sw-role">Muted body copy, labels, nav links, card descriptions</div><span class="sw-global">System: Text</span></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#F5F2EE;border-bottom:1px solid #E0DDD8"></div><div class="sw-body"><div class="sw-name">Linen</div><div class="sw-hex">#F5F2EE</div><div class="sw-role">Alternate section bg, input fills, badges, card hover</div><span class="sw-global">System: Accent</span></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#FFFFFF;border-bottom:1px solid #E0DDD8"></div><div class="sw-body"><div class="sw-name">White</div><div class="sw-hex">#FFFFFF</div><div class="sw-role">Page ground, cards on linen, header bar at 98%</div><span class="sw-global">Custom</span></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#6B6560"></div><div class="sw-body"><div class="sw-name">Stone Text</div><div class="sw-hex">#6B6560</div><div class="sw-role">Ghost buttons, form feedback (AA on white)</div><span class="sw-global">Custom</span></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#6E4E38"></div><div class="sw-body"><div class="sw-name">Accent Deep</div><div class="sw-hex">#6E4E38</div><div class="sw-role">Hover on accent surfaces (featured package, submit on dark)</div><span class="sw-global">Custom</span></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#EDE5DC"></div><div class="sw-body"><div class="sw-name">Accent Pale</div><div class="sw-hex">#EDE5DC</div><div class="sw-role">Success message panel, soft callouts</div><span class="sw-global">Custom</span></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#B89882"></div><div class="sw-body"><div class="sw-name">Accent Muted</div><div class="sw-hex">#B89882</div><div class="sw-role">Warm seam line above footer (at 18% opacity)</div><span class="sw-global">Custom</span></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#E0DDD8"></div><div class="sw-body"><div class="sw-name">Divider</div><div class="sw-hex">#E0DDD8</div><div class="sw-role">Every hairline: borders, card edges, list rules, header bottom</div><span class="sw-global">Custom</span></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#33281F"></div><div class="sw-body"><div class="sw-name">Surface CTA</div><div class="sw-hex">#33281F</div><div class="sw-role">Enquiry band on Home (warm espresso, sits above footer)</div><span class="sw-global">Custom</span></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#121212"></div><div class="sw-body"><div class="sw-name">Surface Footer</div><div class="sw-hex">#121212</div><div class="sw-role">Footer only: deepest, coolest surface on the page</div><span class="sw-global">Custom</span></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#C9C1B5"></div><div class="sw-body"><div class="sw-name">Stone Light</div><div class="sw-hex">#C9C1B5</div><div class="sw-role">Muted text on the espresso enquiry band</div><span class="sw-global">Custom</span></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#25D366"></div><div class="sw-body"><div class="sw-name">WhatsApp</div><div class="sw-hex">#25D366</div><div class="sw-role">Floating WhatsApp button only. Never elsewhere.</div><span class="sw-global">Custom</span></div></div>
+      </div>
+
+      <h3 class="sub">Dark surface ladder</h3>
+      <p class="prose">The bottom of the home page stacks two dark surfaces and they are deliberately different. The enquiry band is <strong>warm and lighter</strong> (#33281F) so it reads as "act here"; the footer is <strong>neutral and darker</strong> (#121212) so it recedes and ends the page. A 1px seam of Accent Muted at 18% opacity separates them. The stats strip under the hero uses Charcoal (#1A1A1A), a third, cooler dark. Keep all three distinct.</p>
+    </section>
+
+    <!-- ══════════════ 03 TYPE ══════════════ -->
+    <section class="part" id="type">
+      <div class="part-head">
+        <div class="eyebrow"><span class="label">Part 03</span></div>
+        <h2>Global fonts & type scale</h2>
+        <p>Two Google Fonts, both already available in Elementor's font picker. Tenor Sans has a single weight (400) and is never bolded. Inter loads at 300, 400 and 500 only. Headings are never bold, never all-caps, never larger than 96px.</p>
+      </div>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Elementor global font</th><th>Family</th><th>Weight</th><th>Transform</th><th>Letter-spacing</th><th>Use</th></tr></thead>
+          <tbody>
+            <tr><td>Primary</td><td>Tenor Sans</td><td class="num">400</td><td>None</td><td class="num">0.02em</td><td>All headings, stat values, card titles, button text</td></tr>
+            <tr><td>Secondary</td><td>Tenor Sans</td><td class="num">400</td><td>None</td><td class="num">0.02em</td><td>Intro paragraphs, pull quotes (heading face at body-ish sizes)</td></tr>
+            <tr><td>Text</td><td>Inter</td><td class="num">400</td><td>None</td><td class="num">0</td><td>Body copy, form inputs, card descriptions</td></tr>
+            <tr><td>Accent</td><td>Inter</td><td class="num">400</td><td>Uppercase</td><td class="num">0.22em</td><td>Eyebrow labels, nav links, badges, table labels, footer column titles</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="sub">Scale</h3>
+      <p class="prose" style="margin-bottom:1.5rem;">The live site uses fluid <code>clamp()</code> sizes. Elementor can't express clamp in the UI, so use the three breakpoint values below (Desktop / Tablet / Mobile). Line-height 1.1 on all headings, 1.75 on body.</p>
+      <div class="spec">
+        <div class="spec-row"><div class="spec-meta"><b>Hero H1</b>Tenor Sans · 96 / 64 / 40px<br>line-height 1.1 · max-width 10ch<br>white on photo, subtle text-shadow</div><div class="t-hero">A space made for your moment.</div></div>
+        <div class="spec-row"><div class="spec-meta"><b>Page H1</b>Tenor Sans · 96 / 56 / 36px<br>line-height 1.1 · max-width 14ch · Charcoal</div><div class="t-h1">Born from a love of hosting.</div></div>
+        <div class="spec-row"><div class="spec-meta"><b>Section H2</b>Tenor Sans · 48 / 36 / 32px<br>line-height 1.1 · always preceded by a label 16px above</div><div class="t-h2">Three spaces. One venue.</div></div>
+        <div class="spec-row"><div class="spec-meta"><b>Card H3</b>Tenor Sans · 26 / 22 / 20px<br>letter-spacing 0.02em</div><div class="t-h3">The Myrrh Suite</div></div>
+        <div class="spec-row"><div class="spec-meta"><b>Intro / quote</b>Tenor Sans · 24 / 20 / 18px<br>line-height 1.5 · Charcoal</div><div class="t-intro" style="max-width:34ch;">Built for the small and significant. White-washed walls, warm wooden elements, and private garden spaces.</div></div>
+        <div class="spec-row"><div class="spec-meta"><b>Body</b>Inter 400 · 16 / 15 / 14px<br>line-height 1.75 · Stone (#8C8578) in most places, Charcoal only where it must be read closely</div><div class="t-body">Every detail considered, because when people gather to celebrate someone they love, the space should feel like it was made for them.</div></div>
+        <div class="spec-row"><div class="spec-meta"><b>Small</b>Inter 400 · 13px<br>line-height 1.65 · Stone</div><div class="t-sm">Need more room? The Myrrh and Garden suites can be booked together as a combined indoor and outdoor space for up to 50 guests.</div></div>
+        <div class="spec-row"><div class="spec-meta"><b>Label</b>Inter 400 · 10px · uppercase<br>letter-spacing 0.22em · Stone<br>Buttons use Tenor Sans at the same size with 0.18em</div><div class="t-label">Intimate event space</div></div>
+      </div>
+    </section>
+
+    <!-- ══════════════ 04 LAYOUT ══════════════ -->
+    <section class="part" id="layout">
+      <div class="part-head">
+        <div class="eyebrow"><span class="label">Part 04</span></div>
+        <h2>Layout & spacing</h2>
+        <p>Enter these in Site Settings → Layout, then set every top-level section container to the section padding. The rhythm is what makes the site feel calm; don't shrink it to fit more above the fold.</p>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Setting</th><th>Desktop (≥1025)</th><th>Tablet (768–1024)</th><th>Mobile (≤767)</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Content width</td><td class="num">1240px</td><td class="num">100%</td><td class="num">100%</td><td>Site Settings → Layout → Content Width. Everything sits in a boxed container.</td></tr>
+            <tr><td>Side gutter (container padding L/R)</td><td class="num">72px</td><td class="num">40px</td><td class="num">16px</td><td>Live site uses <code>clamp(1rem, 5vw, 4.5rem)</code></td></tr>
+            <tr><td>Section padding top / bottom</td><td class="num">112px</td><td class="num">80px</td><td class="num">64px</td><td>Every <code>.section</code>. Header and stats strip are exceptions (see below).</td></tr>
+            <tr><td>Section header → content gap</td><td class="num">80px</td><td class="num">56px</td><td class="num">48px</td><td>Space between the label + H2 block and the grid beneath it</td></tr>
+            <tr><td>Label → H2 gap</td><td class="num">16px</td><td class="num">16px</td><td class="num">16px</td><td>Constant</td></tr>
+            <tr><td>Card grid gap</td><td class="num">24px</td><td class="num">24px</td><td class="num">24px</td><td>Suite cards; 16px for detail cards; 1px for package/values grids</td></tr>
+            <tr><td>Two-column gap (text / list)</td><td class="num">96px</td><td class="num">56px</td><td class="num">48px</td><td>The Space, About story, Contact, Enquiry band</td></tr>
+            <tr><td>Header height</td><td class="num">100px</td><td class="num">80px</td><td class="num">68px</td><td>Fixed; every page starts with top padding equal to this</td></tr>
+            <tr><td>Stats strip padding</td><td class="num">32px</td><td class="num">32px</td><td class="num">32px</td><td>Deliberately tight: it's a strip, not a section</td></tr>
+            <tr><td>Widgets space (default)</td><td class="num">20px</td><td class="num">20px</td><td class="num">16px</td><td>Site Settings → Layout → Widgets Space</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="sub">Radii and lines</h3>
+      <ul class="plain">
+        <li><strong>2px</strong> — buttons, badges, chips, filter buttons, image captions. Anything clickable and small is almost square.</li>
+        <li><strong>6px</strong> — form inputs, feedback panels, code blocks.</li>
+        <li><strong>8px</strong> — detail cards, gallery tiles, glance cards.</li>
+        <li><strong>10px</strong> — suite cards, package grid outer edge, values grid, partner strip, hire strip, story image. <strong>12px</strong> only on the contact form card.</li>
+        <li><strong>Hairlines</strong> — the site draws 0.5px lines in Divider (#E0DDD8). Elementor's minimum is 1px; 1px in the same colour reads fine. On dark surfaces use white at 8–15% opacity.</li>
+        <li><strong>Shadows</strong> — header on scroll: <code>0 2px 24px rgba(0,0,0,.06)</code>. Suite card hover: <code>0 16px 48px rgba(0,0,0,.08)</code> with 4px lift. Detail card hover: <code>0 4px 24px rgba(0,0,0,.05)</code>. Nothing else has a shadow.</li>
+      </ul>
+
+      <h3 class="sub">Motion</h3>
+      <ul class="plain">
+        <li><strong>Scroll reveal</strong> — most blocks fade up 22px over 0.7s when they enter the viewport. In Elementor: Advanced → Motion Effects → Entrance Animation: <em>Fade In Up</em>, Duration: <em>Slow</em>. Stagger siblings with delays of 0 / 80 / 160 / 240ms (the site's <code>d1–d4</code> classes).</li>
+        <li><strong>Hero entrance</strong> — eyebrow, headline and sub/buttons rise in sequence at 100 / 250 / 400ms. Same Fade In Up with those delays.</li>
+        <li><strong>Hover</strong> — colour changes over 200–220ms; suite card lifts 4px over 300ms; story image scales 1.04 over 600ms. Set Hover Animation to none and use Transition Duration in the widget's hover tab instead.</li>
+        <li><strong>Nothing else moves.</strong> No bounce, no parallax, no zoom-in entrances.</li>
+      </ul>
+    </section>
+
+    <!-- ══════════════ 05 COMPONENTS ══════════════ -->
+    <section class="part" id="components">
+      <div class="part-head">
+        <div class="eyebrow"><span class="label">Part 05</span></div>
+        <h2>Components</h2>
+        <p>Each one rendered live in the real styling, with the Elementor widget to use and the settings that matter. Where the demo is on linen or a dark ground, that's the ground the component lives on in the site.</p>
+      </div>
+
+      <h3 class="sub">Buttons</h3>
+      <p class="spec-list"><b>Widget:</b> Button. <b>Typography:</b> Tenor Sans 10px, uppercase, letter-spacing 0.18em. <b>Padding:</b> 0 32px, min-height 48px (set Padding 14px 32px). <b>Radius:</b> 2px. <b>Transition:</b> 0.22s. Save each variant as a Global Widget or set it in Site Settings → Buttons and override per instance.</p>
+      <div class="demo">
+        <a class="btn btn-accent" href="#">Begin the Inquiry</a>
+        <a class="btn btn-outline" href="#">About the Venue</a>
+        <a class="btn btn-ghost" href="#">Explore the Suites</a>
+        <p class="demo-note"><b>Accent:</b> bg Accent, text White, hover bg Charcoal. <b>Outline:</b> transparent, 1px Charcoal border, hover fills Charcoal. <b>Ghost:</b> Inter, Stone Text, underline offset 5px in #C8C4BF, hover Charcoal. Ghost lives on light grounds only.</p>
+      </div>
+      <div class="demo demo--dark">
+        <a class="btn btn-ol-light" href="#">Go to Full Enquiry Form</a>
+        <a class="btn btn-accent" href="#">Send Inquiry</a>
+        <a class="btn btn-white" href="#">View Packages</a>
+        <p class="demo-note"><b>Outline Light:</b> white text, 1px white at 55%, bg white 6%; hover bg white 14%, border 85%. Used on the hero and the enquiry band. <b>White:</b> bg White, text Charcoal, hover Linen. Used on the accent-coloured partner strip.</p>
+      </div>
+
+      <h3 class="sub">Eyebrow label</h3>
+      <p class="spec-list"><b>Widget:</b> Heading (HTML tag: span) with the Accent global font. Sits 16px above every H2. On the hero, About story, and page heroes it's preceded by a 28–32px × 1px rule in Stone: build as a container with Row direction, gap 14px, and a Divider widget of width 32px.</p>
+      <div class="demo">
+        <div style="width:100%"><div class="eyebrow"><span class="label">The Space</span></div><span class="t-h2">Built for the small and significant.</span></div>
+      </div>
+
+      <h3 class="sub">Badges & chips</h3>
+      <p class="spec-list"><b>Widget:</b> Heading (span) or Button with no link. 10px uppercase Inter, letter-spacing 0.14em, padding 4px 12px, radius 2px. Filter buttons on Gallery: 44px tall, 0 16px padding, letter-spacing 0.16em, active state Charcoal fill.</p>
+      <div class="demo">
+        <span class="badge badge-surface">Indoor</span>
+        <span class="badge badge-surface">In / Out</span>
+        <span class="badge badge-accent">Best value</span>
+        <span class="chip">08:00 – 12:00</span>
+        <span class="chip">13:00 – 17:00</span>
+        <span class="chip">18:00 – 22:00</span>
+        <span class="filter-btn active">All Spaces</span>
+        <span class="filter-btn">Myrrh Suite</span>
+        <span class="filter-btn">Events &amp; Décor</span>
+      </div>
+
+      <h3 class="sub">Stats strip</h3>
+      <p class="spec-list"><b>Build:</b> full-width container, bg Charcoal, padding 32px 0, inner boxed container in Row direction. Four child containers, each Column direction, gap 4px, 12px 36px padding, right border 1px white 10%. Mobile: 2×2 grid, borders on odd children only. Values in Tenor Sans 32/24/20px white; keys in Accent font 10px 0.18em Stone.</p>
+      <div class="demo" style="padding:0;border:0;">
+        <div class="stats">
+          <div class="stat"><span class="stat-val">3</span><span class="stat-key">Suites</span></div>
+          <div class="stat"><span class="stat-val">20–50</span><span class="stat-key">Guests</span></div>
+          <div class="stat"><span class="stat-val">3</span><span class="stat-key">Time slots</span></div>
+          <div class="stat"><span class="stat-val">No</span><span class="stat-key">Corkage fee</span></div>
+        </div>
+      </div>
+
+      <h3 class="sub">Suite card</h3>
+      <p class="spec-list"><b>Build:</b> container, bg White, 1px Divider border, radius 10px, overflow hidden, Column direction. Image widget 230px tall, object-fit cover (use a 3:2 crop). Body container padding 28px, gap 16px. Name (Tenor Sans 26px) and badge in a Row container with space-between. Description 13px Stone. Then a Divider (1px) and five Row containers, each label-left / value-right. Hover: Transform → translateY −4px, box-shadow <code>0 16px 48px rgba(0,0,0,.08)</code>, 300ms. Save as a template; there are exactly three.</p>
+      <div class="demo demo--linen">
+        <div class="cards-3">
+          <article class="suite-card"><div class="suite-img suite-img--myrrh"><span>MyrhSuite.jpg</span></div><div class="suite-body"><div class="suite-head"><h4 class="suite-name">The Myrrh Suite</h4><span class="badge badge-surface">Indoor</span></div><p class="suite-desc">White-washed walls and soft natural light : suited to kitchen teas, bridal showers, and intimate birthday lunches.</p><div class="suite-meta"><div class="suite-row"><span class="suite-row-label">Capacity</span><span class="suite-row-val">30–40 guests</span></div><div class="suite-row"><span class="suite-row-label">Morning</span><span class="suite-row-val">08:00 – 12:00</span></div><div class="suite-row"><span class="suite-row-label">Afternoon</span><span class="suite-row-val">13:00 – 17:00</span></div><div class="suite-row"><span class="suite-row-label">Evening</span><span class="suite-row-val">18:00 – 22:00</span></div><div class="suite-row"><span class="suite-row-label" style="letter-spacing:.06em;text-transform:none;">Sunday closing: 15:00</span></div></div></div></article>
+          <article class="suite-card"><div class="suite-img suite-img--olive"><span>OliveSuite.jpg</span></div><div class="suite-body"><div class="suite-head"><h4 class="suite-name">The Olive Suite</h4><span class="badge badge-surface">In / Out</span></div><p class="suite-desc">A hybrid space flowing from an indoor lounge into an outdoor patio : ideal for baby showers where natural light matters.</p><div class="suite-meta"><div class="suite-row"><span class="suite-row-label">Capacity</span><span class="suite-row-val">20–30 guests</span></div><div class="suite-row"><span class="suite-row-label">Morning</span><span class="suite-row-val">08:00 – 12:00</span></div><div class="suite-row"><span class="suite-row-label">Afternoon</span><span class="suite-row-val">13:00 – 17:00</span></div><div class="suite-row"><span class="suite-row-label">Evening</span><span class="suite-row-val">18:00 – 22:00</span></div><div class="suite-row"><span class="suite-row-label" style="letter-spacing:.06em;text-transform:none;">Sunday closing: 15:00</span></div></div></div></article>
+          <article class="suite-card"><div class="suite-img suite-img--garden"><span>GardenSuite.jpg</span></div><div class="suite-body"><div class="suite-head"><h4 class="suite-name">The Garden Suite</h4><span class="badge badge-surface">Outdoor</span></div><p class="suite-desc">An open garden setting dressed with greenery and dappled shade : beautiful for larger groups celebrating in fresh air.</p><div class="suite-meta"><div class="suite-row"><span class="suite-row-label">Capacity</span><span class="suite-row-val">30–40 guests</span></div><div class="suite-row"><span class="suite-row-label">Morning</span><span class="suite-row-val">08:00 – 12:00</span></div><div class="suite-row"><span class="suite-row-label">Afternoon</span><span class="suite-row-val">13:00 – 17:00</span></div><div class="suite-row"><span class="suite-row-label">Evening</span><span class="suite-row-val">18:00 – 22:00</span></div><div class="suite-row"><span class="suite-row-label" style="letter-spacing:.06em;text-transform:none;">Sunday closing: 15:00</span></div></div></div></article>
+        </div>
+      </div>
+
+      <h3 class="sub">Package grid</h3>
+      <p class="spec-list"><b>Build:</b> the trick is a 1px gap on a Divider-coloured parent. Parent container: bg Divider (#E0DDD8), 1px Divider border, radius 10px, overflow hidden, Grid layout 4 / 2 / 1 columns, gap 1px. Each child: bg White, padding 40px 32px, Column, gap 24px, hover bg Linen. Package 4 is featured: bg Accent, white text, hover Accent Deep, list dashes at white 20%. Lists are Icon List widgets with an en-dash "icon" (or a text list with the CSS in Part 08).</p>
+      <div class="demo demo--linen" style="padding:1.5rem;">
+        <div class="pkg-grid">
+          <div class="pkg"><div><p class="pkg-name">Package 1</p><p class="pkg-enquire">Enquire for pricing <a href="#">Get a quote →</a></p></div><hr><div><span class="pkg-sec">What's included</span><ul><li>Choose a venue</li><li>Half balloon arch</li><li>Bamboo chairs</li><li>Tables &amp; chairs</li><li>Cutlery, crockery &amp; standard glassware</li><li>2 x Backdrops or shaped arches</li><li>Carpet</li><li>5 x Carafes with water</li><li>Water dispenser (8L)</li><li>Setup &amp; clean up</li><li>Self-catering : food</li></ul></div></div>
+          <div class="pkg pkg--featured"><div><p class="pkg-name">Package 4</p><p class="pkg-enquire">Enquire for pricing <a href="#">Get a quote →</a></p></div><hr><div><span class="pkg-sec">What's included</span><ul><li>Choose a venue</li><li>Full balloon arch</li><li>Bamboo chairs</li><li>Tables &amp; chairs</li><li>Cutlery &amp; crockery</li><li>Backdrops or shaped arches</li><li>Carpet</li><li>5 x Carafes with water</li><li>Water dispenser (8L)</li><li>Setup &amp; clean up</li><li>Self-catering : food option</li><li>Table runners (STA)</li><li>Basic greenery &amp; single stemmed florals</li><li>Standard vases</li><li>Underplates (STA) / woven placemats</li><li>Coffee &amp; tea station</li><li>Themed glassware (STA)</li><li>Standard themed napkins</li></ul></div><div><span class="pkg-sec">Best for</span><ul><li>Bridal showers</li><li>Baby showers</li><li>Kitchen teas</li><li>Birthdays</li><li>High teas</li></ul></div></div>
+        </div>
+        <p class="demo-note">Shown at two columns for space; the site is four across on desktop. Packages 2 and 3 follow Package 1's pattern (see packages.json in the repo for the full lists). Same 1px-gap technique builds the six "principles" cards on About at 3 / 2 / 1 columns.</p>
+      </div>
+
+      <h3 class="sub">Detail card & pillar list</h3>
+      <p class="spec-list"><b>Detail card:</b> lives on linen. Container bg White, radius 8px, padding 32px 28px, gap 16px. Icon widget 28px in Accent with 0.75px stroke line icons (use the Elementor "light" Font Awesome style or upload the SVGs from the repo). Title Tenor Sans 16px, body 13px Stone. <b>Pillar list:</b> Icon List or four Row containers; 20px vertical padding, 1px Divider rule between items and above the first. Number in 10px Stone, title Tenor Sans 15px, body 13px Stone.</p>
+      <div class="demo demo--linen">
+        <div class="detail-card"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M8 16C8 11.58 11.58 8 16 8C20.42 8 24 11.58 24 16" stroke="currentColor" stroke-width="0.75" stroke-linecap="round"/><path d="M4 24H28" stroke="currentColor" stroke-width="0.75" stroke-linecap="round"/><path d="M16 8V4" stroke="currentColor" stroke-width="0.75" stroke-linecap="round"/></svg><h4 class="detail-title">No Corkage Fee</h4><p class="detail-desc">No corkage fees, ever. Alcohol is limited; non-alcoholic drinks are stocked on site.</p></div>
+        <div class="detail-card"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="5" y="12" width="22" height="14" rx="1" stroke="currentColor" stroke-width="0.75"/><path d="M10 12V9C10 7.9 12.69 7 16 7C19.31 7 22 7.9 22 9V12" stroke="currentColor" stroke-width="0.75"/><circle cx="16" cy="19" r="2" stroke="currentColor" stroke-width="0.75"/></svg><h4 class="detail-title">Secured Parking</h4><p class="detail-desc">On-site secured parking for all guests. No stress on arrival day.</p></div>
+        <div class="detail-card"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="11" stroke="currentColor" stroke-width="0.75"/><path d="M16 10V16L20 18" stroke="currentColor" stroke-width="0.75" stroke-linecap="round"/></svg><h4 class="detail-title">Three Time Slots</h4><p class="detail-desc">Morning, afternoon and evening sessions : your event always starts fresh. Standard hire is four hours.</p><div style="display:flex;flex-wrap:wrap;gap:.5rem;"><span class="chip">08:00 – 12:00</span><span class="chip">13:00 – 17:00</span><span class="chip">18:00 – 22:00</span></div></div>
+      </div>
+      <div class="demo" style="flex-direction:column;align-items:stretch;gap:0;">
+        <div class="pillar"><span class="pillar-num">01</span><div><span class="pillar-title">Self-Catering Freedom</span><p class="pillar-body">Self-cater at no additional fee, or order from the on-site restaurant. No corkage.</p></div></div>
+        <div class="pillar"><span class="pillar-num">02</span><div><span class="pillar-title">Décor Partnership</span><p class="pillar-body">Oaón Events handles full décor : balloon arches, florals, backdrops, and table settings.</p></div></div>
+        <div class="pillar"><span class="pillar-num">03</span><div><span class="pillar-title">Secured Parking</span><p class="pillar-body">On-site secured parking for all guests. No street parking stress on the day.</p></div></div>
+        <div class="pillar"><span class="pillar-num">04</span><div><span class="pillar-title">Intimate by Design</span><p class="pillar-body">20–50 guests is a feature, not a limitation. Spacious enough to breathe, small enough to feel.</p></div></div>
+      </div>
+
+      <h3 class="sub">Form fields</h3>
+      <p class="spec-list"><b>Widget:</b> Elementor Pro Form. Site Settings → Form Fields: bg Linen, 1px Divider border, radius 6px, padding 14px 16px, Inter 15px Charcoal, min-height 48px; focus border Charcoal + bg White. Labels use the Accent global font at 0.2em tracking, 8px above the field. Two-column layout (50% fields) above 680px; message field and submit span full width. On the contact page the form sits inside a linen card, so fields there are White with the Divider border. On the dark enquiry band fields are white 10% with a white 38% border and white text.</p>
+      <div class="demo">
+        <div class="field"><label for="d-name">Your Name</label><input id="d-name" type="text" placeholder="Jane Doe"></div>
+        <div class="field"><label for="d-email">Email Address</label><input id="d-email" type="email" placeholder="info@venueoaon.co.za"></div>
+      </div>
+      <div class="demo demo--dark">
+        <div class="field"><label for="dd-name">Your Name</label><input id="dd-name" type="text" placeholder="Jane Doe"></div>
+        <div class="field"><label for="dd-date">Preferred Date</label><input id="dd-date" type="text" placeholder="dd / mm / yyyy"></div>
+      </div>
+
+      <h3 class="sub">Pull quote</h3>
+      <p class="spec-list"><b>Widget:</b> Text Editor or Blockquote. Tenor Sans 26/20/18px, line-height 1.5, Charcoal, 1.5px Accent left border, 28px left padding. Used once, on About.</p>
+      <div class="demo"><blockquote class="quote">"I didn't build Venue Oaón to be impressive. I built it to be right, for the moments that matter most."</blockquote></div>
+    </section>
+
+    <!-- ══════════════ 06 HEADER / FOOTER ══════════════ -->
+    <section class="part" id="chrome">
+      <div class="part-head">
+        <div class="eyebrow"><span class="label">Part 06</span></div>
+        <h2>Header & footer</h2>
+        <p>Both built once in Theme Builder with the display condition "Entire Site". The header is fixed (not sticky-on-scroll), so every page's first section needs top padding equal to the header height.</p>
+      </div>
+
+      <h3 class="sub">Header</h3>
+      <div class="demo" style="padding:0;border:0;">
+        <div class="nav-mock"><div class="nav-bar"><span class="nav-logo">VENUE OAÓN</span><ul class="nav-links"><li><a class="active" href="#">Home</a></li><li><a href="#">About</a></li><li><a href="#">Packages</a></li><li><a href="#">Gallery</a></li><li><a href="#">Contact</a></li></ul><span class="nav-cta">Enquire</span></div></div>
+      </div>
+      <ul class="plain">
+        <li><strong>Container:</strong> full width, position Fixed, z-index 200, height 100 / 80 / 68px, bg White at 98%, bottom border 1px Divider, padding 0 gutter. Row, space-between, align center. Add Custom CSS class <code>site-header</code> so the scroll shadow in Part 08 applies.</li>
+        <li><strong>Logo:</strong> Site Logo widget, <code>venue-oaon-logo.png</code> (1285×791), height 80 / 54 / 40px, width auto.</li>
+        <li><strong>Menu:</strong> Nav Menu widget, horizontal, gap 40px. Typography: Accent global font but letter-spacing 0.15em, Stone; hover and active Charcoal. Pointer: <em>Underline</em>, animation <em>Fade</em>, 1px Charcoal. Breakpoint for hamburger: 900px (set custom breakpoint "Laptop" or use Tablet at 1024 as nearest).</li>
+        <li><strong>CTA:</strong> Button "Enquire" → /contact. Tenor Sans 10px, 0.16em, bg Accent, hover Charcoal, 44px tall, padding 0 22px, radius 2px. Mobile: 38px, padding 0 14px.</li>
+        <li><strong>Mobile menu:</strong> Nav Menu dropdown layout, full-width, items 52px tall with 1px Divider rules, hover bg Linen. Three-line hamburger with 0.5px-thin bars (1px in Elementor), 20px wide. Final item "Begin the Inquiry →" in Accent, Tenor Sans.</li>
+      </ul>
+
+      <h3 class="sub">Footer</h3>
+      <div class="demo" style="padding:0;border:0;">
+        <div class="footer-mock">
+          <div class="footer-grid">
+            <div><div class="nav-logo" style="color:#fff;opacity:.92;margin-bottom:1.25rem;">VENUE OAÓN</div><p class="tag">An intimate event space in Montana, Pretoria for small, considered gatherings of 20–50 people.</p></div>
+            <div><span class="fl">Navigate</span><ul><li>Home</li><li>About</li><li>Packages</li><li>Gallery</li><li>Contact</li><li>Privacy Policy</li><li>Terms of Service</li></ul></div>
+            <div><span class="fl">Find Us</span><ul><li>Montana, Pretoria<br>Gauteng, South Africa</li></ul><span class="fl" style="margin-top:1.5rem;">Events Partner</span><ul><li>Oaón Events →</li></ul><span class="fl" style="margin-top:1.5rem;">Contact</span><ul><li>info@venueoaon.co.za</li></ul></div>
+          </div>
+          <div class="footer-bottom"><span>© 2026 Venue Oaón. All rights reserved.</span><span>Décor &amp; events by <a href="#">Oaón Events</a></span></div>
+        </div>
+      </div>
+      <ul class="plain">
+        <li><strong>Container:</strong> bg Surface Footer (#121212), top border 1px Accent Muted at 18%, padding 96 / 80 / 64px top, 32px bottom.</li>
+        <li><strong>Grid:</strong> three columns 2fr 1fr 1fr, gap 80px (stack at tablet with 40px gap). Column 1: logo (Site Logo, 64px tall, CSS filter <code>brightness(0) invert(1)</code>, opacity 0.92) + tagline 13px Stone, max-width 280px. Columns 2–3: label (Accent font, 0.2em, Stone, 20px below) + Icon List with no icons, 13px, white 65%, hover white, 44px min-height per item.</li>
+        <li><strong>Bottom bar:</strong> 1px white 8% top border, 24px padding-top, Row space-between, 13px Stone. Partner link white 78% underlined.</li>
+        <li><strong>Links:</strong> Find Us → Google Maps (978 Veda Ave, Montana AH, Pretoria, 0186). Events Partner → https://oaonevents.co.za/. Email → mailto:info@venueoaon.co.za.</li>
+      </ul>
+
+      <h3 class="sub">Floating WhatsApp launcher</h3>
+      <div class="demo"><span class="wa-float"><svg width="26" height="26" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></span>
+        <p class="demo-note" style="width:auto;flex:1;">56px circle, #25D366, fixed bottom-right 24px, z-index 300, shadow <code>0 4px 20px rgba(37,211,102,.35)</code>, a slow 2.5s pulse ring, scales 1.1 on hover. On the live site it opens a bottom-sheet form (name, phone, event type, guests, date, suite, package, message) that composes a WhatsApp message to <b>+27 76 182 3532</b>. In Elementor: a Button with the class <code>wa-float</code> triggering a Popup (Theme Builder → Popups, slide-up from bottom, radius 20px top corners, max-height 92vh) containing a Form whose action is "Redirect" to <code>https://wa.me/27761823532?text=[form fields]</code>. Or use a WhatsApp plugin (e.g. Click to Chat) and restyle it to these values.</p>
+      </div>
+    </section>
+
+    <!-- ══════════════ 07 PAGES ══════════════ -->
+    <section class="part" id="pages">
+      <div class="part-head">
+        <div class="eyebrow"><span class="label">Part 07</span></div>
+        <h2>Page blueprints</h2>
+        <p>Each page as a stack of sections, top to bottom. The colour strip shows the section background. Every section without a stated padding uses the standard section padding from Part 04. The four sub-pages all open with the same Page Hero: pale gradient, eyebrow, big H1, bottom-aligned, min-height 42vh.</p>
+      </div>
+
+      <!-- HOME -->
+      <div class="page">
+        <div class="page-title"><h3>Home</h3><code>/</code></div>
+        <p class="page-meta">Title: <em>Venue Oaón | Intimate Event Space in Montana, Pretoria</em>. The only page with a photo hero and the dark enquiry band. Seven sections, alternating white / linen after the stats strip.</p>
+        <div class="bp">
+          <div class="bp-row"><div class="bp-strip bg-hero"><span class="n">Hero</span><span class="bg">Photo + gradient</span></div><div class="bp-body">
+            <div><span class="k">Build</span><p>Container min-height 100vh, padding-top = header height, align content to bottom (justify end), padding-bottom 10vh. Background image <code>hero_bg_1.webp</code> (1920×1080), cover, center, scale 1.03. Background Overlay → Gradient: black 60% at 0° left → transparent at right (angle 90°); the site also adds a bottom vignette, which you can fake with a second inner container. Content container max-width 680px, padding-left 128px desktop. Vertical "Montana · Pretoria" label top-right, white 45%, rotated 90° (hide on mobile). Mobile: content becomes a centred panel bg <code>rgba(10,8,6,.74)</code>, buttons full width.</p></div>
+            <div><span class="k">Copy</span><p class="label" style="color:#fff;background:#2b2420;display:inline-block;padding:2px 6px;">Intimate event space</p><p class="copy" style="font-size:1.3rem;">A space made<br>for your<br>moment.</p><p>Three suites for gatherings of 20–50 people. Baby showers, kitchen teas, bridal showers, birthdays.</p><p>Buttons: <b>Begin the Inquiry</b> (Accent → /contact) · <b>Explore the Suites</b> (Outline Light → #suites)</p></div>
+          </div></div>
+          <div class="bp-row"><div class="bp-strip bg-charcoal"><span class="n">Stats strip</span><span class="bg">Charcoal · 32px</span></div><div class="bp-body">
+            <div><span class="k">Build</span><p>Saved template from Part 05. Four stats in a row.</p></div>
+            <div><span class="k">Copy</span><p><b>3</b> Suites · <b>20–50</b> Guests · <b>3</b> Time slots · <b>No</b> Corkage fee</p></div>
+          </div></div>
+          <div class="bp-row"><div class="bp-strip bg-white"><span class="n">The Space</span><span class="bg">White</span></div><div class="bp-body">
+            <div><span class="k">Build</span><p>Two columns 1fr 1fr, gap 96px, align start. Left: eyebrow with rule, intro in Tenor Sans 24px, sub in 16px Stone, Outline button. Right: pillar list (four items) with 160ms delay.</p></div>
+            <div><span class="k">Copy</span><p class="label">The Space</p><p class="copy">Built for the small and significant. White-washed walls, warm wooden elements, and private garden spaces, made ready for your gathering.</p><p>Every detail considered, because when people gather to celebrate someone they love, the space should feel like it was made for them.</p><p>Button: <b>About the Venue</b> → /about. Pillars: 01 Self-Catering Freedom · 02 Décor Partnership · 03 Secured Parking · 04 Intimate by Design (text in Part 05).</p></div>
+          </div></div>
+          <div class="bp-row"><div class="bp-strip bg-linen"><span class="n">Suites</span><span class="bg">Linen · id="suites"</span></div><div class="bp-body">
+            <div><span class="k">Build</span><p>Section header (label + H2), then 3 / 2 / 1 grid of Suite cards, gap 24px, staggered 0 / 80 / 160ms. Note paragraph below, 13px Stone, max-width 560px.</p></div>
+            <div><span class="k">Copy</span><p class="label">The Suites</p><p class="copy">Three spaces. One venue.</p><p>Need more room? The Myrrh and Garden suites can be booked together as a combined indoor and outdoor space for up to 50 guests.</p></div>
+          </div></div>
+          <div class="bp-row"><div class="bp-strip bg-white"><span class="n">Packages preview</span><span class="bg">White</span></div><div class="bp-body">
+            <div><span class="k">Build</span><p>Section header as a Row with space-between: label + H2 on the left, Outline button "View All Packages" on the right (wrap on mobile). Package grid template (all four). Footnote 10px, then centred CTA block with 13px note and Accent button.</p></div>
+            <div><span class="k">Copy</span><p class="label">Packages</p><p class="copy">Décor done for you.</p><p>STA : subject to availability. Every package includes your choice of suite.</p><p>All packages offered through Oaón Events · More packages on request. Button: <b>Explore Packages</b> → /packages.</p></div>
+          </div></div>
+          <div class="bp-row"><div class="bp-strip bg-linen"><span class="n">Good to Know</span><span class="bg">Linen</span></div><div class="bp-body">
+            <div><span class="k">Build</span><p>Section header, then 4 / 2 / 1 grid of Detail cards, gap 16px. Fourth card carries the three time-slot chips plus "Sunday closing: 15:00" as an unboxed chip.</p></div>
+            <div><span class="k">Copy</span><p class="label">Good to Know</p><p class="copy">The details that matter.</p><p>Cards: No Corkage Fee · Catering, Your Way · Secured Parking · Three Time Slots (text in Part 05 and the repo's PracticalDetails.astro).</p></div>
+          </div></div>
+          <div class="bp-row"><div class="bp-strip bg-cta"><span class="n">Enquiry band</span><span class="bg">Surface CTA #33281F</span></div><div class="bp-body">
+            <div><span class="k">Build</span><p>Two columns 1fr 1.5fr, gap 80px. Left: label in Stone Light, H2 white 44px, sub 16px Stone Light, Outline Light button. Right: Form with Name, Email, Event Type (select), Preferred Date (date), Accent submit; dark-field styling from Part 05; note below with WhatsApp link. Success state: Accent Pale panel, radius 6px.</p></div>
+            <div><span class="k">Copy</span><p class="label" style="color:#C9C1B5;">Begin the Inquiry</p><p class="copy">Tell us about your moment.</p><p>Fill in what you know and we'll be in touch to talk through the rest. This is the beginning of a conversation, not a booking form.</p><p>Button: <b>Go to Full Enquiry Form</b> → /contact. Submit: <b>Send Inquiry</b>. Note: "We aim to respond within 24 hours. Message on WhatsApp." Event types: Baby Shower, Kitchen Tea, Bridal Shower, Birthday, Other.</p></div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- ABOUT -->
+      <div class="page">
+        <div class="page-title"><h3>About</h3><code>/about</code></div>
+        <p class="page-meta">Title: <em>About Venue Oaón | Montana, Pretoria Event Space</em>. Story, six principles, a partner strip on Accent, a timeline, and a closing CTA.</p>
+        <div class="bp">
+          <div class="bp-row"><div class="bp-strip bg-pale"><span class="n">Page hero</span><span class="bg">Pale gradient · 42vh</span></div><div class="bp-body">
+            <div><span class="k">Build</span><p>Container min-height 42vh, padding-top header height, justify end, padding-bottom 80px. Background gradient 155°: #EAE3DA → #D5CCBF → #C8BFB2, with a white-to-transparent overlay from the bottom (Background Overlay → gradient white 92% → 0%). Eyebrow with 28px rule, H1 Tenor Sans 96px Charcoal max-width 14ch. Reuse this for Packages, Gallery and Contact.</p></div>
+            <div><span class="k">Copy</span><p class="label">Our Story</p><p class="copy" style="font-size:1.3rem;">Born from a<br>love of hosting.</p></div>
+          </div></div>
+          <div class="bp-row"><div class="bp-strip bg-white"><span class="n">Story</span><span class="bg">White</span></div><div class="bp-body">
+            <div><span class="k">Build</span><p>Two columns 1fr 1fr, gap 96px. Left: image <code>founder.jpg</code> in a 4:5 box, radius 10px, hover scale 1.04 over 600ms; caption chip bottom-left, white 96%, 10px uppercase: "Est. 2026 · Montana, Pretoria". Right: label, pull quote, three body paragraphs in 16px Stone, Outline button. Column gap 28px.</p></div>
+            <div><span class="k">Copy</span><p class="label">The beginning</p><p class="copy">"I didn't build Venue Oaón to be impressive. I built it to be right, for the moments that matter most."</p><p>Venue Oaón grew from more than a decade of hands-on events work… (three paragraphs, in about.astro). Button: <b>Come visit the space</b> → /contact.</p></div>
+          </div></div>
+          <div class="bp-row"><div class="bp-strip bg-linen"><span class="n">Principles</span><span class="bg">Linen</span></div><div class="bp-body">
+            <div><span class="k">Build</span><p>Section header, then the 1px-gap grid technique at 3 / 2 / 1 columns. Each cell: bg White, padding 36px 32px, hover Linen; number 10px Stone, title Tenor Sans 18px, body 13px Stone.</p></div>
+            <div><span class="k">Copy</span><p class="label">What we believe</p><p class="copy">The principles behind the space.</p><p>01 Small is intentional · 02 No corkage, ever · 03 Real events experience · 04 Décor is a partnership · 05 Every event is different · 06 The space should feel yours.</p></div>
+          </div></div>
+          <div class="bp-row"><div class="bp-strip bg-accent"><span class="n">Partner strip</span><span class="bg">Accent · inside white section</span></div><div class="bp-body">
+            <div><span class="k">Build</span><p>A white section containing one boxed container: bg Accent, radius 10px, padding 64px, overflow hidden. Decorative ghost word "Oaón" bottom-right in Tenor Sans 192px, transparent fill with a white 8% stroke (Heading widget + the CSS in Part 08). Two columns 1fr 1fr, align center: label white 45%, H2 white 36px, body white 60%, White button; right column is a six-item list with 5px white 40% dots and white 10% rules.</p></div>
+            <div><span class="k">Copy</span><p class="label" style="color:rgba(255,255,255,.6);background:#8B6448;display:inline-block;padding:2px 6px;">Our sister company</p><p class="copy">Oaón Events: where the décor happens.</p><p>Every décor package at Venue Oaón is offered through Oaón Events. The same team, the same eye for detail: just focused entirely on making your space beautiful. Button: <b>View Packages</b>. List: Balloon arches, half and full · Backdrops and shaped arches · Greenery, single stemmed florals and vases · Table runners, placemats and napkins · Bamboo chairs, carpets and table linen · Setup and clean up on every package.</p></div>
+          </div></div>
+          <div class="bp-row"><div class="bp-strip bg-linen"><span class="n">Timeline</span><span class="bg">Linen · max 760px</span></div><div class="bp-body">
+            <div><span class="k">Build</span><p>Inner container max-width 760px. Four Row items, gap 32px, padding 32px 0, 1px Divider rules. Year in Tenor Sans 18px Stone, min-width 60px; title Tenor Sans 16px; body 13px Stone. This is a real sequence, so the years carry information.</p></div>
+            <div><span class="k">Copy</span><p class="label">A decade of occasions</p><p class="copy">The journey here.</p><p>2012 First professional event · 2016 Oaón Events launched · 2022 The idea for a venue · 2024 Venue Oaón opens.</p></div>
+          </div></div>
+          <div class="bp-row"><div class="bp-strip bg-white"><span class="n">Closing CTA</span><span class="bg">White · centred</span></div><div class="bp-body">
+            <div><span class="k">Build</span><p>Centred text, body max-width 460px, two buttons in a row with 16px gap. Save as template: Gallery reuses it on linen with different copy.</p></div>
+            <div><span class="k">Copy</span><p class="label">Come see the space</p><p class="copy">We'd love to show you around.</p><p>The best way to know if it's right for your event is to visit. Book a site visit and we'll walk you through all three suites. Buttons: <b>Book a Site Visit</b> (Accent → /contact) · <b>View the Gallery</b> (Outline → /gallery).</p></div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- PACKAGES -->
+      <div class="page">
+        <div class="page-title"><h3>Packages</h3><code>/packages</code></div>
+        <p class="page-meta">Title: <em>Décor Packages | Venue Oaón Montana Pretoria</em>. No prices anywhere: every price point is "Enquire for pricing".</p>
+        <div class="bp">
+          <div class="bp-row"><div class="bp-strip bg-pale"><span class="n">Page hero</span><span class="bg">Pale gradient</span></div><div class="bp-body"><div><span class="k">Build</span><p>Page Hero template.</p></div><div><span class="k">Copy</span><p class="label">Décor &amp; Packages</p><p class="copy" style="font-size:1.3rem;">Décor done<br>for you.</p></div></div></div>
+          <div class="bp-row"><div class="bp-strip bg-white"><span class="n">Intro + hire strip</span><span class="bg">White</span></div><div class="bp-body">
+            <div><span class="k">Build</span><p>Intro block max-width 640px: label (with inline Accent link), Tenor Sans 24px title, 16px Stone body. Then 80px below, the hire strip: container bg Charcoal, radius 10px, padding 40px gutter, Row space-between wrap; title Tenor Sans 24px white, sub 13px Stone max 480px, Outline button restyled white-on-dark.</p></div>
+            <div><span class="k">Copy</span><p class="label">In partnership with Oaón Events</p><p class="copy">Every package is offered through our sister company, Oaón Events: a team that has spent a decade turning rooms into moments.</p><p>Hire strip: <b>Your suite is included in the package.</b> Every package below starts with "choose a venue": the suite hire is built in, not charged on top… Standard hire is four hours. Button: <b>Enquire for Pricing</b>.</p></div>
+          </div></div>
+          <div class="bp-row"><div class="bp-strip bg-linen"><span class="n">Package grid</span><span class="bg">Linen</span></div><div class="bp-body"><div><span class="k">Build</span><p>Package grid template, full variant: header label + H2 + note, all four packages, footnote.</p></div><div><span class="k">Copy</span><p class="label">Décor Packages</p><p class="copy">Four packages. Every occasion.</p><p>Every package includes your choice of suite: venue hire is built into the package, not charged on top. Footnote: STA : subject to availability.</p></div></div></div>
+          <div class="bp-row"><div class="bp-strip bg-white"><span class="n">More on request</span><span class="bg">White</span></div><div class="bp-body"><div><span class="k">Build</span><p>Single column, max-width 640px: label, H2, 16px Stone body, Accent button.</p></div><div><span class="k">Copy</span><p class="label">Beyond the four</p><p class="copy">And more packages on request.</p><p>These four cover most of what we host, but they aren't the whole list… Button: <b>Request a Custom Package</b> → /contact.</p></div></div></div>
+          <div class="bp-row"><div class="bp-strip bg-linen"><span class="n">Suites at a glance + add-ons</span><span class="bg">Linen</span></div><div class="bp-body">
+            <div><span class="k">Build</span><p>Section header, then 3 / 1 grid of glance cards: bg White, 1px Divider, radius 8px, padding 28px; name Tenor Sans 17px, type label, hairline, capacity in Tenor Sans 22px with "guests" as a label, 13px desc. Below (80px): the add-ons panel. On the live site it is Linen inside a Linen section, so its edge is invisible and it reads as plain content; keep that, or use White if you want a visible card. Radius 10px, padding 48px; 3 / 2 / 1 list with Accent dots and Divider rules; 13px note.</p></div>
+            <div><span class="k">Copy</span><p class="label">The Suites</p><p class="copy">Pair your package with a suite.</p><p>Add-ons: <span class="label">Optional Add-ons</span> — <b>Everything else you might need.</b> Premium furniture hire · Décor hire · Event electronics · Customised party setups · Harvest tables · Additional hours (STA). Note: Additional charges apply to add-ons.</p></div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- GALLERY -->
+      <div class="page">
+        <div class="page-title"><h3>Gallery</h3><code>/gallery</code></div>
+        <p class="page-meta">~100 photos in <code>public/images/gallery/</code> with WebP derivatives already generated; upload the WebPs. Filters by suite plus an Events &amp; Décor set.</p>
+        <div class="bp">
+          <div class="bp-row"><div class="bp-strip bg-pale"><span class="n">Page hero</span><span class="bg">Pale gradient</span></div><div class="bp-body"><div><span class="k">Build</span><p>Page Hero template.</p></div><div><span class="k">Copy</span><p class="label">The Venue</p><p class="copy" style="font-size:1.3rem;">See the space<br>come to life.</p></div></div></div>
+          <div class="bp-row"><div class="bp-strip bg-white"><span class="n">Filter + masonry</span><span class="bg">White</span></div><div class="bp-body">
+            <div><span class="k">Build</span><p>Elementor Pro <b>Gallery</b> widget, type Multiple, layout Masonry, 3 / 2 / 1 columns, 16px gaps, radius 8px on items, lightbox on. Filter bar shows the gallery titles as tabs: restyle to the filter-button spec (10px uppercase 0.16em, 44px, 1px Divider border, active Charcoal). Overlay on hover: bottom gradient with name (Tenor Sans) and type (label) — set via the widget's Overlay → Title/Description. Empty state text if a filter has no items: "Photos for this suite are coming soon."</p></div>
+            <div><span class="k">Copy</span><p>Tabs: <b>All Spaces · Myrrh Suite · Olive Suite · Garden Suite · Events &amp; Décor</b>. Lightbox close "✕", prev/next arrows, caption = name + type.</p></div>
+          </div></div>
+          <div class="bp-row"><div class="bp-strip bg-linen"><span class="n">Closing CTA</span><span class="bg">Linen · centred</span></div><div class="bp-body"><div><span class="k">Build</span><p>Closing CTA template on Linen.</p></div><div><span class="k">Copy</span><p class="label">Like what you see?</p><p class="copy">Come experience it in person.</p><p>Buttons: <b>Book a Site Visit</b> · <b>View Packages</b>.</p></div></div></div>
+        </div>
+      </div>
+
+      <!-- CONTACT -->
+      <div class="page">
+        <div class="page-title"><h3>Contact</h3><code>/contact</code></div>
+        <p class="page-meta">The full enquiry form. Left column is a set of "aside blocks"; right column is the form inside a linen card. FAQ below.</p>
+        <div class="bp">
+          <div class="bp-row"><div class="bp-strip bg-pale"><span class="n">Page hero</span><span class="bg">Pale gradient</span></div><div class="bp-body"><div><span class="k">Build</span><p>Page Hero template.</p></div><div><span class="k">Copy</span><p class="label">Begin the Inquiry</p><p class="copy" style="font-size:1.3rem;">Tell us about<br>your moment.</p></div></div></div>
+          <div class="bp-row"><div class="bp-strip bg-white"><span class="n">Aside + form</span><span class="bg">White</span></div><div class="bp-body">
+            <div><span class="k">Build</span><p>Two columns 1fr 1.5fr, gap 112px, align start. <b>Left:</b> three aside blocks each with a label title. (1) "Get in touch": four Icon List rows with 20px 0.75px-stroke line icons in Accent — Address, Email, Response time, Time slots — then a WhatsApp option card (green 44px icon circle, "Chat on WhatsApp" + "Often the quickest way to reach us"). (2) "Available Suites": three compact rows. (3) "Location": Google Maps embed, radius 8px. <b>Right:</b> container bg Linen, radius 12px, padding 56px; H2 Tenor Sans "Begin the Inquiry", sub in Stone, then the Form with white fields.</p></div>
+            <div><span class="k">Copy</span><p>Address: 978 Veda Ave, Montana AH, Pretoria, 0186 · Email: info@venueoaon.co.za · Response: Within 24 hours · Slots: 08:00–12:00 · 13:00–17:00 · 18:00–22:00 · Sun closes 15:00.</p><p>Form fields: Your Name · Email Address · Contact Number · Type of Event (Baby Shower, Kitchen Tea, Bridal Shower, Birthday, Other) · Suite Preference (Myrrh, Olive, Garden, Myrrh + Garden, Not sure) · Preferred Date · Estimated Guest Count · Package Interest (Package 1–4, Suite hire only, Not sure yet) · Tell us about your event (textarea, full width). Submit: <b>Send Inquiry</b>. Success: "Thank you: we'll be in touch. We aim to respond within 24 hours." Error: "Something went wrong. Please try again or message us on WhatsApp."</p></div>
+          </div></div>
+          <div class="bp-row"><div class="bp-strip bg-linen"><span class="n">FAQ</span><span class="bg">Linen · max 680px</span></div><div class="bp-body"><div><span class="k">Build</span><p>Section header, then Accordion widget max-width 680px: no background, 1px Divider rules between items and above the first, question in Tenor Sans 16px with 20px vertical padding, a thin "+" icon on the right that rotates 45° when open, answer 13px Stone. Only one open at a time.</p></div><div><span class="k">Copy</span><p class="label">FAQ</p><p class="copy">Questions we hear often.</p><p>Twelve questions, from "How do I get pricing?" to "Is there parking?" — full text in contact.astro (the <code>faq</code> array).</p></div></div></div>
+        </div>
+      </div>
+
+      <div class="callout"><b>Legal pages</b> (/privacy-policy, /terms-of-service): Page Hero + a single prose column max-width 720px, H2s in Tenor Sans 24px, body 15px Stone Text, 1px Divider rules between sections. Set both to noindex. <b>404:</b> Page Hero with "Page not found" and an Accent button home.</div>
+    </section>
+
+    <!-- ══════════════ 08 CSS ══════════════ -->
+    <section class="part" id="css">
+      <div class="part-head">
+        <div class="eyebrow"><span class="label">Part 08</span></div>
+        <h2>Custom CSS</h2>
+        <p>Paste into Site Settings → Custom CSS (Elementor Pro). It covers the few things the UI can't set: the scroll shadow on the header, the thin hamburger, the en-dash list bullets, the ghost word on the partner strip, the WhatsApp pulse, and the hairline focus ring. Add the named classes via Advanced → CSS Classes on the matching element.</p>
+      </div>
+<pre><code>/* Venue Oaón — Elementor globals */
+:root{
+  --oa-accent:#8B6448; --oa-charcoal:#1A1A1A; --oa-stone:#8C8578;
+  --oa-linen:#F5F2EE; --oa-divider:#E0DDD8;
+}
+html{ scroll-behavior:smooth; }
+body{ -webkit-font-smoothing:antialiased; }
+
+/* Header: fixed bar gets a soft shadow once the page has scrolled */
+.site-header{ transition:box-shadow .3s ease; }
+.site-header.scrolled{ box-shadow:0 2px 24px rgba(0,0,0,.06); }
+
+/* Hamburger: three 1px bars, 20px wide, 5px apart */
+.site-header .elementor-menu-toggle{ width:44px; height:44px; }
+.site-header .elementor-menu-toggle i{ font-size:0; width:20px; height:1px;
+  background:var(--oa-charcoal); box-shadow:0 -6px 0 var(--oa-charcoal),0 6px 0 var(--oa-charcoal); }
+
+/* Nav pointer as a 1px hairline that grows from the left */
+.site-header .elementor-nav-menu--main .elementor-item::after{
+  height:1px !important; background:var(--oa-charcoal) !important; }
+
+/* Package + partner lists: en-dash bullets in Divider colour */
+.oa-dash-list li{ list-style:none; display:flex; gap:.625rem; }
+.oa-dash-list li::before{ content:"–"; color:var(--oa-divider); flex-shrink:0; }
+.oa-featured .oa-dash-list li::before{ color:rgba(255,255,255,.2); }
+
+/* Partner strip ghost word (Heading widget with class oa-ghost) */
+.oa-ghost .elementor-heading-title{
+  position:absolute; right:-1rem; bottom:-1rem; line-height:1;
+  font-family:"Tenor Sans",serif; font-size:clamp(6rem,15vw,12rem);
+  letter-spacing:-.02em; color:transparent;
+  -webkit-text-stroke:.5px rgba(255,255,255,.08); pointer-events:none; user-select:none; }
+
+/* Footer logo: the PNG is near-black ink, flatten it to white */
+.oa-footer-logo img{ filter:brightness(0) invert(1); opacity:.92; }
+
+/* Story image hover */
+.oa-story-img{ overflow:hidden; border-radius:10px; }
+.oa-story-img img{ transition:transform .6s cubic-bezier(.16,1,.3,1); }
+.oa-story-img:hover img{ transform:scale(1.04); }
+
+/* WhatsApp launcher pulse */
+.wa-float{ position:relative; }
+.wa-float::before{ content:""; position:absolute; inset:0; border-radius:50%;
+  border:1.5px solid rgba(37,211,102,.4); animation:wa-pulse 2.5s ease-out infinite; }
+@keyframes wa-pulse{ 0%{transform:scale(1);opacity:.7} 70%,100%{transform:scale(1.6);opacity:0} }
+
+/* Focus rings everywhere (WCAG) */
+a:focus-visible, button:focus-visible{ outline:2px solid var(--oa-accent); outline-offset:3px; }
+
+/* FAQ: thin plus that turns into an x */
+.oa-faq .elementor-tab-title{ border:0; border-top:1px solid var(--oa-divider); }
+.oa-faq .elementor-tab-title .elementor-accordion-icon{ transition:transform .25s; }
+.oa-faq .elementor-active .elementor-accordion-icon{ transform:rotate(45deg); }
+
+@media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important; } }</code></pre>
+      <p class="prose" style="margin-top:1rem;">For the header <code>scrolled</code> class, add this one-liner in an HTML widget in the footer template (or a code-snippets plugin):</p>
+<pre><code>&lt;script&gt;
+addEventListener('scroll',()=>{document.querySelector('.site-header')
+  ?.classList.toggle('scrolled',scrollY&gt;10)},{passive:true});
+&lt;/script&gt;</code></pre>
+    </section>
+
+    <!-- ══════════════ 09 PLUGINS ══════════════ -->
+    <section class="part" id="plugins">
+      <div class="part-head">
+        <div class="eyebrow"><span class="label">Part 09</span></div>
+        <h2>Plugins, forms & SEO</h2>
+        <p>The Astro site is static and ships zero tracking by default. Keep the WordPress build equally lean: every plugin below has a reason.</p>
+      </div>
+      <div class="two">
+        <div>
+          <h3 class="sub">Plugins</h3>
+          <ul class="plain">
+            <li><strong>Elementor + Elementor Pro</strong> — Theme Builder, Form, Gallery, Popup, Custom CSS.</li>
+            <li><strong>Hello Elementor</strong> theme — blank canvas, no theme CSS to fight.</li>
+            <li><strong>Rank Math or Yoast</strong> — titles, descriptions, OG image, sitemap, LocalBusiness schema.</li>
+            <li><strong>Redirection</strong> — keep the trailing-slash URLs (/about/, /packages/, /gallery/, /contact/) 1:1; the old site's sitemap is already indexed.</li>
+            <li><strong>Image optimisation</strong> (ShortPixel, Imagify or similar) — or upload the WebPs from the repo directly and skip it.</li>
+            <li><strong>Click to Chat</strong> (optional) — if you'd rather not build the WhatsApp popup by hand.</li>
+            <li><strong>Cookie notice</strong> — only needed if you add analytics. The live site shows a notice only when GA is on.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="sub">Forms</h3>
+          <ul class="plain">
+            <li>Three forms: enquiry band (Home, 4 fields), full enquiry (Contact, 9 fields), WhatsApp sheet (composes a wa.me message, sends nothing to a server).</li>
+            <li>Elementor Pro Form → Actions After Submit: <em>Email</em> to info@venueoaon.co.za, subject "New Enquiry: Venue Oaón". Add a honeypot field (the site uses one named <code>botcheck</code>).</li>
+            <li>Alternative: keep Web3Forms. Set the form's action to <code>https://api.web3forms.com/submit</code> with a hidden <code>access_key</code>; the key in the repo's <code>src/config.ts</code> is public by design and domain-allowlisted, so add the new domain in the Web3Forms dashboard.</li>
+            <li>Install an SMTP plugin (WP Mail SMTP) so form emails actually arrive.</li>
+          </ul>
+          <h3 class="sub">SEO & assets to carry over</h3>
+          <ul class="plain">
+            <li><code>og-image.jpg</code> (1200×630), favicons (16, 32, 180 apple-touch), <code>site.webmanifest</code>, theme-colour #8B6448.</li>
+            <li>Page titles and descriptions are in each <code>src/pages/*.astro</code> frontmatter; copy them verbatim.</li>
+            <li>JSON-LD from <code>index.astro</code> (LocalBusiness + EventVenue with geo −25.663333, 28.259444, opening hours, suites as offers) and <code>about.astro</code> (Organization). Paste into the SEO plugin's custom schema or an HTML widget in the head.</li>
+            <li>Language <code>en-ZA</code>, hreflang en-ZA + x-default, canonical per page, legal pages noindex.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="sub">Pre-launch checklist</h3>
+      <ul class="checklist">
+        <li>Global colours and fonts entered; Elementor default colours/fonts disabled.</li>
+        <li>Tenor Sans is never bold; Inter never above 500.</li>
+        <li>Every section alternates white / linen exactly as blueprinted; the dark ladder (Charcoal strip → Espresso band → #121212 footer) is intact.</li>
+        <li>All buttons 48px tall, 2px radius, uppercase 10px letter-spaced.</li>
+        <li>Header fixed at 100 / 80 / 68px and every page's first section clears it.</li>
+        <li>Entrance animations are Fade In Up only, staggered, and off under reduced motion.</li>
+        <li>Forms send an email and show the success panel; WhatsApp launcher opens with +27 76 182 3532 prefilled.</li>
+        <li>Gallery filters work and the lightbox opens; images are WebP.</li>
+        <li>Titles, descriptions, OG image, favicons, schema, redirects, sitemap submitted.</li>
+        <li>Mobile pass at 390px: hero panel, 2×2 stats, stacked columns, full-width buttons.</li>
+      </ul>
+    </section>
+  </main>
+</div>
